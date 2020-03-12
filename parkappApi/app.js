@@ -10,9 +10,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcryptjs');
 const user_routes = require('./routes/users');
-const estacion_routes = require('./routes/estacion');
-const medicion_routes = require('./routes/medicion')
-const init_routes = require('./routes/init')
 const middleware = require('./middleware/index');
 const User = require('./models/user');
 const morgan = require('morgan');
@@ -22,7 +19,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_CONNECT_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 
 let db = mongoose.connection;
@@ -64,10 +61,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(passport.initialize())
 
-app.use('/api/', user_routes);
-app.use('/api/stations/', estacion_routes);
-app.use('/api/weather/', medicion_routes);
-app.use('/api/init/', init_routes);
+app.use('/parkapp/', user_routes);
 app.use(middleware.errorHandler);
 app.use(middleware.notFoundHandler);
 

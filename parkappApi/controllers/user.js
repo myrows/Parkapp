@@ -70,15 +70,29 @@ let controller = {
     
             let result = null;
             result = await User.find()
-            .populate('estacion_register')
-            .populate('estacion_mant').exec();
+            /*.populate('estacion_register')
+            .populate('estacion_mant').exec();*/
 
             res.status(200).json(result);
             if(result==null){
             res.send(500, error.message);
             }
-        
-    }
+    },
+    getUsuarioById: async(req, res) => {
+
+        let result = null;
+        const _id = req.params.id
+        result = await User.findById(_id);
+        /*.populate('estacion_register')
+        .populate('estacion_mant').exec();*/
+
+        if(result==null){
+            res.send(500, error.message);
+        }else{
+            res.status(200).json(result);
+        }
+
+}
 
 
 }

@@ -4,15 +4,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
-    fullname: String,
     created_date: { type: Date, default: Date.now },
+    fullname: String,
     username: String,
     password: String,
     email: String,
-    estacion_register: [{ type: Schema.Types.ObjectId, ref: 'Estacion' }],
-    estacion_mant: [{ type: Schema.Types.ObjectId, ref: 'Estacion' }],
-    rol: { type: String, enum: ['USER', 'MANAGER', 'ADMIN'] }
-
+    rol: { type: String, enum: ['USER', 'ADMIN'] }
 });
 
 module.exports = mongoose.model('User', userSchema);

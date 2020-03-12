@@ -8,7 +8,8 @@ const UserController = require('../controllers/user')
 
 router.post('/login', UserController.login);
 router.post('/register', UserController.register);
-router.get('/users', middleware.ensureAuthenticatedAndAdmin, UserController.getUsuarios);
+router.get('/users', UserController.getUsuarios);
+router.get('/user/:id', UserController.getUsuarioById)
 
 
 
