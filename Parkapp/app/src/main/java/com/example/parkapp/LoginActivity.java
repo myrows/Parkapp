@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtEmail, edtPassword;
     String token;
     SwipeButton swipeButton;
+    TextView txtRegister;
     ParkappService service;
 
     @Override
@@ -37,6 +40,16 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.editTextPassword);
 
         swipeButton = findViewById(R.id.swipe_btn);
+
+        txtRegister = findViewById(R.id.textViewRegistrarse);
+
+        txtRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goRegister = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(goRegister);
+            }
+        });
 
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override

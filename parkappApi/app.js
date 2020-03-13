@@ -14,8 +14,11 @@ const middleware = require('./middleware/index');
 const User = require('./models/user');
 const morgan = require('morgan');
 require('dotenv').config();
+const http = require('http')
 
 /* ##### MONGO ##### */
+
+
 
 const mongoose = require('mongoose');
 
@@ -54,6 +57,28 @@ passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
 }));
 
 const app = express()
+
+const port = normalizePort(process.env.PORT || '3000')
+app.set('port', port)
+
+const server = http.createServer(app)
+server.listen(port)
+
+function normalizePort(val) {
+    const port = parseInt(val, 10)
+  
+    if (isNaN(port)) {
+      // named pipe
+      return val
+    }
+  
+    if (port >= 0) {
+      // port number
+      return port
+    }
+  
+    return false
+  }
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())

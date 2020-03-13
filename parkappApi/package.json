@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "nodemon app.js",
     "start-dev": "nodemon ./bin/www",
     "watch": "nodemon",
     "debug": "node --inspect-brk ./bin/www"

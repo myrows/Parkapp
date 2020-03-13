@@ -5,7 +5,7 @@
  */
 
 const app = require('../app')
-const debug = require('debug')('02_EjemploPassportV3:server')
+const debug = require('debug')('MyApp')
 const http = require('http')
 
 /**

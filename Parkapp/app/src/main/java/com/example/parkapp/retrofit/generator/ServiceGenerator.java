@@ -61,7 +61,7 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    /*public static <S> S createService(Class<S> serviceClass) {
+    public static <S> S createServiceRegister(Class<S> serviceClass) {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.addInterceptor(new Interceptor() {
             @NotNull
@@ -87,5 +87,5 @@ public class ServiceGenerator {
         retrofit = builder.build();
 
         return retrofit.create(serviceClass);
-    }*/
+    }
 }
