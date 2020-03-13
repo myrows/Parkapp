@@ -13,7 +13,7 @@ let storage = multer.diskStorage({
       cb(null, 'avatars/')
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + path.extname(file.originalname)) //Se adjunta la extensión del fichero original
+      cb(null, Date.now() + path.extname(file.originalname))
     }
   })
 
