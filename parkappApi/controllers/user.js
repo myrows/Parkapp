@@ -28,6 +28,7 @@ let controller = {
                     fullname: req.body.fullname,
                     username: req.body.username,
                     email: req.body.email,
+                    avatar: req.file.filename,
                     rol: req.body.rol,
                     password: hash
                 });
@@ -38,7 +39,8 @@ let controller = {
                         id: user._id,
                         fullname: user.fullname,
                         username: user.username,
-                        email: user.email
+                        email: user.email,
+                        avatar: user.filename
                     });
                 });
             }
