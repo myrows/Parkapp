@@ -10,6 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcryptjs');
 const user_routes = require('./routes/users');
+const aparcamiento_routes = require('./routes/aparcamiento');
 const middleware = require('./middleware/index');
 const User = require('./models/user');
 const morgan = require('morgan');
@@ -86,6 +87,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(passport.initialize())
 
+app.use('/parkapp/',aparcamiento_routes);
 app.use('/parkapp/', user_routes);
 app.use(middleware.errorHandler);
 app.use(middleware.notFoundHandler);
