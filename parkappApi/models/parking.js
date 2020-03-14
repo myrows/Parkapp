@@ -11,7 +11,9 @@ const parkingSchema = Schema({
     latitud: Number,
     isPublic:Boolean,
     avatar: String,
-    distancia:Number
+    distancia:Number,
+    fechaApertura: Date,
+    fechaCierre:Date
 });
 
 module.exports = mongoose.model('Parking', parkingSchema);

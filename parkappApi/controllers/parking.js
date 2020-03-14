@@ -16,7 +16,9 @@ let controller = {
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
                 isPublic:req.body.isPublic,
-                distancia:req.body.distancia
+                distancia:req.body.distancia,
+                fechaApertura:req.body.fechaApertura,
+                fechaCierre:req.body.fechaCierre
             });
             parking.save()
             .then(ap => res.status(201).json(ap))
@@ -61,7 +63,9 @@ let controller = {
                         latitud : req.body.latitud,
                         nombre:req.body.nombre,
                         isPublic:req.body.isPublic,
-                        distancia:req.body.distancia
+                        distancia:req.body.distancia,
+                        fechaApertura:req.body.fechaApertura,
+                        fechaCierre:req.body.fechaCierre
                     })
                     .exec(function(err, parking) {
                         if (err) res.send(500, err.message);
