@@ -67,7 +67,7 @@ let controller = {
             })
             .exec(function(err, resena) {
                 if (err) res.send(500, err.message);
-                res.status(201).json({
+                res.status(200).json({
                     resena: resena
                 })
             })
