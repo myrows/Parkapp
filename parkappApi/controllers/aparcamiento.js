@@ -13,7 +13,8 @@ let controller = {
                 dimension: req.body.dimension,
                 longitud: req.body.longitud,
                 latitud: req.body.latitud,
-                avatar: req.file.filename
+                avatar: req.file.filename,
+                nombre:req.body.nombre,
             });
             aparcamiento.save()
             .then(ap => res.status(201).json(ap))
@@ -24,9 +25,9 @@ let controller = {
     //Listado de aparcamientos        
     getAparcamientos: async(req, res) => {
 
+        let resultado = null
         try {
-            let resultado = null
-        
+            resultado = await Aparcamiento.find() 
                 res.status(200).json(resultado);
         
                 } catch (err) {
@@ -50,23 +51,22 @@ let controller = {
                 }
             },
 
-
-    updateAparcamiento: function(req, res) {
-        Aparcamiento.findById(req.params.id, function(err, aparcamiento) {
-            aparcamiento.dimension = req.body.dimension;
-            aparcamiento.longitud = req.body.longitud;
-            aparcamiento.latitud = req.body.latitud;
-
-            try {
-                aparcamiento.save()
-                    .then(resp => res.status(200).json(resp));
-            } catch (err) {
-                res.send(500).json(err.message)
-            }
-        });
-    },
-
-
+            updateAparcamiento: async(req, res) => {
+                const _id = req.params.id;
+                Aparcamiento.updateOne({_id}, {
+                        dimension: req.body.dimension,
+                        longitud: req.body.longitud,
+                        latitud : req.body.latitud,
+                        nombre:req.body.nombre
+                    })
+                    .exec(function(err, aparcamiento) {
+                        if (err) res.send(500, err.message);
+                        res.status(201).json({
+                            aparcamiento: aparcamiento
+                        })
+                    })
+        
+            },
     deleteAparcamiento: function(req, res) {
         Aparcamiento.findByIdAndDelete(req.params.id, function(err, Aparcamiento) {
             if (err) return res.status(500).send(err.message);

@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const aparcamientoSchema = Schema({
     id: String,
+    nombre:String,
     dimension: Number,
     longitud: Number,
     latitud: Number,

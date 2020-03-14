@@ -100,8 +100,6 @@ deleteUsuarioById: async(req, res) => {
     let result = null;
     const _id = req.params.id
     result = await User.findByIdAndDelete(_id);
-    /*.populate('estacion_register')
-    .populate('estacion_mant').exec();*/
 
     if(result==null){
         res.send(500, error.message);
