@@ -2,7 +2,7 @@
 
 const express = require('express')
 const router = express.Router()
-const ParkingController = require('../controllers/parking')
+const ZonaController = require('../controllers/zona')
 const path = require('path');
 const multer = require('multer');
 
@@ -17,10 +17,10 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 
-router.post('/parking', upload.single('avatar'),ParkingController.nuevoParking);
-router.get('/parking', ParkingController.getParkings);
-router.get('/parking/:id', ParkingController.getParking);
-router.delete('/parking/:id', ParkingController.deleteParking);
-router.put('/parking/:id',ParkingController.updateParking);
+router.post('/zona', upload.single('avatar'),ZonaController.nuevaZona);
+router.get('/zona', ZonaController.getZonas);
+router.get('/zona/:id', ZonaController.getZona);
+router.delete('/zona/:id', ZonaController.deleteZona);
+router.put('/zona/:id',ZonaController.updateZona);
 
 module.exports = router

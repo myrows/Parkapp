@@ -1,35 +1,34 @@
 'use strict'
 
 const error_types = require('./error_types');
-const Parking = require('../models/parking');
+const Zona = require('../models/zona');
 
 
 let controller = {
 
     //Crear Parking
-    nuevoParking: (req, res, next) => {
+    nuevaZona: (req, res, next) => {
 
-            let parking = new Parking({
+            let zona = new Zona({
                 ubicacion: req.body.ubicacion,
                 longitud: req.body.longitud,
                 latitud: req.body.latitud,
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
-                isPublic:req.body.isPublic,
                 distancia:req.body.distancia
             });
-            parking.save()
+            zona.save()
             .then(ap => res.status(201).json(ap))
             .catch(err => res.send(500).json(err.message)) 
 
             },
 
     //Listado de aparcamientos        
-    getParkings: async(req, res) => {
+    getZonas: async(req, res) => {
 
         let resultado = null
         try {
-            resultado = await Parking.find() 
+            resultado = await Zona.find() 
                 res.status(200).json(resultado);
         
                 } catch (err) {
@@ -39,11 +38,11 @@ let controller = {
             },
 
     //Coger un Parking
-    getParking: async(req, res) => {
+    getZona: async(req, res) => {
 
          try {
             let resultado = null
-            resultado = await Parking.findById(req.params.id)
+            resultado = await Zona.findById(req.params.id)
                         .exec();
 
                     res.status(200).json(resultado);
@@ -53,26 +52,25 @@ let controller = {
                 }
             },
 
-            updateParking: async(req, res) => {
+            updateZona: async(req, res) => {
                 const _id = req.params.id;
-                Parking.updateOne({_id}, {
+                Zona.updateOne({_id}, {
                         ubicacion: req.body.ubicacion,
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
                         nombre:req.body.nombre,
-                        isPublic:req.body.isPublic,
                         distancia:req.body.distancia
                     })
-                    .exec(function(err, parking) {
+                    .exec(function(err, zona) {
                         if (err) res.send(500, err.message);
                         res.status(201).json({
-                            parking: parking
+                            zona: zona
                         })
                     })
         
             },
-    deleteParking: function(req, res) {
-        Parking.findByIdAndDelete(req.params.id, function(err, Parking) {
+    deleteZona: function(req, res) {
+        Zona.findByIdAndDelete(req.params.id, function(err, Zona) {
             if (err) return res.status(500).send(err.message);
             res.send(204);
         });
