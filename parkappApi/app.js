@@ -9,6 +9,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcryptjs');
+const parking_routes = require('./routes/parking');
 const user_routes = require('./routes/users');
 const aparcamiento_routes = require('./routes/aparcamiento');
 const resena_routes = require('./routes/resena');
@@ -91,6 +92,7 @@ app.use(passport.initialize())
 app.use('/parkapp/',aparcamiento_routes);
 app.use('/parkapp/', user_routes);
 app.use('/parkapp/', resena_routes);
+app.use('/parkapp/',parking_routes);
 app.use(middleware.errorHandler);
 app.use(middleware.notFoundHandler);
 
