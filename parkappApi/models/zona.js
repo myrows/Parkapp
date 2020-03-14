@@ -10,7 +10,9 @@ const zonaSchema = Schema({
     longitud: Number,
     latitud: Number,
     avatar: String,
-    distancia:Number
+    distancia:Number,
+    fechaApertura: Date,
+    fechaCierre:Date
 });
 
 module.exports = mongoose.model('Zona', zonaSchema);

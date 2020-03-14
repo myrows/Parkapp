@@ -57,7 +57,7 @@ let controller = {
                         dimension: req.body.dimension,
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
-                        nombre:req.body.nombre
+                        nombre:req.body.nombre,
                     })
                     .exec(function(err, aparcamiento) {
                         if (err) res.send(500, err.message);
