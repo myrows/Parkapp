@@ -60,6 +60,7 @@ let controller = {
 
                 const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET, { algorithm: process.env.JWT_ALGORITHM });
                 res.json({
+                    _id: user._id,
                     username: user.username,
                     token: token
                 })
