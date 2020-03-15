@@ -15,6 +15,7 @@ let controller = {
                 latitud: req.body.latitud,
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
+                userId: req.body.userId
             });
             aparcamiento.save()
             .then(ap => res.status(201).json(ap))
@@ -50,6 +51,19 @@ let controller = {
                     res.send(500, err.message);
                 }
             },
+            getAparcamientoOfUser: async(req, res) => {
+
+                try {
+                   let resultado = null
+                   resultado = await Aparcamiento.find({userId: req.params.userId})
+                               .exec();
+       
+                           res.status(200).json(resultado);
+               
+                       } catch (err) {
+                           res.send(500, err.message);
+                       }
+                   },
 
             updateAparcamiento: async(req, res) => {
                 const _id = req.params.id;

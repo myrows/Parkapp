@@ -10,6 +10,7 @@ const aparcamientoSchema = Schema({
     longitud: Number,
     latitud: Number,
     avatar: String,
+    userId: String
 });
 
 module.exports = mongoose.model('Aparcamiento', aparcamientoSchema);
