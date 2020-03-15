@@ -13,6 +13,7 @@ const parking_routes = require('./routes/zona');
 const user_routes = require('./routes/users');
 const aparcamiento_routes = require('./routes/aparcamiento');
 const resena_routes = require('./routes/resena');
+const historial_routes = require('./routes/historial');
 const middleware = require('./middleware/index');
 const User = require('./models/user');
 const morgan = require('morgan');
@@ -93,6 +94,7 @@ app.use('/parkapp/',aparcamiento_routes);
 app.use('/parkapp/', user_routes);
 app.use('/parkapp/', resena_routes);
 app.use('/parkapp/',parking_routes);
+app.use('/parkapp/',historial_routes);
 app.use(middleware.errorHandler);
 app.use(middleware.notFoundHandler);
 
