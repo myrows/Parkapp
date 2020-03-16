@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
+import com.example.parkapp.retrofit.model.Register;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.io.BufferedInputStream;
@@ -124,29 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                     }else if(uriSelected == null) {
-                        //SataService service = ServiceGenerator.createServiceRegister(SataService.class);
 
-                        /*RequestBody username = RequestBody.create(MultipartBody.FORM, edtName.getText().toString());
-                        RequestBody email = RequestBody.create(MultipartBody.FORM, edtEmail.getText().toString());
-                        RequestBody password = RequestBody.create(MultipartBody.FORM, edtPassword.getText().toString());
-
-                        ParkappService registerService = ServiceGenerator.createServiceRegister(ParkappService.class);
-
-                        Call<ResponseBody> registerWithOutUri = registerService.register(null, username, email, password);
-                        registerWithOutUri.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                if(response.isSuccessful()){
-                                    Toast.makeText(RegisterActivity.this, "Registrado correctamente", Toast.LENGTH_SHORT).show();
-                                    onBackPressed();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                Toast.makeText(RegisterActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-                            }
-                        });*/
                     }
                 }else{
                     Toast.makeText(RegisterActivity.this, "Contraseñas no coinciden o es demasiado corta", Toast.LENGTH_SHORT).show();

@@ -3,4 +3,5 @@
     <color name="colorPrimary">#E00022</color>
     <color name="colorPrimaryDark">#9E0018</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="distanciaColor">#0578B6</color>
 </resources>
