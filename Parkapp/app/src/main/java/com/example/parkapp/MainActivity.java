@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.parkapp.recyclerview.zona.ZonaFragment;
+import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
+import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Zona;
 
 public class MainActivity extends AppCompatActivity implements ZonaFragment.OnListFragmentInteractionListener {
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements ZonaFragment.OnLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
 
     @Override
     public void onListFragmentInteraction(Zona item) {

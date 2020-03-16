@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".recylcerview.aparcamiento.DetalleAparcamientoActivity"></activity>cd desktop
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

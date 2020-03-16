@@ -89,10 +89,10 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
             super(view);
             mView = view;
 
-            tName = view.findViewById(R.id.textViewNombreZona);
-            tUbicacion = view.findViewById(R.id.textViewUbicacionZona);
+            tName = view.findViewById(R.id.NombreAparcamiento);
+            tUbicacion = view.findViewById(R.id.ZonaAparcamiento);
             tDistancia = view.findViewById(R.id.textViewDistanciaZona);
-            imageZona = view.findViewById(R.id.imageViewZona);
+            imageZona = view.findViewById(R.id.imagenAparcamiento);
         }
     }
 }
