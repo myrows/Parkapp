@@ -9,7 +9,7 @@ public class MiAparcamientoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_mi_aparcamiento);
+       //setContentView(R.layout.activity_mi_aparcamiento);
 
 
 
