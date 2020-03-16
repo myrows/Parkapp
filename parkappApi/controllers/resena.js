@@ -11,7 +11,8 @@ let controller = {
             title: req.body.title,
             body: req.body.body,
             rate: req.body.rate,
-            avatar: req.file.filename
+            avatar: req.file.filename,
+            zonaId: req.body.zonaId
         });
 
         resena.save()
@@ -45,6 +46,20 @@ let controller = {
         }
 
     },
+    getResenaOfZona: async(req, res) => {
+
+        try {
+           let resultado = null
+           resultado = await Resena.find({zonaId: req.params.zonaId})
+                       .exec();
+
+                   res.status(200).json(resultado);
+       
+               } catch (err) {
+                   res.send(500, err.message);
+               }
+           }
+    ,
     deleteResenaById: async(req, res) => {
 
         let result = null;
