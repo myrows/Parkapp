@@ -3,6 +3,7 @@ package com.example.parkapp.recyclerview.zona;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
+import com.example.parkapp.ZonaDetailActivity;
 import com.example.parkapp.recyclerview.zona.ZonaFragment.OnListFragmentInteractionListener;
 import com.example.parkapp.retrofit.model.Zona;
 
@@ -56,8 +58,9 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+                    Intent goDetailZona = new Intent(ctx, ZonaDetailActivity.class);
+                    goDetailZona.putExtra("zonaId", holder.mItem.getId());
+                    ctx.startActivity(goDetailZona);
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }

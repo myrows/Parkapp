@@ -4,6 +4,7 @@ import com.example.parkapp.retrofit.model.Login;
 import com.example.parkapp.retrofit.model.Register;
 import com.example.parkapp.retrofit.model.UserLogin;
 import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.model.ZonaDetail;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ParkappService {
 
@@ -31,4 +33,7 @@ public interface ParkappService {
 
     @GET("/parkapp/zona")
     Call<List<Zona>> getZonas();
+
+    @GET("/parkapp/zona/{id}")
+    Call<ZonaDetail> getZonaById(@Path("id") String zonaId);
 }

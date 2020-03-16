@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#9E0018</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="distanciaColor">#0578B6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="view">#C1BEBEBE</color>
 </resources>
