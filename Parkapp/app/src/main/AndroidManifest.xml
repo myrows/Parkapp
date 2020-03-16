@@ -15,8 +15,10 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MiAparcamientoActivity"></activity>
         <activity android:name=".recylcerview.aparcamiento.DetalleAparcamientoActivity" />
+        <activity android:name=".ResenaActivity"></activity>
         <activity android:name=".ZonaDetailActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />

@@ -22,6 +22,7 @@ let storage = multer.diskStorage({
 router.post('/resena', upload.single('avatar') ,ResenaController.createResena)
 router.get('/resena', ResenaController.getResenas)
 router.get('/resena/:id', ResenaController.getResenaById)
+router.get('/resena/zona/:zonaId', ResenaController.getResenaOfZona)
 router.delete('/resena/:id', ResenaController.deleteResenaById)
 router.put('/resena/:id', ResenaController.putResena)
 

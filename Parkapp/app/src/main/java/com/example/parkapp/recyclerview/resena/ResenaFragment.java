@@ -1,4 +1,4 @@
-package com.example.parkapp.recyclerview.zona;
+package com.example.parkapp.recyclerview.resena;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.parkapp.R;
-import com.example.parkapp.data.zona.ZonaViewModel;
+import com.example.parkapp.data.resena.ResenaViewModel;
+import com.example.parkapp.retrofit.model.Resena;
 import com.example.parkapp.retrofit.model.Zona;
 
 import java.util.ArrayList;
@@ -27,30 +28,30 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ZonaFragment extends Fragment {
+public class ResenaFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    ZonaViewModel zonaViewModel;
     Context context;
     RecyclerView recyclerView;
-    MyZonaRecyclerViewAdapter adapter;
-    List<Zona> listZonas = new ArrayList<>();
+    ResenaViewModel resenaViewModel;
+    List<Resena> listResena = new ArrayList<>();
+    MyResenaRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ZonaFragment() {
+    public ResenaFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ZonaFragment newInstance(int columnCount) {
-        ZonaFragment fragment = new ZonaFragment();
+    public static ResenaFragment newInstance(int columnCount) {
+        ResenaFragment fragment = new ResenaFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -61,7 +62,7 @@ public class ZonaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        zonaViewModel = new ViewModelProvider(getActivity()).get(ZonaViewModel.class);
+        resenaViewModel = new ViewModelProvider(getActivity()).get(ResenaViewModel.class);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -71,7 +72,7 @@ public class ZonaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_zona_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_resena_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -82,23 +83,24 @@ public class ZonaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyZonaRecyclerViewAdapter(listZonas, mListener);
+            adapter = new MyResenaRecyclerViewAdapter(listResena, mListener);
             recyclerView.setAdapter(adapter);
 
-            loadZonaData();
+            loadResenaData();
         }
         return view;
     }
 
-    public void loadZonaData() {
-        zonaViewModel.getZonas().observe(getActivity(), new Observer<List<Zona>>() {
+    public void loadResenaData() {
+        resenaViewModel.getResenas().observeForever(new Observer<List<Resena>>() {
             @Override
-            public void onChanged(List<Zona> results) {
-                listZonas = results;
-                adapter.setData(listZonas);
+            public void onChanged(List<Resena> resenas) {
+                listResena = resenas;
+                adapter.setData(listResena);
             }
         });
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -129,6 +131,6 @@ public class ZonaFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Zona item);
+        void onListFragmentInteraction(Resena item);
     }
 }

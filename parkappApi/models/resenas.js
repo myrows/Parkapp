@@ -8,7 +8,8 @@ const resenaSchema = Schema({
     title : String,
     body : String,
     rate : Number,
-    avatar: { type: String, required: false }
+    avatar: { type: String, required: false },
+    zonaId: String
 });
 
 module.exports = mongoose.model('Resena', resenaSchema);

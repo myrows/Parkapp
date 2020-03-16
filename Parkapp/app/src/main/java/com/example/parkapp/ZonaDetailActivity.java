@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class ZonaDetailActivity extends AppCompatActivity {
 
-    ImageView imageZona;
+    ImageView imageZona, imgResena;
     TextView tName, tUbicacion,tDistancia;
     Button btnAparcar;
     ParkappService parkappService;
@@ -36,6 +36,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
         tUbicacion = findViewById(R.id.textViewUbicacionZ);
         btnAparcar = findViewById(R.id.buttonAparcarAqui);
         tDistancia = findViewById(R.id.textViewDistanciaZ);
+        imgResena = findViewById(R.id.imageViewResenaZona);
 
         parkappService = ServiceGenerator.createServiceZona(ParkappService.class);
 
@@ -72,6 +73,14 @@ public class ZonaDetailActivity extends AppCompatActivity {
                 goAparcamiento.putExtra("nameZona", tName.getText());
                 goAparcamiento.putExtra("ubicacionZona", tUbicacion.getText());
                 startActivity(goAparcamiento);*/
+            }
+        });
+
+        imgResena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goResena = new Intent(ZonaDetailActivity.this, ResenaActivity.class);
+                startActivity(goResena);
             }
         });
     }
