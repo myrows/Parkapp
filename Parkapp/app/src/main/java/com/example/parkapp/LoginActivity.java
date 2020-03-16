@@ -68,9 +68,9 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent goMainActivity = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(goMainActivity);
                                         Toast.makeText(LoginActivity.this, "Bienvenido, "+response.body().getUsername(), Toast.LENGTH_SHORT).show();
-                                        token = response.body().getToken();
 
-                                        //SharedPreferencesManager.setSomeStringValue("token", token);
+                                        SharedPreferencesManager.setSomeStringValue("tokenId", response.body().getToken());
+                                        SharedPreferencesManager.setSomeStringValue("userId", response.body().getId());
                                     }else{
                                         Toast.makeText(LoginActivity.this, "Email y/o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                                     }
