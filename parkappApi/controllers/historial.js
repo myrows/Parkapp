@@ -10,7 +10,8 @@ let controller = {
         let historial = new Historial({
             fechaEntrada: req.body.fechaEntrada,
             fechaSalida : req.body.fechaSalida,
-            dia : req.body.dia
+            dia : req.body.dia,
+            aparcamientoId : req.body.aparcamientoId
         });
 
         historial.save()
@@ -44,6 +45,19 @@ let controller = {
         }
 
     },
+    getHistorialOfAparcamiento: async(req, res) => {
+
+        try {
+           let resultado = null
+           resultado = await Aparcamiento.find({aparcamientoId: req.params.aparcamientoId})
+                       .exec();
+
+                   res.status(200).json(resultado);
+       
+               } catch (err) {
+                   res.send(500, err.message);
+               }
+           },
     deleteHistorialById: async(req, res) => {
 
         let result = null;

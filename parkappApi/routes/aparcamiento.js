@@ -20,6 +20,8 @@ let upload = multer({ storage: storage });
 router.post('/aparcamiento', upload.single('avatar'),AparcamientoController.nuevoAparcamiento);
 router.get('/aparcamiento', AparcamientoController.getAparcamientos);
 router.get('/aparcamiento/:id', AparcamientoController.getAparcamiento);
+router.get('/aparcamiento/user/:userId', AparcamientoController.getAparcamientoOfUser);
+router.get('/aparcamientos/zona/:zonaId', AparcamientoController.getAparcamientoOfZona);
 router.delete('/aparcamiento/:id', AparcamientoController.deleteAparcamiento);
 router.put('/aparcamiento/:id',AparcamientoController.updateAparcamiento);
 
