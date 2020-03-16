@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.data.AparcamientoViewModel;
-import com.example.parkapp.data.ZonaViewModel;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.ZonaDetail;
@@ -32,7 +31,6 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
     ServiceGenerator serviceGenerator;
     ParkappService service;
     AparcamientoViewModel aparcamientoViewModel;
-    ZonaViewModel zonaViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
