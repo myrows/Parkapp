@@ -15,7 +15,8 @@ let controller = {
                 latitud: req.body.latitud,
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
-                userId: req.body.userId
+                userId: req.body.userId,
+                zonaId: req.body.zonaId
             });
             aparcamiento.save()
             .then(ap => res.status(201).json(ap))
@@ -64,6 +65,19 @@ let controller = {
                            res.send(500, err.message);
                        }
                    },
+                   getAparcamientoOfZona: async(req, res) => {
+
+                    try {
+                       let resultado = null
+                       resultado = await Aparcamiento.find({zonaId: req.params.zonaId})
+                                   .exec();
+           
+                               res.status(200).json(resultado);
+                   
+                           } catch (err) {
+                               res.send(500, err.message);
+                           }
+                       },
 
             updateAparcamiento: async(req, res) => {
                 const _id = req.params.id;

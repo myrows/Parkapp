@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const historialSchema = Schema({
     fechaEntrada: Date,
     fechaSalida : Date,
-    dia : Date
+    dia : Date,
+    aparcamientoId : String
 });
 
 module.exports = mongoose.model('Historial', historialSchema);
