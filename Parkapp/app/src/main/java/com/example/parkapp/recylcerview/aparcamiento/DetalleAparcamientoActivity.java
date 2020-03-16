@@ -1,11 +1,8 @@
 package com.example.parkapp.recylcerview.aparcamiento;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +11,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
-import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.data.ZonaViewModel;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
@@ -43,7 +39,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_aparcamiento);
 
         dimension = findViewById(R.id.DimensionAparcamientoDetalle);
-        nombre = findViewById(R.id.NombreAparcamientoDetalle);
+        nombre = findViewById(R.id.NombreMiAparcamiento);
         imagenDetalle = findViewById(R.id.ImagenDetalleAparcamiento);
         zona = findViewById(R.id.ZonaAparcamientoDetalle);
         ocupar = findViewById(R.id.ButtonOcupar);
