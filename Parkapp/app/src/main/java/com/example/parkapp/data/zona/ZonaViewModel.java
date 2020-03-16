@@ -1,4 +1,4 @@
-package com.example.parkapp.data;
+package com.example.parkapp.data.zona;
 
 import android.app.Application;
 
