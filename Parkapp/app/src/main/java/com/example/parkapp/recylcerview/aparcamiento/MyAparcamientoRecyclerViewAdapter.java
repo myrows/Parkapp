@@ -2,6 +2,7 @@ package com.example.parkapp.recylcerview.aparcamiento;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,14 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment.OnListFragmentInteractionListener;
+import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
+import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.model.ZonaDetail;
+import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAparcamientoRecyclerViewAdapter.ViewHolder> {
@@ -24,6 +34,9 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
     private List<Aparcamiento> aparcamientoList;
     private final OnListFragmentInteractionListener mListener;
     Context ctx;
+    ParkappService service;
+    ServiceGenerator serviceGenerator;
+
 
     public MyAparcamientoRecyclerViewAdapter(List<Aparcamiento> aparcamientos, OnListFragmentInteractionListener listener) {
         aparcamientoList = aparcamientos;
@@ -41,11 +54,30 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         if(aparcamientoList != null){
-        holder.aparcamiento = aparcamientoList.get(position);
+            service = serviceGenerator.createServiceZona(ParkappService.class);
+            holder.aparcamiento = aparcamientoList.get(position);
+            Call<ZonaDetail> call = service.getZonaById(holder.aparcamiento.getZonaId());
 
-        holder.nombre.setText(aparcamientoList.get(position).getNombre());
+            call.enqueue(new Callback<ZonaDetail>() {
+                @Override
+                public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
+                    if(response.isSuccessful()){
+                        holder.zona.setText(response.body().getNombre());
+                    }else
+                    {
+                        Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ZonaDetail> call, Throwable t) {
+                    Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            holder.nombre.setText(aparcamientoList.get(position).getNombre());
 
             Glide
                     .with(ctx)
@@ -58,11 +90,12 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
                 @Override
                 public void onClick(View v) {
 
-                    if (holder.aparcamiento != null) {
+                    if (null != mListener) {
                         Intent i = new Intent(ctx, DetalleAparcamientoActivity.class);
                         i.putExtra("APARCAMIENTO_ID", holder.aparcamiento.getId());
-                        i.putExtra("ZONA_ID",holder.aparcamiento.getZonaId());
+                        i.putExtra("ZONA_ID", holder.aparcamiento.getZonaId());
                         ctx.startActivity(i);
+                        mListener.onListFragmentInteraction(holder.aparcamiento);
                         //TODO el id del usuario es null puede ocuparlo, si es distinto a null, desactivar la opcion del boton
                     }
 

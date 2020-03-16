@@ -1,13 +1,32 @@
 package com.example.parkapp.retrofit.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Aparcamiento {
+    @SerializedName("_id")
+    @Expose
     private String id;
+    @SerializedName("nombre")
+    @Expose
     private String nombre;
+    @SerializedName("dimension")
+    @Expose
     private String dimension;
+    @SerializedName("longitud")
+    @Expose
     private Double longitud;
+    @SerializedName("latitud")
+    @Expose
     private Double latitud;
+    @SerializedName("avatar")
+    @Expose
     private String avatar;
+    @SerializedName("userId")
+    @Expose
     private String userId;
+    @SerializedName("zonaId")
+    @Expose
     private String zonaId;
 
 

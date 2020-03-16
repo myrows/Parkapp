@@ -6,6 +6,7 @@ import com.example.parkapp.retrofit.model.Login;
 import com.example.parkapp.retrofit.model.Register;
 import com.example.parkapp.retrofit.model.UserLogin;
 import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.model.ZonaDetail;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public interface ParkappService {
     @GET("/parkapp/zona")
     Call<List<Zona>> getZonas();
 
+
     @GET("/parkapp/aparcamiento")
     Call<List<Aparcamiento>> getAparcamientos();
 
@@ -43,4 +45,7 @@ public interface ParkappService {
 
     @GET("/parkapp/historial/aparcamiento/{id}")
     Call<List<Historial>> getHistorialOfAparcamiento(@Path("id") String id);
+    @GET("/parkapp/zona/{id}")
+    Call<ZonaDetail> getZonaById(@Path("id") String zonaId);
+
 }

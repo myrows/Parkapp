@@ -16,6 +16,7 @@ import java.util.List;
 public class AparcamientoViewModel extends AndroidViewModel {
     AparcamientoRepository aparcamientoRepository;
     LiveData<List<Aparcamiento>> aparcamientos;
+    LiveData<Aparcamiento> aparcamiento;
 
     public AparcamientoViewModel(@NonNull Application application) {
         super(application);
@@ -27,6 +28,7 @@ public class AparcamientoViewModel extends AndroidViewModel {
         return aparcamientos;
     }
     public LiveData<Aparcamiento> getAparcamiento(String id){
-        return aparcamientoRepository.getDetalleAparcamiento(id);
+        aparcamiento = aparcamientoRepository.getDetalleAparcamiento(id);
+        return aparcamiento;
     }
 }

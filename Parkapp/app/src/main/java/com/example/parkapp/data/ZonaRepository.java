@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.util.List;
@@ -47,5 +48,30 @@ public class ZonaRepository {
         });
 
         return dataZona;
+    }
+
+
+
+    public LiveData<ZonaDetail> getZonaById(String id){
+        final MutableLiveData<ZonaDetail> data = new MutableLiveData<>();
+
+        Call<ZonaDetail> call = service.getZonaById(id);
+        call.enqueue(new Callback<ZonaDetail>() {
+            @Override
+            public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
+                if(response.isSuccessful()){
+                    data.setValue(response.body());
+                }
+                else {
+                    Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ZonaDetail> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return data;
     }
 }

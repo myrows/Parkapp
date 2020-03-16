@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.model.ZonaDetail;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public class ZonaViewModel extends AndroidViewModel {
     public LiveData<List<Zona>> getZonas(){
         return zonas;
     }
+
 }

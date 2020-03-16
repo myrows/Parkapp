@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,10 +14,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.data.ZonaViewModel;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
+import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import retrofit2.Call;
@@ -28,8 +31,8 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
     TextView dimension, nombre, zona;
     ImageView imagenDetalle;
     Button ocupar;
-    String idAparcamiento,idZona;
     Aparcamiento Iaparcamiento;
+    ZonaDetail IzonaDetail;
     ServiceGenerator serviceGenerator;
     ParkappService service;
     AparcamientoViewModel aparcamientoViewModel;
@@ -44,49 +47,54 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
         imagenDetalle = findViewById(R.id.ImagenDetalleAparcamiento);
         zona = findViewById(R.id.ZonaAparcamientoDetalle);
         ocupar = findViewById(R.id.ButtonOcupar);
-
-        Bundle extras = getIntent().getExtras();
-        idAparcamiento = extras.getString("APARCAMIENTO_ID");
-        idZona = extras.getString("ZONA_ID");
-
-        Toast.makeText(this, "Id: " + idAparcamiento, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Id: " + idZona, Toast.LENGTH_SHORT).show();
         service = serviceGenerator.createServiceZona(ParkappService.class);
 
-        zonaViewModel = new ViewModelProvider(this).get(ZonaViewModel.class);
-        zonaViewModel
+        Bundle extras = getIntent().getExtras();
+        String aparcamientoId = extras.getString("APARCAMIENTO_ID");
+        String idZona = extras.getString("ZONA_ID");
 
+        Call<ZonaDetail> callZona = service.getZonaById(idZona);
 
-
-        aparcamientoViewModel = new ViewModelProvider(this).get(AparcamientoViewModel.class);
-        aparcamientoViewModel.getAparcamiento(idAparcamiento).observeForever(new Observer<Aparcamiento>() {
+        callZona.enqueue(new Callback<ZonaDetail>() {
             @Override
-            public void onChanged(final Aparcamiento aparcamiento) {
-                Iaparcamiento = aparcamiento;
+            public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
+                if(response.isSuccessful()){
+                    zona.setText(response.body().getNombre());
+                }else
+                {
+                    Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                Call<Aparcamiento> call = service.getAparcamiento(idAparcamiento);
-                call.enqueue(new Callback<Aparcamiento>() {
-                    @Override
-                    public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
-                        if(response.isSuccessful() && aparcamiento !=null){
-                            Glide
-                                    .with(MyApp.getContext())
-                                    .load("http://10.0.2.2:3000/parkapp/avatar/"+aparcamiento.getAvatar())
-                                    .into(imagenDetalle);
-                            dimension.setText(aparcamiento.getDimension());
-                            nombre.setText(aparcamiento.getNombre());
-                            dimension.setText(aparcamiento.getDimension());
+            @Override
+            public void onFailure(Call<ZonaDetail> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                        }else{
 
-                        }
-                    }
+        Call<Aparcamiento> call = service.getAparcamiento(aparcamientoId);
+        call.enqueue(new Callback<Aparcamiento>() {
+            @Override
+            public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
+                if(response.isSuccessful()){
+                    Aparcamiento aparcamiento = response.body();
+                    nombre.setText(aparcamiento.getNombre());
+                    dimension.setText(aparcamiento.getDimension());
 
-                    @Override
-                    public void onFailure(Call<Aparcamiento> call, Throwable t) {
 
-                    }
-                });
+                    Glide
+                            .with(MyApp.getContext())
+                            .load("http://10.0.2.2:3000/parkapp/avatar/"+aparcamiento.getAvatar())
+                            .into(imagenDetalle);
+                }else {
+                    Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Aparcamiento> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
