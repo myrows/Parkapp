@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_zonas"
+        android:icon="@drawable/ic_zonas"
+        android:title="Zonas" />
+
+    <item
+        android:id="@+id/navigation_maps"
+        android:icon="@drawable/ic_map"
+        android:title="Mapa" />
+
+    <item
+        android:id="@+id/navigation_aparcamiento"
+        android:icon="@drawable/ic_mi_garage"
+        android:title="Mi aparcamiento" />
+
+</menu>
