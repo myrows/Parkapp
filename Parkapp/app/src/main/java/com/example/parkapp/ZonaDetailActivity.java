@@ -83,6 +83,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goResena = new Intent(ZonaDetailActivity.this, ResenaActivity.class);
+                goResena.putExtra("zonaId", getIntent().getExtras().get("zonaId").toString());
                 startActivity(goResena);
             }
         });
