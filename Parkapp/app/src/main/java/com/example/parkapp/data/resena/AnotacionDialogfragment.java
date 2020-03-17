@@ -72,10 +72,15 @@ public class AnotacionDialogfragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String titleR = title.getText().toString().trim();
-                String bodyR = title.getText().toString().trim();
+                String bodyR = body.getText().toString().trim();
 
-                customDialogListener.submittedinformation(titleR, bodyR, myRating, SharedPreferencesManager.getSomeStringValue("avatar"));
-                dismiss();
+                if(!titleR.isEmpty() && !bodyR.isEmpty()) {
+
+                    customDialogListener.submittedinformation(titleR, bodyR, myRating, SharedPreferencesManager.getSomeStringValue("avatar"));
+                    dismiss();
+                }else{
+                    Toast.makeText(MyApp.getContext(), "Uno o ambos campos está vacío", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         view.findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {
