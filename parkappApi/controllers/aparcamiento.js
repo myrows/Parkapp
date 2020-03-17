@@ -100,7 +100,8 @@ let controller = {
             if (err) return res.status(500).send(err.message);
             res.send(204);
         });
-    }
+    },
+    
 
 
 }

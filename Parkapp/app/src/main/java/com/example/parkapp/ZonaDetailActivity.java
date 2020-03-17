@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
@@ -69,10 +70,10 @@ public class ZonaDetailActivity extends AppCompatActivity {
         btnAparcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent goAparcamiento = new Intent();
+                Intent goAparcamiento = new Intent(ZonaDetailActivity.this, AparcamientoActivity.class);
                 goAparcamiento.putExtra("nameZona", tName.getText());
                 goAparcamiento.putExtra("ubicacionZona", tUbicacion.getText());
-                startActivity(goAparcamiento);*/
+                startActivity(goAparcamiento);
             }
         });
 
