@@ -11,7 +11,7 @@ let controller = {
             title: req.body.title,
             body: req.body.body,
             rate: req.body.rate,
-            avatar: req.file.filename,
+            avatar: req.body.avatar,
             zonaId: req.body.zonaId
         });
 
