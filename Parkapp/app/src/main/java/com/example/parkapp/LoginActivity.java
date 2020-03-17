@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         SharedPreferencesManager.setSomeStringValue("tokenId", response.body().getToken());
                                         SharedPreferencesManager.setSomeStringValue("userId", response.body().getId());
+                                        SharedPreferencesManager.setSomeStringValue("avatar", response.body().getAvatar());
                                     }else{
                                         Toast.makeText(LoginActivity.this, "Email y/o contraseña incorrecta", Toast.LENGTH_SHORT).show();
                                     }

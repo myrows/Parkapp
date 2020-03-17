@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 
 public class AnotacionDialogfragment extends DialogFragment {
 
@@ -73,10 +74,8 @@ public class AnotacionDialogfragment extends DialogFragment {
                 String titleR = title.getText().toString().trim();
                 String bodyR = title.getText().toString().trim();
 
-                if(!titleR.isEmpty() && bodyR.isEmpty()){
-                    customDialogListener.submittedinformation(titleR, bodyR, myRating);
-                    dismiss();
-                }
+                customDialogListener.submittedinformation(titleR, bodyR, myRating, SharedPreferencesManager.getSomeStringValue("avatar"));
+                dismiss();
             }
         });
         view.findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {

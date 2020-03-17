@@ -11,6 +11,9 @@ public class UserLogin {
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("avatar")
+    @Expose
+    private String avatar;
     @SerializedName("token")
     @Expose
     private String token;
@@ -29,6 +32,14 @@ public class UserLogin {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getToken() {

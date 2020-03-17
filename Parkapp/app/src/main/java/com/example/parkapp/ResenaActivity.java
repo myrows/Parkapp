@@ -59,8 +59,9 @@ public class ResenaActivity extends AppCompatActivity implements ResenaFragment.
     }
 
     @Override
-    public void submittedinformation(String title, String body, int rate) {
-        resena = new Resena(title, body, rate, "", getIntent().getExtras().get("zonaId").toString());
+    public void submittedinformation(String title, String body, int rate, String avatar) {
+
+        resena = new Resena(title, body, rate, avatar, getIntent().getExtras().get("zonaId").toString());
 
         Call<ResponseBody> call = service.createResena(resena);
         call.enqueue(new Callback<ResponseBody>() {
