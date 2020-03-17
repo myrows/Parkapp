@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_zonas">
+
+    <fragment
+        android:id="@+id/navigation_zonas"
+        android:name="com.example.parkapp.recyclerview.zona.ZonaFragment"
+        android:label="Zonas"
+        tools:layout="@layout/fragment_zona"/>
+
+    <fragment
+        android:id="@+id/navigation_maps"
+        android:name="com.example.parkapp.MapaEnFragment"
+        android:label="Mapa"/>
+
+    <fragment
+        android:id="@+id/navigation_aparcamiento"
+        android:name="com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment"
+        android:label="Mi aparcamiento"
+        tools:layout="@layout/fragment_aparcamiento"/>
+
+</navigation>

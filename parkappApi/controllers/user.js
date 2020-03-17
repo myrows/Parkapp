@@ -62,6 +62,7 @@ let controller = {
                 res.json({
                     _id: user._id,
                     username: user.username,
+                    avatar: user.avatar,
                     token: token
                 })
 

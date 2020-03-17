@@ -1,9 +1,14 @@
 package com.example.parkapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.parkapp.common.MyApp;
@@ -26,12 +31,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapaEnFragment extends FragmentActivity implements OnMapReadyCallback {
+public class MapaEnFragment extends SupportMapFragment implements OnMapReadyCallback {
     ParkappService service;
     private GoogleMap mMap;
     List<Zona> listadoZonas;
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_mapa_en_fragment);
@@ -39,6 +44,17 @@ public class MapaEnFragment extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }*/
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        v.setClipToOutline(true);
+
+        return v;
     }
 
 
@@ -84,9 +100,9 @@ public class MapaEnFragment extends FragmentActivity implements OnMapReadyCallba
                     mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(Marker marker) {
-                            Intent i = new Intent(MapaEnFragment.this,
+                            /*Intent i = new Intent(MapaEnFragment.this,
                                     DetalleAparcamientoActivity.class);
-                            startActivity(i);
+                            startActivity(i);*/
 
                             return false;
                         }

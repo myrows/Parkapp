@@ -58,6 +58,11 @@ public interface ParkappService {
 
     @GET("/parkapp/aparcamientos/zona/{id}")
     Call<List<Aparcamiento>> getAparcanientoOfZona(@Path("id") String zonaId);
+
     @PUT("/parkapp/aparcamiento/{id}")
     Call<ResponseBody> updateAparcamiento(@Path("id")String id, @Body Aparcamiento aparcamiento);
+
+    @POST("/parkapp/resena")
+    Call<ResponseBody> createResena(@Body Resena resena);
+
 }

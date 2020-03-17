@@ -60,4 +60,6 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.1.0'
     //Swipe button
     implementation 'com.ebanx:swipe-button:0.4.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.1'
+    implementation 'androidx.navigation:navigation-ui:2.2.1'
 }
