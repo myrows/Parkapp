@@ -3,6 +3,7 @@ package com.example.parkapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ import retrofit2.Response;
 
 public class ZonaDetailActivity extends AppCompatActivity {
 
-    ImageView imageZona, imgResena;
+    ImageView imageZona, imgResena, imgGoNavigation;
     TextView tName, tUbicacion,tDistancia;
     Button btnAparcar;
     ParkappService parkappService;
@@ -37,6 +38,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
         btnAparcar = findViewById(R.id.buttonAparcarAqui);
         tDistancia = findViewById(R.id.textViewDistanciaZ);
         imgResena = findViewById(R.id.imageViewResenaZona);
+        imgGoNavigation = findViewById(R.id.imageViewLlegarZona);
 
         parkappService = ServiceGenerator.createServiceZona(ParkappService.class);
 
@@ -81,6 +83,16 @@ public class ZonaDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goResena = new Intent(ZonaDetailActivity.this, ResenaActivity.class);
                 startActivity(goResena);
+            }
+        });
+
+        imgGoNavigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+tName.getText());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
             }
         });
     }
