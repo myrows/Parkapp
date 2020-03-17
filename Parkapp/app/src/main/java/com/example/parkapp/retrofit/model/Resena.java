@@ -30,6 +30,14 @@ public class Resena {
     @Expose
     private Integer v;
 
+    public Resena(String title, String body, Integer rate, String avatar, String zonaId) {
+        this.title = title;
+        this.body = body;
+        this.rate = rate;
+        this.avatar = avatar;
+        this.zonaId = zonaId;
+    }
+
     public String getId() {
         return id;
     }

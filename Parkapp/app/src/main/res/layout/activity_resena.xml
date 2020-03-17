@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ResenaActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatAddResena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="false"
+        android:clickable="false"
+        android:src="@drawable/ic_add_white_24dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
     <fragment
         android:id="@+id/fragment2"
         android:name="com.example.parkapp.recyclerview.resena.ResenaFragment"
