@@ -39,4 +39,5 @@ public class AparcamientoViewModel extends AndroidViewModel {
         aparcamiento = aparcamientoRepository.getDetalleAparcamiento(id);
         return aparcamiento;
     }
+
 }

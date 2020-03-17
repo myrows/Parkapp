@@ -7,9 +7,9 @@
     tools:context=".recylcerview.aparcamiento.DetalleAparcamientoActivity">
 
     <ImageView
-        android:id="@+id/ImagenDetalleAparcamiento"
-        android:layout_width="218dp"
-        android:layout_height="207dp"
+        android:id="@+id/imagenMiAparcamiento"
+        android:layout_width="0dp"
+        android:layout_height="204dp"
         android:layout_marginTop="28dp"
         android:background="#FFFFFF"
         android:scaleType="centerInside"
@@ -20,12 +20,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="218dp"
+        android:layout_width="0dp"
         android:layout_height="53dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImagenDetalleAparcamiento"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamiento"
         app:layout_constraintVertical_bias="0.131">
 
         <TextView
@@ -38,7 +38,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
-        android:layout_width="218dp"
+        android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,29 +55,42 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/ZonaAparcamientoDetalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/zonaMiAparcamiento"
+        android:layout_width="92dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
-        app:layout_constraintEnd_toEndOf="@+id/ImagenDetalleAparcamiento"
-        app:layout_constraintTop_toBottomOf="@+id/ImagenDetalleAparcamiento" />
+        app:layout_constraintEnd_toEndOf="@+id/imagenMiAparcamiento"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamiento" />
 
     <Button
-        android:id="@+id/ButtonOcupar"
-        android:layout_width="408dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="132dp"
+        android:id="@+id/ButtonDesocupar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
         android:background="@color/colorPrimaryDark"
         android:text="OCUPAR"
         android:textColor="@color/cardview_light_background"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4"
-        app:layout_constraintVertical_bias="0.766" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+    <Button
+        android:id="@+id/buttonMiAparcamiento"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="MI APARCAMIENTO"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonDesocupar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

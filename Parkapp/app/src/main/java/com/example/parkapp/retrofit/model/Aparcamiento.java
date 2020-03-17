@@ -41,6 +41,14 @@ public class Aparcamiento {
         this.zonaId = zonaId;
     }
 
+    public Aparcamiento(String nombre, String dimension, Double longitud, Double latitud, String userId) {
+        this.nombre = nombre;
+        this.dimension = dimension;
+        this.longitud = longitud;
+        this.latitud = latitud;
+        this.userId = userId;
+    }
+
     public String getId() {
         return id;
     }
