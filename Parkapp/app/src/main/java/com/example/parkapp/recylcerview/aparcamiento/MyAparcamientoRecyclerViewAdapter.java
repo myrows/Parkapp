@@ -1,8 +1,6 @@
 package com.example.parkapp.recylcerview.aparcamiento;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment.OnListFragmentInteractionListener;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
-import com.example.parkapp.retrofit.model.Zona;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
@@ -92,6 +89,7 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
 
                     if (null != mListener) {
                         Intent i = new Intent(ctx, DetalleAparcamientoActivity.class);
+                        SharedPreferencesManager.setSomeStringValue("aparcamiento_id",holder.aparcamiento.getId());
                         i.putExtra("APARCAMIENTO_ID", holder.aparcamiento.getId());
                         i.putExtra("ZONA_ID", holder.aparcamiento.getZonaId());
                         ctx.startActivity(i);

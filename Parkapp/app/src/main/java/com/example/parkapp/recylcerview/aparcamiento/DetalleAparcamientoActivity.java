@@ -1,9 +1,11 @@
 package com.example.parkapp.recylcerview.aparcamiento;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +21,12 @@ import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
+import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -124,9 +130,28 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                         aparcamiento.getLongitud(),aparcamiento.getLatitud(),idUsuario);
                                 Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamientoId,aparcamientoUpdate);
                                 callUpdate.enqueue(new Callback<ResponseBody>() {
+
+                                    @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                                        final Historial historialNuevo = new Historial(LocalDateTime.now(),LocalDate.now(),aparcamientoId);
+                                        //CALLBACK NUEVO HISTORIAL
+                                        final Call<Historial> nuevoHistorial = service.nuevoHistorial(historialNuevo);
+                                        nuevoHistorial.enqueue(new Callback<Historial>() {
+                                            @Override
+                                            public void onResponse(Call<Historial> call, Response<Historial> response) {
+                                                Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
+                                                i.putExtra("historial_id", historialNuevo.getId());
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Historial> call, Throwable t) {
+                                                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                        //CALLBACK APARCAMIENTO
                                         Toast.makeText(MyApp.getContext(),"EL APARCAMIENTO HA SIDO OCUPADO CORRECTAMENTE",Toast.LENGTH_SHORT).show();
                                         ocupar.setClickable(false);
                                         ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));

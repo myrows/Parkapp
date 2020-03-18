@@ -9,7 +9,7 @@ let controller = {
 
         let historial = new Historial({
             fechaEntrada: req.body.fechaEntrada,
-            fechaSalida : req.body.fechaSalida,
+            fechaSalida:req.body.fechaSalida,
             dia : req.body.dia,
             aparcamientoId : req.body.aparcamientoId
         });
@@ -85,7 +85,8 @@ let controller = {
                 })
             })
 
-    }
+    },
+
 
 
 }

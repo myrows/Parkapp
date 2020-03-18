@@ -47,6 +47,7 @@ public interface ParkappService {
 
     @GET("/parkapp/historial/aparcamiento/{id}")
     Call<List<Historial>> getHistorialOfAparcamiento(@Path("id") String id);
+
     @GET("/parkapp/zona/{id}")
     Call<ZonaDetail> getZonaById(@Path("id") String zonaId);
 
@@ -61,6 +62,15 @@ public interface ParkappService {
 
     @PUT("/parkapp/aparcamiento/{id}")
     Call<ResponseBody> updateAparcamiento(@Path("id")String id, @Body Aparcamiento aparcamiento);
+
+    @POST("/parkapp/historial")
+    Call<Historial> nuevoHistorial(@Body Historial historial);
+
+    @GET("/historial/:{id}")
+    Call<Historial> getHistorial(@Path("id")String idHistorial);
+
+    @PUT("/parkapp/historial/{id}")
+    Call<ResponseBody> updateHistorial(@Path("id")String id, @Body Historial historial);
 
     @POST("/parkapp/resena")
     Call<ResponseBody> createResena(@Body Resena resena);

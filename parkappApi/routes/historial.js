@@ -8,7 +8,7 @@ const HistorialController = require('../controllers/historial')
 router.post('/historial',HistorialController.crearHistorial)
 router.get('/historial', HistorialController.getHistoriales)
 router.get('/historial/:id', HistorialController.getHistorialById)
-router.get('/historial/aparcamiento/:aparcamientoId', HistorialController.getHistorialOfAparcamiento)
+router.get('/historial2/:aparcamientoId', HistorialController.getHistorialOfAparcamiento)
 router.delete('/historial/:id', HistorialController.deleteHistorialById)
 router.put('/historial/:id', HistorialController.putHistorial)
 

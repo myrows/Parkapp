@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.parkapp.common.SharedPreferencesManager;
+import com.example.parkapp.data.resena.ResenaRepository;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.Zona;
@@ -23,13 +25,14 @@ public class HistorialViewModel extends AndroidViewModel {
 
     public HistorialViewModel(@NonNull Application application) {
         super(application);
+        idAparcamiento = SharedPreferencesManager.getSomeStringValue("aparcamiento_id");
         historialRepository = new HistorialRepository();
         historial = historialRepository.getHistorialOfAparcamiento(idAparcamiento);
     }
 
 
-    public LiveData<List<Historial>> getHistorialOfAparcamiento(String idAparcamiento){
-        return historialRepository.getHistorialOfAparcamiento(idAparcamiento);
+    public LiveData<List<Historial>> getHistorialOfAparcamiento(){
+        return historial;
     }
 }
 
