@@ -1,9 +1,11 @@
 package com.example.parkapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +28,18 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +54,11 @@ public class ZonaDetailActivity extends AppCompatActivity {
     List<Historial> listHistorial = new ArrayList<>();
     List<Horario> listHorario = new ArrayList<>();
     HashMap<Integer, Integer> listHorarioMap = new HashMap<Integer, Integer>();
+    TreeMap<Integer, Integer> listHorarioDisponible= new TreeMap<>();
+    //LinkedHashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
+    LinkedList<Map.Entry<Integer, Integer>> list;
+    Comparator<Map.Entry<Integer, Integer>> comparator;
+    //List<Integer> listHorarioDisponible = new ArrayList<>();
     int numRep;
 
     @Override
@@ -124,28 +140,25 @@ public class ZonaDetailActivity extends AppCompatActivity {
         //Se obtiene todos los historiales de fechas de todos los aparcamientos
         Call<List<Historial>> call = parkappService.getAllHistorial();
         call.enqueue(new Callback<List<Historial>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Historial>> call, Response<List<Historial>> response) {
                 if(response.isSuccessful()){
                     listHistorial = response.body();
 
                     if(listHistorial != null && listHistorial.size() > 0){
-
                         agregarHoras();
+                        ordenarHorasPorCantidad();
+                        cantidadHorasDisponible(3);
 
-
-                        Toast.makeText(ZonaDetailActivity.this, listHorarioMap+ "horas", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(ZonaDetailActivity.this, listHorarioDisponible+ "horas", Toast.LENGTH_SHORT).show();
                         //Toast.makeText(ZonaDetailActivity.this, listHorario.get(0).getHora()+","+listHorario.get(1).getHora()+","+ listHorario.get(2).getHora()+","+listHorario.get(3).getHora(), Toast.LENGTH_SHORT).show();
-
                     }else{
-
                     }
                 }else{
                     Toast.makeText(ZonaDetailActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<List<Historial>> call, Throwable t) {
                 Toast.makeText(ZonaDetailActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
@@ -174,4 +187,20 @@ public class ZonaDetailActivity extends AppCompatActivity {
             listHorarioMap.put(hour, count);
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void ordenarHorasPorCantidad(){
+        //listHorarioSorted.putAll(listHorarioMap);
+        list = new LinkedList<>(listHorarioMap.entrySet());
+        comparator = Comparator.comparing(Map.Entry::getValue);
+        Collections.sort(list, comparator.reversed());
+    }
+
+    public void cantidadHorasDisponible(int cant){
+        for (int i = 0; i < cant; i++){
+            listHorarioDisponible.put(list.get(i).getKey(), i);
+        }
+    }
+
+
 }
