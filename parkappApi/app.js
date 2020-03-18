@@ -40,8 +40,12 @@ passport.use(new LocalStrategy((username, password, done) => {
 
     User.findOne(busqueda, (err, user) => {
         if (err) return done(null, false);
-        if (!bcrypt.compareSync(password, user.password)) {
+        if(user == null){
             return done(null, false);
+        }else{
+            if (!bcrypt.compareSync(password, user.password)) {
+                return done(null, false);
+            }
         }
         return done(null, user);
     });
