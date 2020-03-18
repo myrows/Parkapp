@@ -100,5 +100,6 @@ public class AparcamientoRepository {
         });
         return data;
     }
+
 }
 

@@ -86,6 +86,7 @@ let controller = {
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
                         nombre:req.body.nombre,
+                        userId:req.body.userId
                     })
                     .exec(function(err, aparcamiento) {
                         if (err) res.send(500, err.message);
