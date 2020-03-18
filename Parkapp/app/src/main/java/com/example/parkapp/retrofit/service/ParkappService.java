@@ -61,4 +61,8 @@ public interface ParkappService {
     @POST("/parkapp/resena")
     Call<ResponseBody> createResena(@Body Resena resena);
 
+    @GET("/parkapp/historial/aparcamiento")
+    Call<List<Historial>> getAllHistorial();
+
+
 }
