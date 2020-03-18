@@ -12,41 +12,19 @@ public class Historial {
     private String id;
     @SerializedName("fechaEntrada")
     @Expose
-    private LocalDateTime fechaEntrada;
+    private String fechaEntrada;
     @SerializedName("fechaSalida")
     @Expose
-    private LocalDateTime fechaSalida;
+    private String fechaSalida;
     @SerializedName("dia")
     @Expose
-    private LocalDate dia;
+    private String dia;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
     @SerializedName("aparcamientoId")
     @Expose
     private String aparcamientoId;
-
-    public Historial(LocalDateTime fechaEntrada, LocalDate dia, String aparcamientoId) {
-        this.fechaEntrada = fechaEntrada;
-        this.dia = dia;
-        this.aparcamientoId = aparcamientoId;
-    }
-
-    public Historial(LocalDateTime fechaEntrada, LocalDateTime fechaSalida, LocalDate dia, String aparcamientoId) {
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
-        this.dia = dia;
-        this.aparcamientoId = aparcamientoId;
-    }
-
-    public Historial(String id, LocalDateTime fechaEntrada, LocalDateTime fechaSalida, LocalDate dia, String aparcamientoId) {
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
-        this.dia = dia;
-        this.aparcamientoId = aparcamientoId;
-        this.id = id;
-    }
-
-    public LocalDateTime getFechaEntrada() {
-        return fechaEntrada;
-    }
 
     public String getId() {
         return id;
@@ -56,24 +34,36 @@ public class Historial {
         this.id = id;
     }
 
-    public void setFechaEntrada(LocalDateTime fechaEntrada) {
+    public String getFechaEntrada() {
+        return fechaEntrada;
+    }
+
+    public void setFechaEntrada(String fechaEntrada) {
         this.fechaEntrada = fechaEntrada;
     }
 
-    public LocalDateTime getFechaSalida() {
+    public String getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(LocalDateTime fechaSalida) {
+    public void setFechaSalida(String fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
-    public LocalDate getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(LocalDate dia) {
+    public void setDia(String dia) {
         this.dia = dia;
+    }
+
+    public Integer getV() {
+        return v;
+    }
+
+    public void setV(Integer v) {
+        this.v = v;
     }
 
     public String getAparcamientoId() {

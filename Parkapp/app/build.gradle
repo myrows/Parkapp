@@ -62,4 +62,6 @@ dependencies {
     implementation 'com.ebanx:swipe-button:0.4.0'
     implementation 'androidx.navigation:navigation-fragment:2.2.1'
     implementation 'androidx.navigation:navigation-ui:2.2.1'
+    //Joda time
+    implementation 'joda-time:joda-time:2.10.5'
 }
