@@ -135,14 +135,18 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                        final Historial historialNuevo = new Historial(LocalDateTime.now(),LocalDate.now(),aparcamientoId);
+                                        final Historial historialNuevo = new Historial(LocalDateTime.now().toString(),"",LocalDate.now().toString(),aparcamientoId);
                                         //CALLBACK NUEVO HISTORIAL
                                         final Call<Historial> nuevoHistorial = service.nuevoHistorial(historialNuevo);
                                         nuevoHistorial.enqueue(new Callback<Historial>() {
                                             @Override
                                             public void onResponse(Call<Historial> call, Response<Historial> response) {
+                                                if(response.isSuccessful()){
                                                 Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
                                                 i.putExtra("historial_id", historialNuevo.getId());
+                                                i.putExtra("fecha_entrada", historialNuevo.getDia());
+                                                i.putExtra("horario_entrada",historialNuevo.getFechaEntrada());
+                                                }
                                             }
 
                                             @Override

@@ -40,9 +40,11 @@ public class MiAparcamientoActivity extends AppCompatActivity {
     ParkappService service;
     ServiceGenerator serviceGenerator;
     Aparcamiento aparcamiento;
+    Historial historial;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,9 @@ public class MiAparcamientoActivity extends AppCompatActivity {
        final String idAparcamiento = extras.getString("MIAPARCAMIENTOID");
        final String idZona = extras.getString("IDZONA");
        final String idHistorial = extras.getString("historial_id");
+       final String fechaEntrada = extras.getString("fecha_entrada");
+       final String horarioEntrada = extras.getString("horario_entrada");
+       final String horarioSalida = String.valueOf(LocalDateTime.now());
        service = serviceGenerator.createServiceZona(ParkappService.class);
 
 
@@ -110,6 +115,8 @@ public class MiAparcamientoActivity extends AppCompatActivity {
 
 
 
+
+
                 desocupar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -117,44 +124,29 @@ public class MiAparcamientoActivity extends AppCompatActivity {
                                 aparcamiento.getLongitud(), aparcamiento.getLatitud(), "");
                         Call<ResponseBody> callUpdate = service.updateAparcamiento(idAparcamiento, aparcamientoUpdate);
                         callUpdate.enqueue(new Callback<ResponseBody>() {
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 if (response.isSuccessful()) {
 
-                                    //LLamada al historial que hemos creado en el detalle
-                                    Call<Historial> historialCall = service.getHistorial(idHistorial);
-                                    historialCall.enqueue(new Callback<Historial>() {
-                                        @RequiresApi(api = Build.VERSION_CODES.O)
+                                    //CALLBACK PARA UPDATEAR EL HISTORIAL
+                                    final Historial historialUpdate = new Historial(horarioEntrada,LocalDateTime.now().toString(),
+                                            fechaEntrada,idAparcamiento);
+                                    Call<ResponseBody> updateCall = service.updateHistorial(idHistorial, historialUpdate);
+
+                                    updateCall.enqueue(new Callback<ResponseBody>() {
                                         @Override
-                                        public void onResponse(Call<Historial> call, Response<Historial> response) {
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                             if(response.isSuccessful()){
-                                                final Historial historial = response.body();
 
-                                                Historial historialUpdate = new Historial(historial.getFechaEntrada(), LocalDateTime.now(),historial.getDia(),idAparcamiento);
-                                                Call<ResponseBody> updatecall = service.updateHistorial(historial.getAparcamientoId(),historialUpdate);
-
-                                                call.enqueue(new Callback<Historial>() {
-                                                    @Override
-                                                    public void onResponse(Call<Historial> call, Response<Historial> response) {
-                                                        if(response.isSuccessful()){
-                                                            Toast.makeText(MyApp.getContext(), "Historial actualizado", Toast.LENGTH_SHORT).show();
-                                                        }else{
-                                                            Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<Historial> call, Throwable t) {
-                                                        Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
+                                                Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
                                         @Override
-                                        public void onFailure(Call<Historial> call, Throwable t) {
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
                                             Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                                         }
                                     });

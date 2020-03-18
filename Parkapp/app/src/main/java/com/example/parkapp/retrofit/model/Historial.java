@@ -26,6 +26,20 @@ public class Historial {
     @Expose
     private String aparcamientoId;
 
+
+    public Historial(String fechaEntrada, String dia, String aparcamientoId) {
+        this.fechaEntrada = fechaEntrada;
+        this.dia = dia;
+        this.aparcamientoId = aparcamientoId;
+    }
+
+    public Historial(String fechaEntrada, String fechaSalida, String dia, String aparcamientoId) {
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.dia = dia;
+        this.aparcamientoId = aparcamientoId;
+    }
+
     public String getId() {
         return id;
     }
