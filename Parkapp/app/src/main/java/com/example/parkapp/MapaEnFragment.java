@@ -1,10 +1,16 @@
 package com.example.parkapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.parkapp.R;
+import com.example.parkapp.common.MyApp;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Zona;
 import com.example.parkapp.retrofit.service.ParkappService;
@@ -61,7 +68,14 @@ public class MapaEnFragment extends Fragment implements OnMapReadyCallback {
 
         return v;
     }
-
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -79,7 +93,7 @@ public class MapaEnFragment extends Fragment implements OnMapReadyCallback {
                         if(listado.get(i).getLatitud() != null && listado.get(i).getLongitud() != null) {
                             Marker m = mMap.addMarker(new MarkerOptions()
                                     .position(new LatLng(listado.get(i).getLatitud(),listado.get(i).getLongitud()))
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                                    .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_pinterest3))
                                     .title(listado.get(i).getNombre()));
 
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.3828300, -5.9731700),12.0f));
