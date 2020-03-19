@@ -28,6 +28,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -48,19 +49,25 @@ import retrofit2.Response;
 public class ZonaDetailActivity extends AppCompatActivity {
 
     ImageView imageZona, imgResena, imgGoNavigation;
-    TextView tName, tUbicacion,tDistancia, tFirstHourD;
+    TextView tName, tUbicacion,tDistancia, tFirstHourO, tSecondHourO, tThirdHourO,
+    tFirstHourD, tSecondHourD, tThirdHourD;
     Button btnAparcar;
     ParkappService parkappService;
     List<Historial> listHistorial = new ArrayList<>();
-    List<Horario> listHorario = new ArrayList<>();
+    List<Historial> listHistorialDisponible = new ArrayList<>();
     HashMap<Integer, Integer> listHorarioMap = new HashMap<Integer, Integer>();
-    TreeMap<Integer, Integer> listHorarioDisponible= new TreeMap<>();
-    //LinkedHashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
+    HashMap<Integer, Integer> listHorarioMapDisponible = new HashMap<Integer, Integer>();
     LinkedList<Map.Entry<Integer, Integer>> list;
     Comparator<Map.Entry<Integer, Integer>> comparator;
-    //List<Integer> listHorarioDisponible = new ArrayList<>();
+    LinkedList<Map.Entry<Integer, Integer>> listDisponible;
+    Comparator<Map.Entry<Integer, Integer>> comparatorDisponible;
+    List<Integer> listHorarioOcupado = new ArrayList<>();
+    List<Integer> listHorarioDisponible = new ArrayList<>();
+    //int [] listHorarioDisponible;
     int numRep;
+    int horasAMostrar;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +80,12 @@ public class ZonaDetailActivity extends AppCompatActivity {
         tDistancia = findViewById(R.id.textViewDistanciaZ);
         imgResena = findViewById(R.id.imageViewResenaZona);
         imgGoNavigation = findViewById(R.id.imageViewLlegarZona);
+        tFirstHourO = findViewById(R.id.textViewFirstHour);
+        tSecondHourO = findViewById(R.id.textViewSecondHour);
+        tThirdHourO = findViewById(R.id.textViewThirdHour);
         tFirstHourD = findViewById(R.id.textViewFirstHourD);
+        tSecondHourD = findViewById(R.id.textViewSecondHourD);
+        tThirdHourD = findViewById(R.id.textViewThirdHourD);
 
         parkappService = ServiceGenerator.createServiceZona(ParkappService.class);
 
@@ -133,10 +145,11 @@ public class ZonaDetailActivity extends AppCompatActivity {
             }
         });
 
-        getHourOfAparcamiento();
+        addHourOfAparcamientoOcupado();
+        addHourOfAparcamientoDisponible();
     }
 
-    public void getHourOfAparcamiento(){
+    public void addHourOfAparcamientoOcupado(){
         //Se obtiene todos los historiales de fechas de todos los aparcamientos
         Call<List<Historial>> call = parkappService.getAllHistorial();
         call.enqueue(new Callback<List<Historial>>() {
@@ -147,12 +160,56 @@ public class ZonaDetailActivity extends AppCompatActivity {
                     listHistorial = response.body();
 
                     if(listHistorial != null && listHistorial.size() > 0){
+                        horasAMostrar = 3;
+
                         agregarHoras();
                         ordenarHorasPorCantidad();
+                        cantidadHorasOcupadas(horasAMostrar);
+
+                        //Set de las horas ocupadas
+                        if(listHorarioOcupado.size() >= horasAMostrar) {
+                            tFirstHourO.setText(listHorarioOcupado.get(0) + ":00 h");
+                            tSecondHourO.setText(listHorarioOcupado.get(1) + ":00 h");
+                            tThirdHourO.setText(listHorarioOcupado.get(2) + ":00 h");
+                        }
+                    }else{
+                    }
+                }else{
+                    Toast.makeText(ZonaDetailActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Historial>> call, Throwable t) {
+                Toast.makeText(ZonaDetailActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void addHourOfAparcamientoDisponible(){
+        //Se obtiene todos los historiales de fechas de todos los aparcamientos
+        Call<List<Historial>> call = parkappService.getAllHistorial();
+        call.enqueue(new Callback<List<Historial>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<List<Historial>> call, Response<List<Historial>> response) {
+                if(response.isSuccessful()){
+                    listHistorialDisponible = response.body();
+
+                    if(listHistorialDisponible != null && listHistorialDisponible.size() > 0){
+                        horasAMostrar = 3;
+
+                        agregarHorasDisponible();
+                        ordenarHorasPorCantidadDisponible();
                         cantidadHorasDisponible(3);
 
-                        Toast.makeText(ZonaDetailActivity.this, listHorarioDisponible+ "horas", Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(ZonaDetailActivity.this, listHorario.get(0).getHora()+","+listHorario.get(1).getHora()+","+ listHorario.get(2).getHora()+","+listHorario.get(3).getHora(), Toast.LENGTH_SHORT).show();
+                        if(listHorarioDisponible.size() >= horasAMostrar) {
+                            //Set de las horas ocupadas
+                            tFirstHourD.setText(listHorarioDisponible.get(0) + ":00 h");
+                            tSecondHourD.setText(listHorarioDisponible.get(1) + ":00 h");
+                            tThirdHourD.setText(listHorarioDisponible.get(2) + ":00 h");
+                        }
+
+                        Toast.makeText(ZonaDetailActivity.this, listHorarioDisponible+"hour", Toast.LENGTH_SHORT).show();
                     }else{
                     }
                 }else{
@@ -168,38 +225,92 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
     public void agregarHoras(){
 
-        for(int i = 0; i < listHistorial.size(); i++){
+        for(int i = 0; i < listHistorial.size(); i++) {
             int count = 0;
             String date = listHistorial.get(i).getFechaEntrada();
-            DateTime dt = DateTime.parse(date);
-            int hour = dt.getHourOfDay();
+            if (date != null) {
+                DateTime dt = DateTime.parse(date);
+                int hour = dt.getHourOfDay();
 
-            for (int j = 0; j < listHistorial.size(); j++) {
-                String datej = listHistorial.get(j).getFechaEntrada();
-                DateTime dtj = DateTime.parse(datej);
-                int hourj = dtj.getHourOfDay();
+                for (int j = 0; j < listHistorial.size(); j++) {
+                    String datej = listHistorial.get(j).getFechaEntrada();
+                    if (datej != null) {
+                        DateTime dtj = DateTime.parse(datej);
+                        int hourj = dtj.getHourOfDay();
 
-                if (hour == hourj) {
-                    //Se le suma 1 cada vez que encontramos una hora coincidente dentro del array con la hora seleccionada por el for (i)
-                    count++;
+                        if (hour == hourj) {
+                            //Se le suma 1 cada vez que encontramos una hora coincidente dentro del array con la hora seleccionada por el for (i)
+                            count++;
+                        }
+                    }
+                    listHorarioMap.put(hour, count);
                 }
             }
-            listHorarioMap.put(hour, count);
+        }
+    }
+
+    public void agregarHorasDisponible(){
+
+        for(int i = 0; i < listHistorialDisponible.size(); i++) {
+            int count = 0;
+            String date = listHistorialDisponible.get(i).getFechaSalida();
+            if (date != null) {
+                DateTime dt = DateTime.parse(date);
+                int hour = dt.getHourOfDay();
+
+                for (int j = 0; j < listHistorialDisponible.size(); j++) {
+                    String datej = listHistorialDisponible.get(j).getFechaSalida();
+                    if (datej != null) {
+                        DateTime dtj = DateTime.parse(datej);
+                        int hourj = dtj.getHourOfDay();
+
+                        if (hour == hourj) {
+                            //Se le suma 1 cada vez que encontramos una hora coincidente dentro del array con la hora seleccionada por el for (i)
+                            count++;
+                        }
+                    }
+                }
+                listHorarioMapDisponible.put(hour, count);
+            }
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void ordenarHorasPorCantidad(){
-        //listHorarioSorted.putAll(listHorarioMap);
         list = new LinkedList<>(listHorarioMap.entrySet());
         comparator = Comparator.comparing(Map.Entry::getValue);
         Collections.sort(list, comparator.reversed());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void ordenarHorasPorCantidadDisponible(){
+        listDisponible = new LinkedList<>(listHorarioMapDisponible.entrySet());
+        comparatorDisponible = Comparator.comparing(Map.Entry::getValue);
+        Collections.sort(listDisponible, comparatorDisponible.reversed());
+    }
+
+    public void cantidadHorasOcupadas(int cant){
+        for (int i = 0; i < cant; i++){
+            listHorarioOcupado.add(list.get(i).getKey());
+        }
+        Collections.sort(listHorarioOcupado, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
+    }
+
     public void cantidadHorasDisponible(int cant){
         for (int i = 0; i < cant; i++){
-            listHorarioDisponible.put(list.get(i).getKey(), i);
+            listHorarioDisponible.add(listDisponible.get(i).getKey());
         }
+        Collections.sort(listHorarioDisponible, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
     }
 
 
