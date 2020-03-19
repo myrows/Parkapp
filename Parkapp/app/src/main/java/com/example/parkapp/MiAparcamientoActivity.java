@@ -4,8 +4,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
-import com.example.parkapp.common.SharedPreferencesManager;
-import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
@@ -25,7 +21,6 @@ import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -53,7 +48,7 @@ public class MiAparcamientoActivity extends AppCompatActivity {
        nombre = findViewById(R.id.NombreMiAparcamiento);
        zona = findViewById(R.id.zonaMiAparcamiento);
        avatar = findViewById(R.id.imagenMiAparcamiento);
-       desocupar = findViewById(R.id.ButtonDesocupar);
+       desocupar = findViewById(R.id.ButtonOcupar);
        listadoHorario = findViewById(R.id.buttonHistoriales);
        Bundle extras = getIntent().getExtras();;
        final String idAparcamiento = extras.getString("MIAPARCAMIENTOID");

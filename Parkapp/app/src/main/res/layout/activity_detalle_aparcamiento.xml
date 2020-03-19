@@ -68,11 +68,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamiento" />
 
     <Button
-        android:id="@+id/ButtonDesocupar"
+        android:id="@+id/ButtonOcupar"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
         android:background="@color/colorPrimaryDark"
+        android:onClick="showNotification"
         android:text="OCUPAR"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +92,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ButtonDesocupar" />
+        app:layout_constraintTop_toBottomOf="@+id/ButtonOcupar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,10 @@ package com.example.parkapp.recylcerview.aparcamiento;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -32,6 +35,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.app.NotificationChannel;
 
 public class DetalleAparcamientoActivity extends AppCompatActivity {
 
@@ -43,16 +47,24 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
     ServiceGenerator serviceGenerator;
     ParkappService service;
     AparcamientoViewModel aparcamientoViewModel;
+    public final String CHANNEL_ID = "001";
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_aparcamiento);
 
+
+
+
         dimension = findViewById(R.id.DimensionAparcamientoDetalle);
         nombre = findViewById(R.id.NombreMiAparcamiento);
         imagenDetalle = findViewById(R.id.imagenMiAparcamiento);
         zona = findViewById(R.id.zonaMiAparcamiento);
-        ocupar = findViewById(R.id.ButtonDesocupar);
+        ocupar = findViewById(R.id.ButtonOcupar);
         miAparcamiento = findViewById(R.id.buttonMiAparcamiento);
         service = serviceGenerator.createServiceZona(ParkappService.class);
 
@@ -155,6 +167,9 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                             }
                                         });
 
+
+
+                                        showNotification(ocupar);
                                         //CALLBACK APARCAMIENTO
                                         Toast.makeText(MyApp.getContext(),"EL APARCAMIENTO HA SIDO OCUPADO CORRECTAMENTE",Toast.LENGTH_SHORT).show();
                                         ocupar.setClickable(false);
@@ -198,6 +213,38 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+
+    }
+    public void showNotification(View v){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel = new NotificationChannel("001","001",NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("Description");
+
+            NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+            Notification.Builder builder = new Notification.Builder(this,"001");
+
+            builder.setSmallIcon(R.drawable.ic_pinterest2)
+                    .setContentText("El aparcamiento ha sido ocupado con exito")
+                    .setContentTitle("Aparcamiento Ocupado")
+                    .setPriority(Notification.PRIORITY_DEFAULT);
+
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+            notificationManagerCompat.notify(001, builder.build());
+
+
+        }else{
+            Notification.Builder builder = new Notification.Builder(this);
+            builder.setSmallIcon(R.drawable.ic_pinterest2)
+                    .setContentText("El aparcamiento ha sido ocupado con exito")
+                    .setContentTitle("Aparcamiento Ocupado")
+                    .setPriority(Notification.PRIORITY_DEFAULT);
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+            notificationManagerCompat.notify(001, builder.build());
+        }
     }
 }
 

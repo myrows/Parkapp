@@ -68,4 +68,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.1'
     //Joda time
     implementation 'joda-time:joda-time:2.10.5'
+    implementation 'com.android.support:appcompat-v7:29.1.1'
 }
