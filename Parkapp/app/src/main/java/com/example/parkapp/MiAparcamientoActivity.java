@@ -165,7 +165,8 @@ public class MiAparcamientoActivity extends AppCompatActivity {
                 listadoHorario.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(MiAparcamientoActivity.this,HistorialActivity.class);
+                        Intent i = new Intent(MiAparcamientoActivity.this, HorasAparcamientoActivity.class);
+                        i.putExtra("aparcamientoId", idAparcamiento);
                         startActivity(i);
                     }
                 });
