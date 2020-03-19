@@ -61,7 +61,6 @@ public class MiAparcamientoActivity extends AppCompatActivity {
        final String idHistorial = extras.getString("historial_id");
        final String fechaEntrada = extras.getString("fecha_entrada");
        final String horarioEntrada = extras.getString("horario_entrada");
-       final String horarioSalida = String.valueOf(LocalDateTime.now());
        service = serviceGenerator.createServiceZona(ParkappService.class);
 
 

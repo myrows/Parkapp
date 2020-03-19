@@ -143,9 +143,9 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                             public void onResponse(Call<Historial> call, Response<Historial> response) {
                                                 if(response.isSuccessful()){
                                                 Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
-                                                i.putExtra("historial_id", historialNuevo.getId());
-                                                i.putExtra("fecha_entrada", historialNuevo.getDia());
-                                                i.putExtra("horario_entrada",historialNuevo.getFechaEntrada());
+                                                i.putExtra("historial_id", response.body().getId());
+                                                i.putExtra("fecha_entrada", response.body().getDia());
+                                                i.putExtra("horario_entrada",response.body().getFechaEntrada());
                                                 }
                                             }
 
