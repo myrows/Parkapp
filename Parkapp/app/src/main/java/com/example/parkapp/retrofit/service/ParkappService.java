@@ -78,5 +78,8 @@ public interface ParkappService {
     @GET("/parkapp/historial/aparcamiento")
     Call<List<Historial>> getAllHistorial();
 
+    @GET("/parkapp/historial/aparcamiento/{id}")
+    Call<List<Historial>> getHistorialOfAparcamientoById(@Path("id") String aparcamientoId);
+
 
 }

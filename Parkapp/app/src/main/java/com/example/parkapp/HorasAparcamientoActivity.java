@@ -3,56 +3,37 @@ package com.example.parkapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
-import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
+import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
-import com.example.parkapp.retrofit.model.Horario;
-import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
-import com.google.android.gms.common.util.ArrayUtils;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ZonaDetailActivity extends AppCompatActivity {
-
-    ImageView imageZona, imgResena, imgGoNavigation;
-    TextView tName, tUbicacion,tDistancia, tFirstHourO, tSecondHourO, tThirdHourO,
-    tFirstHourD, tSecondHourD, tThirdHourD;
-    Button btnAparcar;
+public class HorasAparcamientoActivity extends AppCompatActivity {
     ParkappService parkappService;
+    TextView tFirstHourO, tSecondHourO, tThirdHourO, tFirstHourD, tSecondHourD, tThirdHourD;
+    ImageView imageAparcamiento;
     List<Historial> listHistorial = new ArrayList<>();
     List<Historial> listHistorialDisponible = new ArrayList<>();
     HashMap<Integer, Integer> listHorarioMap = new HashMap<Integer, Integer>();
@@ -63,85 +44,40 @@ public class ZonaDetailActivity extends AppCompatActivity {
     Comparator<Map.Entry<Integer, Integer>> comparatorDisponible;
     List<Integer> listHorarioOcupado = new ArrayList<>();
     List<Integer> listHorarioDisponible = new ArrayList<>();
-    //int [] listHorarioDisponible;
-    int numRep;
     int horasAMostrar;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zona_detail);
+        setContentView(R.layout.activity_horas_aparcamiento);
 
-        imageZona = findViewById(R.id.imageViewZonaDetail);
-        tName = findViewById(R.id.textViewNameZona);
-        tUbicacion = findViewById(R.id.textViewUbicacionZ);
-        btnAparcar = findViewById(R.id.buttonAparcarAqui);
-        tDistancia = findViewById(R.id.textViewDistanciaZ);
-        imgResena = findViewById(R.id.imageViewResenaZona);
-        imgGoNavigation = findViewById(R.id.imageViewLlegarZona);
-        tFirstHourO = findViewById(R.id.textViewFirstHour);
-        tSecondHourO = findViewById(R.id.textViewSecondHour);
-        tThirdHourO = findViewById(R.id.textViewThirdHour);
-        tFirstHourD = findViewById(R.id.textViewFirstHourD);
-        tSecondHourD = findViewById(R.id.textViewSecondHourD);
-        tThirdHourD = findViewById(R.id.textViewThirdHourD);
+        tFirstHourO = findViewById(R.id.textViewFirstHourOH);
+        tSecondHourO = findViewById(R.id.textViewSecondHourOH);
+        tThirdHourO = findViewById(R.id.textViewThirdHourOH);
+        tFirstHourD = findViewById(R.id.textViewFirstHourDH);
+        tSecondHourD = findViewById(R.id.textViewSecondHourDH);
+        tThirdHourD = findViewById(R.id.textViewThirdHourDH);
+        imageAparcamiento = findViewById(R.id.imageViewAparcamientoHora);
 
-        parkappService = ServiceGenerator.createServiceZona(ParkappService.class);
+        parkappService = ServiceGenerator.createServiceAparcamiento(ParkappService.class);
 
-        //Obtengo la información de la zona que he seleccionado
-
-        Call<ZonaDetail> call = parkappService.getZonaById(getIntent().getExtras().get("zonaId").toString());
-        call.enqueue(new Callback<ZonaDetail>() {
+        Call<Aparcamiento> call = parkappService.getAparcamiento(getIntent().getExtras().get("aparcamientoId").toString());
+        call.enqueue(new Callback<Aparcamiento>() {
             @Override
-            public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
+            public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
                 if(response.isSuccessful()){
-                    ZonaDetail myZona = response.body();
-
-                    tName.setText(myZona.getNombre());
-                    tUbicacion.setText(myZona.getUbicacion());
-                    tDistancia.setText(myZona.getDistancia()+" km");
-
                     Glide
                             .with(MyApp.getContext())
-                            .load("http://10.0.2.2:3000/parkapp/avatar/"+myZona.getAvatar())
-                            .into(imageZona);
+                            .load("http://10.0.2.2:3000/parkapp/avatar/"+response.body().getAvatar())
+                            .into(imageAparcamiento);
+                }else{
+                    Toast.makeText(HorasAparcamientoActivity.this, "No se han podido obtener datos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ZonaDetail> call, Throwable t) {
-
-            }
-        });
-
-        btnAparcar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goAparcamiento = new Intent(ZonaDetailActivity.this, AparcamientoActivity.class);
-                goAparcamiento.putExtra("nameZona", tName.getText());
-                goAparcamiento.putExtra("ubicacionZona", tUbicacion.getText());
-                startActivity(goAparcamiento);
-            }
-        });
-
-        imgResena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goResena = new Intent(ZonaDetailActivity.this, ResenaActivity.class);
-                goResena.putExtra("zonaId", getIntent().getExtras().get("zonaId").toString());
-                startActivity(goResena);
-            }
-        });
-
-        //Intent sobre la ubicación de la zona para ir a la navegación
-        imgGoNavigation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+tName.getText());
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+            public void onFailure(Call<Aparcamiento> call, Throwable t) {
+                Toast.makeText(HorasAparcamientoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -151,7 +87,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
     public void addHourOfAparcamientoOcupado(){
         //Se obtiene todos los historiales de fechas de todos los aparcamientos
-        Call<List<Historial>> call = parkappService.getAllHistorial();
+        Call<List<Historial>> call = parkappService.getHistorialOfAparcamientoById(getIntent().getExtras().get("aparcamientoId").toString());
         call.enqueue(new Callback<List<Historial>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -175,19 +111,19 @@ public class ZonaDetailActivity extends AppCompatActivity {
                     }else{
                     }
                 }else{
-                    Toast.makeText(ZonaDetailActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HorasAparcamientoActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Historial>> call, Throwable t) {
-                Toast.makeText(ZonaDetailActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HorasAparcamientoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void addHourOfAparcamientoDisponible(){
         //Se obtiene todos los historiales de fechas de todos los aparcamientos
-        Call<List<Historial>> call = parkappService.getAllHistorial();
+        Call<List<Historial>> call = parkappService.getHistorialOfAparcamientoById(getIntent().getExtras().get("aparcamientoId").toString());
         call.enqueue(new Callback<List<Historial>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -208,17 +144,15 @@ public class ZonaDetailActivity extends AppCompatActivity {
                             tSecondHourD.setText(listHorarioDisponible.get(1) + ":00 h");
                             tThirdHourD.setText(listHorarioDisponible.get(2) + ":00 h");
                         }
-
-                        Toast.makeText(ZonaDetailActivity.this, listHorarioDisponible+"hour", Toast.LENGTH_SHORT).show();
                     }else{
                     }
                 }else{
-                    Toast.makeText(ZonaDetailActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HorasAparcamientoActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Historial>> call, Throwable t) {
-                Toast.makeText(ZonaDetailActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HorasAparcamientoActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -318,6 +252,4 @@ public class ZonaDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "No tiene suficientes datos para mostrar el horario", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
