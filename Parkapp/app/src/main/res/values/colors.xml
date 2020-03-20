@@ -6,4 +6,5 @@
     <color name="distanciaColor">#0578B6</color>
     <color name="white">#FFFFFF</color>
     <color name="view">#C1BEBEBE</color>
+    <color name="transparentBlue">#B215DBFD</color>
 </resources>
