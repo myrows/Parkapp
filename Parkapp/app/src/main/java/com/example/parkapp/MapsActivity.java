@@ -106,6 +106,11 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
     private ResultReceiver resultReceiver;
     private Marker selectedMarker;
     private LatLng searchLocation;
+    private double selectLatitud;
+    private double selectLongitud;
+    double latitud;
+    double longitude;
+
 
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarker = new ArrayList<>();
@@ -165,25 +170,34 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
 
         locationgps = new Location("Point A");
 
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void init() {
-
         setupAutoCompleteFragment();
 
         FloatingActionButton fa = findViewById(R.id.fblocation);
         fa.setOnClickListener(view -> {
-            try {
-                String origin = locationgps.getLatitude() + "," + locationgps.getLongitude();
-                //String origin = 37.341347 + "," + -6.063986;
-                new DirectionFinder(MapsActivity.this, origin, searchLocation.latitude + "," + searchLocation.longitude).execute(getString(R.string.google_maps_key));
-            } catch (Exception e) {
-                e.printStackTrace();
+            //Toast.makeText(this, searchLocation.latitude+","+searchLocation.longitude, Toast.LENGTH_SHORT).show();
+            if(searchLocation != null) {
+                try {
+                    String origin = locationgps.getLatitude() + "," + locationgps.getLongitude();
+                    //new DirectionFinder(MapsActivity.this, origin, searchLocation.latitude + "," + searchLocation.longitude).execute(getString(R.string.google_maps_key));
+                    new DirectionFinder(MapsActivity.this, origin, searchLocation.latitude + "," + searchLocation.longitude).execute(getString(R.string.google_maps_key));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                try {
+                    String origin = locationgps.getLatitude() + "," + locationgps.getLongitude();
+                    new DirectionFinder(MapsActivity.this, origin, selectLatitud + "," + selectLongitud).execute(getString(R.string.google_maps_key));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             showAlertNavigation();
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void init() {
 
         final FloatingActionButton ft = findViewById(R.id.fbsatelite);
         ft.setOnClickListener(view -> {
@@ -439,7 +453,12 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
             return true;
         }
 
-        Toast.makeText(this, "Marker seleccionado : "+ marker.getPosition().latitude+","+ marker.getPosition().longitude, Toast.LENGTH_SHORT).show();
+        selectLatitud = marker.getPosition().latitude;
+        selectLongitud = marker.getPosition().longitude;
+
+        searchLocation = null;
+
+        Toast.makeText(this, "Si desea navegar hacia esta ubicación pulse el botón rojo", Toast.LENGTH_SHORT).show();
         selectedMarker = marker;
         return false;
     }
@@ -451,10 +470,17 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
         builder.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+searchLocation.latitude + "," + searchLocation.longitude);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                if(searchLocation != null) {
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + searchLocation.latitude + "," + searchLocation.longitude);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                }else {
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + selectLatitud + "," + selectLongitud);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                }
                 dialog.dismiss();
             }
         });
