@@ -138,12 +138,10 @@ public class ZonaDetailActivity extends AppCompatActivity {
         imgGoNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Uri gmmIntentUri = Uri.parse("google.navigation:q="+tName.getText());
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+tName.getText());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);*/
-                Intent goMap = new Intent(ZonaDetailActivity.this, MapsActivity.class);
-                startActivity(goMap);
+                startActivity(mapIntent);
             }
         });
 

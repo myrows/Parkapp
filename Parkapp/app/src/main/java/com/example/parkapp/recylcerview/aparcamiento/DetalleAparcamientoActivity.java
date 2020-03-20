@@ -110,9 +110,8 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
 
                     Glide
                             .with(MyApp.getContext())
-                            .load("http://10.0.2.2:3000/parkapp/avatar/"+aparcamiento.getAvatar())
+                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+aparcamiento.getAvatar())
                             .into(imagenDetalle);
-                    SharedPreferencesManager.setSomeStringValue("http://10.0.2.2:3000/parkapp/avatar/"+aparcamiento.getAvatar(),"AVATAR_APARCAMIENTO");
 
 
 

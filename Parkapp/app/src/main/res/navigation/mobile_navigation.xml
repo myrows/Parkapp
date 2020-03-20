@@ -11,9 +11,9 @@
         android:label="Zonas"
         tools:layout="@layout/fragment_zona"/>
 
-    <fragment
+    <activity
         android:id="@+id/navigation_maps"
-        android:name="com.example.parkapp.MapaEnFragment"
+        android:name="com.example.parkapp.MapsActivity"
         android:label="Mapa"/>
 
     <fragment

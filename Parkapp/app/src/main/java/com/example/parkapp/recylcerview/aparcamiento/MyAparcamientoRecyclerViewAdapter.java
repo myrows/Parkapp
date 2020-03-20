@@ -78,7 +78,7 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
 
             Glide
                     .with(ctx)
-                    .load("http://10.0.2.2:3000/parkapp/avatar/"+holder.aparcamiento.getAvatar())
+                    .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+holder.aparcamiento.getAvatar())
                     .into(holder.imagenAparcamiento);
 
 

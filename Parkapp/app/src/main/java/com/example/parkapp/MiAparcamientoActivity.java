@@ -95,7 +95,7 @@ public class MiAparcamientoActivity extends AppCompatActivity {
 
                     Glide
                             .with(MyApp.getContext())
-                            .load("http://10.0.2.2:3000/parkapp/avatar/"+aparcamiento.getAvatar())
+                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+aparcamiento.getAvatar())
                             .into(avatar);
 
                 }
