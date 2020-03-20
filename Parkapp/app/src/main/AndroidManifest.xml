@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".common.MyApp"
@@ -20,7 +22,8 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HorasAparcamientoActivity"></activity>
+        <activity android:name=".MapsActivity"></activity>
+        <activity android:name=".HorasAparcamientoActivity" />
         <activity android:name=".HistorialActivity" />
         <activity android:name=".AparcamientoActivity" />
         <!--
@@ -55,6 +58,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".service.FetchAddressIntentService"
+            android:exported="false" />
     </application>
 
 </manifest>
