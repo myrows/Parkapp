@@ -27,6 +27,7 @@ import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -51,6 +52,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
     AparcamientoViewModel aparcamientoViewModel;
     List<Aparcamiento> listadoAparcamientos = new ArrayList<>();
     public final String CHANNEL_ID = "001";
+    Snackbar snackbar;
 
 
 
@@ -64,10 +66,10 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
 
 
         dimension = findViewById(R.id.DimensionAparcamientoDetalle);
-        nombre = findViewById(R.id.NombreMiAparcamiento);
-        imagenDetalle = findViewById(R.id.imagenMiAparcamiento);
-        zona = findViewById(R.id.zonaMiAparcamiento);
-        ocupar = findViewById(R.id.ButtonOcupar);
+        nombre = findViewById(R.id.NombreMiAparcamientoNavigation);
+        imagenDetalle = findViewById(R.id.imagenMiAparcamientoNavigation);
+        zona = findViewById(R.id.zonaMiAparcamientoNavigation);
+        ocupar = findViewById(R.id.ButtonOcuparNavigation);
         miAparcamiento = findViewById(R.id.buttonMiAparcamiento);
         service = serviceGenerator.createServiceZona(ParkappService.class);
 
@@ -110,7 +112,10 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                         if(listadoAparcamientos.get(i).getUserId().equals(idUsuario)){
                             ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                             ocupar.setClickable(false);
-                            Toast.makeText(MyApp.getContext(),"NO PUEDES OCUPAR MAS DE UN APARCAMIENTO",Toast.LENGTH_SHORT).show();
+                            snackbar = Snackbar.make(ocupar,"NO PUEDES OCUPAR MAS DE UN APARCAMIENTO",Snackbar.LENGTH_SHORT);
+                            View sbView = snackbar.getView();
+                            sbView.setBackgroundColor(Color.parseColor("#9E0018"));
+                            snackbar.show();
                         }
                     }
                 }
@@ -143,7 +148,10 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                     if(!aparcamiento.getUserId().equals("")){
                         ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                         ocupar.setClickable(false);
-                        Toast.makeText(MyApp.getContext(),"EL APARCAMIENTO YA ESTA OCUPADO",Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar2 = Snackbar.make(ocupar,"EL APARCAMIENTO YA ESTA OCUPADO",Snackbar.LENGTH_LONG);
+                        View sbView = snackbar2.getView();
+                        sbView.setBackgroundColor(Color.parseColor("#9E0018"));
+                        snackbar2.show();
 
                     }
                     if(idUsuario.equals(aparcamiento.getUserId())){
@@ -195,7 +203,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
 
                                         showNotification(ocupar);
                                         //CALLBACK APARCAMIENTO
-                                        Toast.makeText(MyApp.getContext(),"EL APARCAMIENTO HA SIDO OCUPADO CORRECTAMENTE",Toast.LENGTH_SHORT).show();
+
                                         ocupar.setClickable(false);
                                         ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                                         miAparcamiento.setBackgroundColor(Color.parseColor("#9E0018"));
@@ -216,7 +224,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                     }
                                 });
 
-
+                                SharedPreferencesManager.setSomeStringValue("IDEAPARCAMIENTO",response.body().getId());
 
 
                             }

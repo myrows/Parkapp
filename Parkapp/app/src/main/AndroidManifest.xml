@@ -22,7 +22,7 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MapsActivity"></activity>
+        <activity android:name=".MapsActivity" />
         <activity android:name=".HorasAparcamientoActivity" />
         <activity android:name=".HistorialActivity" />
         <activity android:name=".AparcamientoActivity" />

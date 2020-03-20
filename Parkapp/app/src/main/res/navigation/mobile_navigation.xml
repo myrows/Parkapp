@@ -16,10 +16,9 @@
         android:name="com.example.parkapp.MapsActivity"
         android:label="Mapa"/>
 
-    <fragment
+    <activity
         android:id="@+id/navigation_aparcamiento"
-        android:name="com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment"
-        android:label="Mi aparcamiento"
-        tools:layout="@layout/fragment_aparcamiento"/>
+        android:name="com.example.parkapp.MiAparcamientoActivity"
+        android:label="Mi aparcamiento"/>
 
 </navigation>
