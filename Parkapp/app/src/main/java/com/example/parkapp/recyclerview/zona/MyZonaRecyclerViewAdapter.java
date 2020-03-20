@@ -51,7 +51,7 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
 
             Glide
                     .with(ctx)
-                    .load("http://10.0.2.2:3000/parkapp/avatar/"+holder.mItem.getAvatar())
+                    .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+holder.mItem.getAvatar())
                     .into(holder.imageZona);
         }
 

@@ -104,7 +104,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
                     Glide
                             .with(MyApp.getContext())
-                            .load("http://10.0.2.2:3000/parkapp/avatar/"+myZona.getAvatar())
+                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+myZona.getAvatar())
                             .into(imageZona);
                 }
             }

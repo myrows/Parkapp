@@ -56,7 +56,7 @@ public class MyResenaRecyclerViewAdapter extends RecyclerView.Adapter<MyResenaRe
 
             Glide
                     .with(ctx)
-                    .load("http://10.0.2.2:3000/parkapp/avatar/"+holder.mItem.getAvatar())
+                    .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+holder.mItem.getAvatar())
                     .apply(new RequestOptions().bitmapTransform(new CropCircleTransformation()))
                     .into(holder.imageResena);
 

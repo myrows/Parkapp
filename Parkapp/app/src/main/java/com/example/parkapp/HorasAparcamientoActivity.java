@@ -68,7 +68,7 @@ public class HorasAparcamientoActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Glide
                             .with(MyApp.getContext())
-                            .load("http://10.0.2.2:3000/parkapp/avatar/"+response.body().getAvatar())
+                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/"+response.body().getAvatar())
                             .into(imageAparcamiento);
                 }else{
                     Toast.makeText(HorasAparcamientoActivity.this, "No se han podido obtener datos", Toast.LENGTH_SHORT).show();

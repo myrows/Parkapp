@@ -9,9 +9,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -29,6 +34,9 @@ import com.example.parkapp.common.MyApp;
 import com.example.parkapp.models.direction.DirectionFinder;
 import com.example.parkapp.models.direction.DirectionFinderListener;
 import com.example.parkapp.models.direction.Route;
+import com.example.parkapp.retrofit.generator.ServiceGenerator;
+import com.example.parkapp.retrofit.model.Zona;
+import com.example.parkapp.retrofit.service.ParkappService;
 import com.example.parkapp.service.FetchAddressIntentService;
 import com.example.parkapp.utils.Connections;
 import com.example.parkapp.utils.Constants;
@@ -43,10 +51,19 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.Task;
@@ -57,7 +74,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kodetr on 09/05/19.
@@ -91,6 +113,30 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
 
     private ProgressDialog progressDialog;
 
+    private ParkappService service;
+    List<Zona> listado;
+
+    //Polygon
+    private static final int COLOR_BLACK_ARGB = 0xff000000;
+    private static final int COLOR_WHITE_ARGB = 0xffffffff;
+    private static final int COLOR_GREEN_ARGB = 0xff388E3C;
+    private static final int COLOR_PURPLE_ARGB = 0xff81C784;
+    private static final int COLOR_ORANGE_ARGB = 0xffF57F17;
+    private static final int COLOR_BLUE_ARGB = 0xffF9A825;
+
+    private static final int POLYGON_STROKE_WIDTH_PX = 8;
+    private static final int PATTERN_DASH_LENGTH_PX = 20;
+    private static final int PATTERN_GAP_LENGTH_PX = 20;
+    private static final PatternItem DOT = new Dot();
+    private static final PatternItem DASH = new Dash(PATTERN_DASH_LENGTH_PX);
+    private static final PatternItem GAP = new Gap(PATTERN_GAP_LENGTH_PX);
+    // Create a stroke pattern of a gap followed by a dash.
+    private static final List<PatternItem> PATTERN_POLYGON_ALPHA = Arrays.asList(GAP, DASH);
+
+    // Create a stroke pattern of a dot followed by a gap, a dash, and another gap.
+    private static final List<PatternItem> PATTERN_POLYGON_BETA =
+            Arrays.asList(DOT, GAP, DASH, GAP);
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +164,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
         };
 
         locationgps = new Location("Point A");
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -128,8 +175,8 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
         FloatingActionButton fa = findViewById(R.id.fblocation);
         fa.setOnClickListener(view -> {
             try {
-                //String origin = locationgps.getLatitude() + "," + locationgps.getLongitude();
-                String origin = 37.341347 + "," + -6.063986;
+                String origin = locationgps.getLatitude() + "," + locationgps.getLongitude();
+                //String origin = 37.341347 + "," + -6.063986;
                 new DirectionFinder(MapsActivity.this, origin, searchLocation.latitude + "," + searchLocation.longitude).execute(getString(R.string.google_maps_key));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -203,9 +250,90 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
         });
     }
 
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void stylePolygon(Polygon polygon) {
+        String type = "";
+        // Get the data object stored with the polygon.
+        if (polygon.getTag() != null) {
+            type = polygon.getTag().toString();
+        }
+
+        List<PatternItem> pattern = null;
+        int strokeColor = COLOR_BLACK_ARGB;
+        int fillColor = COLOR_WHITE_ARGB;
+
+        switch (type) {
+            // If no type is given, allow the API to use the default.
+            case "alpha":
+                // Apply a stroke pattern to render a dashed line, and define colors.
+                pattern = PATTERN_POLYGON_ALPHA;
+                strokeColor = COLOR_GREEN_ARGB;
+                fillColor = COLOR_PURPLE_ARGB;
+                break;
+            case "beta":
+                // Apply a stroke pattern to render a line of dots and dashes, and define colors.
+                pattern = PATTERN_POLYGON_BETA;
+                strokeColor = COLOR_ORANGE_ARGB;
+                fillColor = COLOR_BLUE_ARGB;
+                break;
+        }
+
+        polygon.setStrokePattern(pattern);
+        polygon.setStrokeWidth(POLYGON_STROKE_WIDTH_PX);
+        polygon.setStrokeColor(strokeColor);
+        polygon.setFillColor(fillColor);
+    }
+
     @Override
     public void onMapReady(GoogleMap gMap) {
         map = gMap;
+
+        service = ServiceGenerator.createServiceZona(ParkappService.class);
+        Call<List<Zona>> call = service.getZonas();
+
+        call.enqueue(new Callback<List<Zona>>() {
+            @Override
+            public void onResponse(Call<List<Zona>> call, Response<List<Zona>> response) {
+                if(response.isSuccessful()){
+                    listado = response.body();
+
+                    for(int i = 0; i<listado.size(); i++){
+                        //SI NO ESTA VACIO
+                        if(listado.get(i).getLatitud() != null && listado.get(i).getLongitud() != null) {
+                            Marker m = map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(listado.get(i).getLatitud(),listado.get(i).getLongitud()))
+                                    .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_pinterest3))
+                                    .title(listado.get(i).getNombre()));
+                            // Instantiates a new CircleOptions object and defines the center and radius
+                            CircleOptions circleOptions = new CircleOptions()
+                                    .fillColor(Color.TRANSPARENT)
+                                    .strokeColor(0x220000FF)
+                                    .fillColor(0x220000FF)
+                                    .strokeWidth(5)
+                                    .center(new LatLng(listado.get(i).getLatitud(), listado.get(i).getLongitud()))
+                                    .radius(750); // In meters
+
+                            // Get back the mutable Circle
+                            map.addCircle(circleOptions);
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.3828300, -5.9731700),14.0f));
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Zona>> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+            }
+
+        });
 
         map.setOnMapClickListener(this);
         map.setOnMarkerClickListener(this);
@@ -224,6 +352,8 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
 
         getDeviceLocation(false);
     }
+
+
 
     @Override
     public void onDirectionFinderStart() {
@@ -299,6 +429,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
     @Override
     public void onMapClick(final LatLng point) {
         selectedMarker = null;
+
     }
 
     @Override
@@ -308,7 +439,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
             return true;
         }
 
-        Toast.makeText(this, marker.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Marker seleccionado : "+ marker.getPosition().latitude+","+ marker.getPosition().longitude, Toast.LENGTH_SHORT).show();
         selectedMarker = marker;
         return false;
     }
