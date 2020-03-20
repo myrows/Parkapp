@@ -30,6 +30,8 @@ import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,6 +49,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
     ServiceGenerator serviceGenerator;
     ParkappService service;
     AparcamientoViewModel aparcamientoViewModel;
+    List<Aparcamiento> listadoAparcamientos = new ArrayList<>();
     public final String CHANNEL_ID = "001";
 
 
@@ -94,6 +97,28 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ZonaDetail> call, Throwable t) {
                 Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Call<List<Aparcamiento>> callTodosAparcamientos = service.getAparcamientos();
+        callTodosAparcamientos.enqueue(new Callback<List<Aparcamiento>>() {
+            @Override
+            public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
+                if(response.isSuccessful()){
+                    listadoAparcamientos = response.body();
+                    for(int i = 0; i<listadoAparcamientos.size(); i++){
+                        if(listadoAparcamientos.get(i).getUserId().equals(idUsuario)){
+                            ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
+                            ocupar.setClickable(false);
+                            Toast.makeText(MyApp.getContext(),"NO PUEDES OCUPAR MAS DE UN APARCAMIENTO",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
+
             }
         });
 
