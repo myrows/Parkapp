@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Parkapp</string>
     <string name="title_activity_mapa_en_fragment">Map</string>
+    <string name="no_geocoder_available">Geocoder no disponible</string>
+    <string name="no_location_detected">Localizacion no detectada</string>
+    <string name="permission_rationale">Se necesita activar este permiso</string>
 </resources>
