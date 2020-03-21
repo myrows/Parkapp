@@ -3,6 +3,7 @@ package com.example.parkapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -18,7 +19,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
-import com.example.parkapp.data.resena.CustomMiAparcamientoDialogfragment;
+import com.example.parkapp.common.SharedPreferencesManager;
+import com.example.parkapp.data.resena.AnotacionDialogfragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
@@ -26,6 +28,7 @@ import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -161,6 +164,10 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                            Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                        }
                    });
+
+                   AparcamientoDialogfragment aparcamientoDialogfragment = new AparcamientoDialogfragment();
+                   aparcamientoDialogfragment.show(getSupportFragmentManager(), null);
+                   aparcamientoDialogfragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
                }
            });
            listadoHorario.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +214,41 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
     @Override
     public void submittedinformation(int puntuacion) {
+        //Callback para obtener mi aparcamiento
+        Call<List<Aparcamiento>> call = service.getAparcamientoOfUser(SharedPreferencesManager.getSomeStringValue("userId"));
+        call.enqueue(new Callback<List<Aparcamiento>>() {
+            @Override
+            public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
+                if(response.isSuccessful()){
+                    Aparcamiento myAparcamiento = response.body().get(0);
+                    Aparcamiento aparcamientoUpdated = new Aparcamiento(myAparcamiento.getPuntuacion() + puntuacion, myAparcamiento.getDimension(), myAparcamiento.getLongitud(), myAparcamiento.getLatitud(), myAparcamiento.getNombre(), myAparcamiento.getUserId());
 
-        Call<Aparcamiento> call = service.getApa
+                    //Callback para actualizar la puntuación
+                    Call<ResponseBody> updateAparcamiento = service.updateAparcamiento(response.body().get(0).getId(), aparcamientoUpdated);
+                    updateAparcamiento.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MiAparcamientoActivity.this, "Has valorado este aparcamiento correctamente, muchas gracias", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(MiAparcamientoActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(MiAparcamientoActivity.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
+
+            }
+        });
     }
 }

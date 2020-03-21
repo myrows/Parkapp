@@ -1,4 +1,4 @@
-package com.example.parkapp.data.resena;
+package com.example.parkapp;
 
 public interface CustomMiAparcamientoDialogfragment {
 

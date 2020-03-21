@@ -4,12 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Aparcamiento {
+    @SerializedName("puntuacion")
+    @Expose
+    private Integer puntuacion;
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("nombre")
-    @Expose
-    private String nombre;
     @SerializedName("dimension")
     @Expose
     private String dimension;
@@ -22,12 +22,18 @@ public class Aparcamiento {
     @SerializedName("avatar")
     @Expose
     private String avatar;
+    @SerializedName("nombre")
+    @Expose
+    private String nombre;
     @SerializedName("userId")
     @Expose
     private String userId;
     @SerializedName("zonaId")
     @Expose
     private String zonaId;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
 
 
     public Aparcamiento(String id, String nombre, String dimension, Double longitud, Double latitud, String avatar, String userId, String zonaId) {
@@ -49,20 +55,40 @@ public class Aparcamiento {
         this.userId = userId;
     }
 
+    public Aparcamiento(Integer puntuacion, String dimension, Double longitud, Double latitud, String avatar, String nombre, String userId, String zonaId) {
+        this.puntuacion = puntuacion;
+        this.dimension = dimension;
+        this.longitud = longitud;
+        this.latitud = latitud;
+        this.avatar = avatar;
+        this.nombre = nombre;
+        this.userId = userId;
+        this.zonaId = zonaId;
+    }
+
+    public Aparcamiento(Integer puntuacion, String dimension, Double longitud, Double latitud, String nombre, String userId) {
+        this.puntuacion = puntuacion;
+        this.dimension = dimension;
+        this.longitud = longitud;
+        this.latitud = latitud;
+        this.nombre = nombre;
+        this.userId = userId;
+    }
+
+    public Integer getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(Integer puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getDimension() {
@@ -97,6 +123,14 @@ public class Aparcamiento {
         this.avatar = avatar;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -111,5 +145,13 @@ public class Aparcamiento {
 
     public void setZonaId(String zonaId) {
         this.zonaId = zonaId;
+    }
+
+    public Integer getV() {
+        return v;
+    }
+
+    public void setV(Integer v) {
+        this.v = v;
     }
 }
