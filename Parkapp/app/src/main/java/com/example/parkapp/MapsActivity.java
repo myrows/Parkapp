@@ -35,6 +35,7 @@ import com.example.parkapp.models.direction.DirectionFinder;
 import com.example.parkapp.models.direction.DirectionFinderListener;
 import com.example.parkapp.models.direction.Route;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
+import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Zona;
 import com.example.parkapp.retrofit.service.ParkappService;
 import com.example.parkapp.service.FetchAddressIntentService;
@@ -120,6 +121,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
 
     private ParkappService service;
     List<Zona> listado;
+    List<Aparcamiento> aparcamientos;
 
     //Polygon
     private static final int COLOR_BLACK_ARGB = 0xff000000;
@@ -324,7 +326,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
                         if(listado.get(i).getLatitud() != null && listado.get(i).getLongitud() != null) {
                             Marker m = map.addMarker(new MarkerOptions()
                                     .position(new LatLng(listado.get(i).getLatitud(),listado.get(i).getLongitud()))
-                                    .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_pinterest3))
+                                    .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_parking_lot))
                                     .title(listado.get(i).getNombre()));
                             // Instantiates a new CircleOptions object and defines the center and radius
                             CircleOptions circleOptions = new CircleOptions()
@@ -347,6 +349,29 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
                 Toast.makeText(MyApp.getContext(), "Error al realizar la petición", Toast.LENGTH_SHORT).show();
             }
 
+        });
+        Call<List<Aparcamiento>> callaAparcamiento = service.getAparcamientos();
+        callaAparcamiento.enqueue(new Callback<List<Aparcamiento>>() {
+            @Override
+            public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
+                if(response.isSuccessful()){
+                    aparcamientos = response.body();
+
+                    for(int i = 0; i<aparcamientos.size(); i++){
+                        //SI NO ESTA VACIO
+                        if(aparcamientos.get(i).getLatitud() != null && aparcamientos.get(i).getLongitud() != null) {
+                            Marker m = map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(aparcamientos.get(i).getLatitud(),aparcamientos.get(i).getLongitud()))
+                                    .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_pinterest2))
+                                    .title(aparcamientos.get(i).getNombre()));
+                        }
+                    }
+            } }
+
+            @Override
+            public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
+
+            }
         });
 
         map.setOnMapClickListener(this);
