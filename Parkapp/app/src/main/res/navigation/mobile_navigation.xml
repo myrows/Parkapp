@@ -18,7 +18,7 @@
 
     <activity
         android:id="@+id/navigation_aparcamiento"
-        android:name="com.example.parkapp.MiAparcamientoActivity"
-        android:label="Mi aparcamiento"/>
+        android:name="com.example.parkapp.MiAparcamientoNavigationActivity"
+        android:label="Último Aparcamiento" />
 
 </navigation>

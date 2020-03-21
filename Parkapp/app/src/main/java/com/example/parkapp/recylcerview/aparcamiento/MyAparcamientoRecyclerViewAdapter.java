@@ -91,7 +91,7 @@ public class MyAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyAp
                         Intent i = new Intent(ctx, DetalleAparcamientoActivity.class);
                         SharedPreferencesManager.setSomeStringValue("aparcamiento_id",holder.aparcamiento.getId());
                         i.putExtra("APARCAMIENTO_ID", holder.aparcamiento.getId());
-                        i.putExtra("ZONA_ID", holder.aparcamiento.getZonaId());
+                        SharedPreferencesManager.setSomeStringValue("ZONAID", holder.aparcamiento.getZonaId());
                         ctx.startActivity(i);
                         mListener.onListFragmentInteraction(holder.aparcamiento);
                         //TODO el id del usuario es null puede ocuparlo, si es distinto a null, desactivar la opcion del boton

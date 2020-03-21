@@ -7,9 +7,6 @@ public class Aparcamiento {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("nombre")
-    @Expose
-    private String nombre;
     @SerializedName("dimension")
     @Expose
     private String dimension;
@@ -22,12 +19,18 @@ public class Aparcamiento {
     @SerializedName("avatar")
     @Expose
     private String avatar;
+    @SerializedName("nombre")
+    @Expose
+    private String nombre;
     @SerializedName("userId")
     @Expose
     private String userId;
     @SerializedName("zonaId")
     @Expose
     private String zonaId;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
 
 
     public Aparcamiento(String id, String nombre, String dimension, Double longitud, Double latitud, String avatar, String userId, String zonaId) {
@@ -79,6 +82,14 @@ public class Aparcamiento {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public Integer getV() {
+        return v;
+    }
+
+    public void setV(Integer v) {
+        this.v = v;
     }
 
     public Double getLatitud() {

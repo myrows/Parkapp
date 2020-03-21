@@ -66,20 +66,21 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
 
 
         dimension = findViewById(R.id.DimensionAparcamientoDetalle);
-        nombre = findViewById(R.id.NombreMiAparcamientoNavigation);
-        imagenDetalle = findViewById(R.id.imagenMiAparcamientoNavigation);
-        zona = findViewById(R.id.zonaMiAparcamientoNavigation);
-        ocupar = findViewById(R.id.ButtonOcuparNavigation);
+        nombre = findViewById(R.id.NombreMiAparcamiento);
+        imagenDetalle = findViewById(R.id.imagenMiAparcamiento);
+        zona = findViewById(R.id.zonaMiAparcamiento);
+        ocupar = findViewById(R.id.ButtonOcupar);
         miAparcamiento = findViewById(R.id.buttonMiAparcamiento);
         service = serviceGenerator.createServiceZona(ParkappService.class);
 
         Bundle extras = getIntent().getExtras();
         final String aparcamientoId = extras.getString("APARCAMIENTO_ID");
-        String idZona = extras.getString("ZONA_ID");
+        String idZona = SharedPreferencesManager.getSomeStringValue("ZONAID");
         final String idUsuario = SharedPreferencesManager.getSomeStringValue("userId");
         final Intent i = new Intent(DetalleAparcamientoActivity.this, MiAparcamientoActivity.class);
         i.putExtra("MIAPARCAMIENTOID", aparcamientoId);
         i.putExtra("IDZONA",idZona);
+
 
 
         Call<ZonaDetail> callZona = service.getZonaById(idZona);
@@ -160,12 +161,12 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                         miAparcamiento.setBackgroundColor(Color.parseColor("#c2c2c2"));
                         miAparcamiento.setClickable(false);
                     }
-                    if(idUsuario.equals(aparcamiento.getUserId())){
+                   /* if(idUsuario.equals(aparcamiento.getUserId())){
                         miAparcamiento.setClickable(true);
                     }else if(!idUsuario.equals(aparcamiento.getUserId())){
                         miAparcamiento.setBackgroundColor(Color.parseColor("#c2c2c2"));
                         miAparcamiento.setClickable(false);
-                    }
+                    }*/
 
                         ocupar.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -178,7 +179,7 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                     @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                                        SharedPreferencesManager.setSomeStringValue("APARCAMIENTOID",aparcamientoId);
                                         final Historial historialNuevo = new Historial(LocalDateTime.now().toString(),"",LocalDate.now().toString(),aparcamientoId);
                                         //CALLBACK NUEVO HISTORIAL
                                         final Call<Historial> nuevoHistorial = service.nuevoHistorial(historialNuevo);
@@ -187,9 +188,9 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                                             public void onResponse(Call<Historial> call, Response<Historial> response) {
                                                 if(response.isSuccessful()){
                                                 Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
-                                                i.putExtra("historial_id", response.body().getId());
-                                                i.putExtra("fecha_entrada", response.body().getDia());
-                                                i.putExtra("horario_entrada",response.body().getFechaEntrada());
+                                                SharedPreferencesManager.setSomeStringValue("historial_id", response.body().getId());
+                                                SharedPreferencesManager.setSomeStringValue("fecha_entrada", response.body().getDia());
+                                                SharedPreferencesManager.setSomeStringValue("horario_entrada",response.body().getFechaEntrada());
                                                 }
                                             }
 

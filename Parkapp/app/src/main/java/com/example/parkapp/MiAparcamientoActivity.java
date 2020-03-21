@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
@@ -51,17 +52,18 @@ public class MiAparcamientoActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         final String idAparcamiento = extras.getString("MIAPARCAMIENTOID");
-        nombre = findViewById(R.id.NombreMiAparcamientoNavigation);
-       zona = findViewById(R.id.zonaMiAparcamientoNavigation);
-       avatar = findViewById(R.id.imagenMiAparcamientoNavigation);
-       desocupar = findViewById(R.id.ButtonOcuparNavigation);
-       listadoHorario = findViewById(R.id.buttonHistorialesNavigation);
+        nombre = findViewById(R.id.NombreMiAparcamiento);
+       zona = findViewById(R.id.zonaMiAparcamiento);
+       avatar = findViewById(R.id.imagenMiAparcamiento);
+       desocupar = findViewById(R.id.ButtonOcupar);
+       listadoHorario = findViewById(R.id.buttonHistoriales);
 
 
-           final String idZona = extras.getString("IDZONA");
-           final String idHistorial = extras.getString("historial_id");
-           final String fechaEntrada = extras.getString("fecha_entrada");
-           final String horarioEntrada = extras.getString("horario_entrada");
+        final String idZona = extras.getString("IDZONA");
+        final String idHistorial = SharedPreferencesManager.getSomeStringValue("historial_id");
+        final String fechaEntrada = SharedPreferencesManager.getSomeStringValue("fecha_entrada");
+        final String horarioEntrada = SharedPreferencesManager.getSomeStringValue("horario_entrada");
+
            service = serviceGenerator.createServiceZona(ParkappService.class);
 
 

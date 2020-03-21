@@ -39,11 +39,15 @@ public interface ParkappService {
     Call<List<Zona>> getZonas();
 
 
+
     @GET("/parkapp/aparcamiento")
     Call<List<Aparcamiento>> getAparcamientos();
 
     @GET("/parkapp/aparcamiento/{id}")
     Call<Aparcamiento> getAparcamiento(@Path("id") String id);
+
+    @GET("/parkapp/aparcamiento/user/{id}")
+    Call<Aparcamiento> getAparcamientoOfUsuario(@Path("id") String id);
 
     @GET("/parkapp/historial/aparcamiento/{id}")
     Call<List<Historial>> getHistorialOfAparcamiento(@Path("id") String id);

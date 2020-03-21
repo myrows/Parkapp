@@ -7,7 +7,7 @@
     tools:context=".MiAparcamientoActivity">
 
     <ImageView
-        android:id="@+id/imagenMiAparcamientoNavigation"
+        android:id="@+id/imagenMiAparcamiento"
         android:layout_width="0dp"
         android:layout_height="204dp"
         android:layout_marginTop="28dp"
@@ -25,11 +25,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamientoNavigation"
+        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamiento"
         app:layout_constraintVertical_bias="0.131">
 
         <TextView
-            android:id="@+id/NombreMiAparcamientoNavigation"
+            android:id="@+id/NombreMiAparcamiento"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -37,7 +37,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/zonaMiAparcamientoNavigation"
+        android:id="@+id/zonaMiAparcamiento"
         android:layout_width="92dp"
         android:layout_height="30dp"
         android:gravity="center"
@@ -46,10 +46,10 @@
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamientoNavigation" />
+        app:layout_constraintTop_toBottomOf="@+id/imagenMiAparcamiento" />
 
     <Button
-        android:id="@+id/ButtonOcuparNavigation"
+        android:id="@+id/ButtonOcupar"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="60dp"
@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHistorialesNavigation" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonHistoriales" />
 
     <Button
-        android:id="@+id/buttonHistorialesNavigation"
+        android:id="@+id/buttonHistoriales"
         android:layout_width="83dp"
         android:layout_height="70dp"
         android:layout_marginTop="80dp"
