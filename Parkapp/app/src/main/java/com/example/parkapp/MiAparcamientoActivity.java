@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.data.resena.CustomMiAparcamientoDialogfragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MiAparcamientoActivity extends AppCompatActivity {
+public class MiAparcamientoActivity extends AppCompatActivity implements CustomMiAparcamientoDialogfragment {
 
     Button desocupar,listadoHorario;
     TextView nombre,zona;
@@ -172,5 +173,11 @@ public class MiAparcamientoActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    @Override
+    public void submittedinformation(int puntuacion) {
+
+        Call<Aparcamiento> call = service.getApa
     }
 }

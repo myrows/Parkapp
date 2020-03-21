@@ -13,6 +13,7 @@ let controller = {
                 dimension: req.body.dimension,
                 longitud: req.body.longitud,
                 latitud: req.body.latitud,
+                puntuacion : req.body.puntuacion,
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
                 userId: req.body.userId,
@@ -85,6 +86,7 @@ let controller = {
                         dimension: req.body.dimension,
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
+                        puntuacion: req.body.puntuacion,
                         nombre:req.body.nombre,
                         userId:req.body.userId
                     })
