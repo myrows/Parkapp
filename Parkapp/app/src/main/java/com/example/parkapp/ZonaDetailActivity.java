@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,10 @@ import com.example.parkapp.retrofit.model.Horario;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 import com.google.android.gms.common.util.ArrayUtils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -66,6 +71,8 @@ public class ZonaDetailActivity extends AppCompatActivity {
     //int [] listHorarioDisponible;
     int numRep;
     int horasAMostrar;
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -100,7 +107,9 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
                     tName.setText(myZona.getNombre());
                     tUbicacion.setText(myZona.getUbicacion());
-                    tDistancia.setText(myZona.getDistancia()+" km");
+                    float results[] = new float[10];
+                    Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), myZona.getLatitud(), myZona.getLongitud(), results);
+                    tDistancia.setText(((int)results[0])/1000+" km");
 
                     Glide
                             .with(MyApp.getContext())
@@ -147,6 +156,19 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
         addHourOfAparcamientoOcupado();
         addHourOfAparcamientoDisponible();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
+    }
+
+    private void fetchLastLocation() {
+        Task<Location> result = fusedLocationProviderClient.getLastLocation();
+        result.addOnCompleteListener(this, task -> {
+            if(task.isSuccessful() && task.getResult() != null){
+                currentLocation = task.getResult();
+            }else{
+                Toast.makeText(this, "Localización no detectada", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void addHourOfAparcamientoOcupado(){
