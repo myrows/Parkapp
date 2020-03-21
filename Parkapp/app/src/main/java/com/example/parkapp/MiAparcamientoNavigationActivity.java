@@ -28,6 +28,7 @@ import com.example.parkapp.retrofit.service.ParkappService;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,7 +42,7 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
     ImageView avatar;
     ParkappService service;
     ServiceGenerator serviceGenerator;
-    Aparcamiento aparcamiento;
+    List<Aparcamiento> aparcamiento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
         final String horarioEntrada = SharedPreferencesManager.getSomeStringValue("horario_entrada");
         final String zonaId = SharedPreferencesManager.getSomeStringValue("ZONAID");
         final String aparcamientoId = SharedPreferencesManager.getSomeStringValue("APARCAMIENTOID");
-        //final  String userId = SharedPreferencesManager.getSomeStringValue("userId");
+        final  String userId = SharedPreferencesManager.getSomeStringValue("userId");
 
         service = serviceGenerator.createServiceZona(ParkappService.class);
 
@@ -87,41 +88,49 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
 
 
         //CALLBACK APARCAMIENTO
-        Call<Aparcamiento> callAparcamiento = service.getAparcamiento(aparcamientoId);
+        Call<List<Aparcamiento>> callAparcamiento = service.getAparcamientoOfUsuario(userId);
 
-        callAparcamiento.enqueue(new Callback<Aparcamiento>() {
+        callAparcamiento.enqueue(new Callback<List<Aparcamiento>>() {
             @Override
-            public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
+            public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
                 if (response.isSuccessful()) {
                     aparcamiento = response.body();
-                    nombre.setText(aparcamiento.getNombre());
-
+                    if(aparcamiento.isEmpty()){
+                        desocupar.setClickable(false);
+                        desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
+                        nombre.setText("Sin información");
+                        listadoHorario.setBackgroundResource(R.drawable.ic_sad);
+                        listadoHorario.setClickable(false);
+                        Glide.with(MyApp.getContext())
+                                .load(R.drawable.ic_traffic)
+                                .into(avatar);
+                        Snackbar snackbar3 = Snackbar.make(desocupar, "NO TIENE NINGUN APARCAMIENTO OCUPADO", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar3.getView();
+                        zona.setVisibility(View.GONE);
+                        sbView.setBackgroundColor(Color.parseColor("#9E0018"));
+                        snackbar3.show();
+                    }else{
+                        listadoHorario.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(MiAparcamientoNavigationActivity.this, HorasAparcamientoActivity.class);
+                                i.putExtra("aparcamientoId", aparcamiento.get(0).getId());
+                                startActivity(i);
+                            }
+                        });
+                    nombre.setText(aparcamiento.get(0).getNombre());
                     Glide
                             .with(MyApp.getContext())
-                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + response.body().getAvatar())
+                            .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + response.body().get(0).getAvatar())
                             .into(avatar);
+                    }
 
                 }
-                if(aparcamiento.getUserId().equals("") ||aparcamiento.getUserId() == null){
-                    desocupar.setClickable(false);
-                    desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
-                    nombre.setText("Sin información");
-                    listadoHorario.setBackgroundResource(R.drawable.ic_sad);
-                    listadoHorario.setClickable(false);
-                    Glide.with(MyApp.getContext())
-                            .load(R.drawable.ic_traffic)
-                            .into(avatar);
-                    Snackbar snackbar3 = Snackbar.make(desocupar,"NO TIENE NINGUN APARCAMIENTO OCUPADO",Snackbar.LENGTH_LONG);
-                    View sbView = snackbar3.getView();
-                    zona.setVisibility(View.GONE);
-                    sbView.setBackgroundColor(Color.parseColor("#9E0018"));
-                    snackbar3.show();
 
-                }
             }
 
             @Override
-            public void onFailure(Call<Aparcamiento> call, Throwable t) {
+            public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
                 Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +138,9 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
         desocupar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Aparcamiento aparcamientoUpdate = new Aparcamiento(aparcamiento.getNombre(), aparcamiento.getDimension(),
-                        aparcamiento.getLongitud(), aparcamiento.getLatitud(), "");
-                Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamiento.getId(), aparcamientoUpdate);
+                final Aparcamiento aparcamientoUpdate = new Aparcamiento(aparcamiento.get(0).getNombre(), aparcamiento.get(0).getDimension(),
+                        aparcamiento.get(0).getLongitud(), aparcamiento.get(0).getLatitud(), "");
+                Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamiento.get(0).getId(), aparcamientoUpdate);
                 callUpdate.enqueue(new Callback<ResponseBody>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -140,7 +149,7 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
 
                             //CALLBACK PARA UPDATEAR EL HISTORIAL
                             final Historial historialUpdate = new Historial(horarioEntrada, LocalDateTime.now().toString(),
-                                    fechaEntrada, aparcamiento.getId());
+                                    fechaEntrada, aparcamiento.get(0).getId());
                             Call<ResponseBody> updateCall = service.updateHistorial(idHistorial, historialUpdate);
 
                             updateCall.enqueue(new Callback<ResponseBody>() {
@@ -174,6 +183,7 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
                         Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
