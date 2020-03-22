@@ -36,6 +36,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,6 +73,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
     Comparator<Map.Entry<Integer, Integer>> comparatorDisponible;
     List<Integer> listHorarioOcupado = new ArrayList<>();
     List<Integer> listHorarioDisponible = new ArrayList<>();
+    private static DecimalFormat df = new DecimalFormat("0.00");
     //int [] listHorarioDisponible;
     int numRep;
     int horasAMostrar;
@@ -117,7 +119,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
                     tUbicacion.setText(myZona.getUbicacion());
                     float results[] = new float[10];
                     Location.distanceBetween(latitude, longitude, myZona.getLatitud(), myZona.getLongitud(), results);
-                    tDistancia.setText(((int)results[0])/1000+" km");
+                    tDistancia.setText((df.format((double)results[0]/1000))+" km");
 
                     Glide
                             .with(MyApp.getContext())

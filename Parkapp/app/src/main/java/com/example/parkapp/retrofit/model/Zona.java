@@ -3,7 +3,7 @@ package com.example.parkapp.retrofit.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Zona {
+public class Zona implements Comparable<Zona> {
 
     @SerializedName("_id")
     @Expose
@@ -92,5 +92,10 @@ public class Zona {
 
     public void setV(Integer v) {
         this.v = v;
+    }
+
+    @Override
+    public int compareTo(Zona o) {
+        return this.getDistancia().compareTo(o.getDistancia());
     }
 }

@@ -35,6 +35,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
@@ -51,6 +54,7 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
     //double longitude;
     LocationManager locationManager;
     double latitude, longitude;
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
     public MyZonaRecyclerViewAdapter(List<Zona> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -63,14 +67,9 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
                 .inflate(R.layout.fragment_zona, parent, false);
 
         ctx = parent.getContext();
-        //Add permission
-        //ActivityCompat.requestPermissions(, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
         getLocation();
-        //getCurrentLocation();
-        //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ctx);
-        //fetchLastLocation();
 
         return new ViewHolder(view);
     }
@@ -109,9 +108,12 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
             holder.tName.setText(holder.mItem.getNombre());
             holder.tUbicacion.setText(holder.mItem.getUbicacion());
 
+            Collections.sort(mValues, new ComparatorDistance());
+
             float results[] = new float[10];
             Location.distanceBetween(latitude, longitude, holder.mItem.getLatitud(), holder.mItem.getLongitud(), results);
-            holder.tDistancia.setText((int) results[0]/1000+" km");
+            holder.tDistancia.setText(df.format((double)results[0]/1000)+" km");
+            holder.mItem.setDistancia((double)results[0]/1000);
 
             Glide
                     .with(ctx)
@@ -131,6 +133,14 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
                 }
             }
         });
+    }
+
+    public class ComparatorDistance implements Comparator<Zona> {
+
+        @Override
+        public int compare(Zona o1, Zona o2) {
+            return o1.getDistancia().compareTo(o2.getDistancia());
+        }
     }
 
 
