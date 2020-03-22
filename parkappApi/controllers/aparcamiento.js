@@ -124,7 +124,9 @@ let controller = {
                 puntuacion: req.body.puntuacion,
                 nombre:req.body.nombre,
                 userId:req.body.userId,
-                avatar:req.file.filename
+                avatar:req.file.filename,
+                zonaId: req.body.zonaId,
+                historial: req.body.historial.id
             })
             .exec(function(err, aparcamiento) {
                 if (err) res.send(500, err.message);
