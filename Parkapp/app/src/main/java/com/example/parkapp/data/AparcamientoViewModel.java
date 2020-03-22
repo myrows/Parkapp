@@ -40,4 +40,7 @@ public class AparcamientoViewModel extends AndroidViewModel {
         return aparcamiento;
     }
 
+    public LiveData<List<Aparcamiento>> getAparcamientosPopulares() {
+        return aparcamientoRepository.getAparcamientosPopulares();
+    }
 }

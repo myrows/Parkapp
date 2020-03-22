@@ -1,9 +1,10 @@
-package com.example.parkapp.recylcerview.aparcamiento;
+package com.example.parkapp.aparcamientosPopulares;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,27 +25,29 @@ import android.view.ViewGroup;
 
 import com.example.parkapp.PopularAparcamientoActivity;
 import com.example.parkapp.R;
+
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.data.AparcamientoViewModel;
+import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
+import com.example.parkapp.recylcerview.aparcamiento.MyAparcamientoRecyclerViewAdapter;
 import com.example.parkapp.retrofit.model.Aparcamiento;
-import com.example.parkapp.retrofit.model.Zona;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AparcamientoFragment extends Fragment {
-
+public class AparcamientosPopularesFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private AparcamientosPopularesFragment.OnListFragmentInteractionListener mListener;
     AparcamientoViewModel aparcamientoViewModel;
     Context context;
     RecyclerView recyclerView;
-    MyAparcamientoRecyclerViewAdapter adapter;
-    List<Aparcamiento> listadoAparcamientos = new ArrayList<>();
+    MyAparcamientosPopularesRecyclerViewAdapter adapter;
+    List<Aparcamiento> listadoAparcamientosPopulares = new ArrayList<>();
 
-    public AparcamientoFragment() {
+    public AparcamientosPopularesFragment() {
     }
 
 
@@ -89,7 +93,7 @@ public class AparcamientoFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
             }
-            adapter = new MyAparcamientoRecyclerViewAdapter(listadoAparcamientos, mListener);
+            adapter = new MyAparcamientosPopularesRecyclerViewAdapter(listadoAparcamientosPopulares, mListener);
             recyclerView.setAdapter(adapter);
 
             loadAparcamientos();
@@ -98,46 +102,24 @@ public class AparcamientoFragment extends Fragment {
     }
 
     public void loadAparcamientos() {
-        aparcamientoViewModel.getAparcamientos().observe(getActivity(), new Observer<List<Aparcamiento>>() {
+        aparcamientoViewModel.getAparcamientosPopulares().observe(getActivity(), new Observer<List<Aparcamiento>>() {
             @Override
             public void onChanged(List<Aparcamiento> results) {
-                listadoAparcamientos = results;
-                adapter.setData(listadoAparcamientos);
+                listadoAparcamientosPopulares = results;
+                adapter.setData(listadoAparcamientosPopulares);
             }
         });
     }
 
-    private void showAlertDialog(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
-        builder.setMessage("¿Desea ver los aparcamientos mas populares?");
 
-        builder.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent i = new Intent(MyApp.getContext(), PopularAparcamientoActivity.class);
-                startActivity(i);
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
-
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof AparcamientosPopularesFragment.OnListFragmentInteractionListener) {
+            mListener = (AparcamientosPopularesFragment.OnListFragmentInteractionListener) context;
         } else {
+
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
@@ -148,30 +130,8 @@ public class AparcamientoFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-        setHasOptionsMenu(true);
-    }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.aparcamiento_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.PopularAparcamiento:
-                showAlertDialog();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public interface OnListFragmentInteractionListener {
