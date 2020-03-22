@@ -9,8 +9,7 @@
     <ImageView
         android:id="@+id/imagenMiAparcamiento"
         android:layout_width="0dp"
-        android:layout_height="204dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="202dp"
         android:background="#FFFFFF"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +55,9 @@
 
     <TextView
         android:id="@+id/zonaMiAparcamiento"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
+        android:layout_width="102dp"
+        android:layout_height="44dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/colorPrimary"

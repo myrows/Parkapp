@@ -23,7 +23,6 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MiAparcamientoNavigationActivity"></activity>
         <activity android:name=".MiPerfilActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".HorasAparcamientoActivity" />

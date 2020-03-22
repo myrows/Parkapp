@@ -59,7 +59,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
         setContentView(R.layout.activity_mi_aparcamiento);
 
         Bundle extras = getIntent().getExtras();
-        final String idAparcamiento = extras.getString("MIAPARCAMIENTOID");
+        final String idAparcamiento = SharedPreferencesManager.getSomeStringValue("APARCAMIENTOID");
         nombre = findViewById(R.id.NombreMiAparcamiento);
        zona = findViewById(R.id.zonaMiAparcamiento);
        avatar = findViewById(R.id.imagenMiAparcamiento);
@@ -67,7 +67,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
        listadoHorario = findViewById(R.id.buttonHistoriales);
 
 
-        final String idZona = extras.getString("IDZONA");
+        final String idZona = SharedPreferencesManager.getSomeStringValue("ZONAID");
         final String idHistorial = SharedPreferencesManager.getSomeStringValue("historial_id");
         final String fechaEntrada = SharedPreferencesManager.getSomeStringValue("fecha_entrada");
         final String horarioEntrada = SharedPreferencesManager.getSomeStringValue("horario_entrada");

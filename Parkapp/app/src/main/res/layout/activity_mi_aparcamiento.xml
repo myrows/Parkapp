@@ -38,8 +38,8 @@
 
     <TextView
         android:id="@+id/zonaMiAparcamiento"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
+        android:layout_width="117dp"
+        android:layout_height="47dp"
         android:gravity="center"
         android:text="TextView"
         android:textColor="@color/colorPrimary"
