@@ -138,29 +138,49 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
         desocupar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Aparcamiento aparcamientoUpdate = new Aparcamiento(aparcamiento.get(0).getNombre(), aparcamiento.get(0).getDimension(),
-                        aparcamiento.get(0).getLongitud(), aparcamiento.get(0).getLatitud(), "");
-                Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamiento.get(0).getId(), aparcamientoUpdate);
-                callUpdate.enqueue(new Callback<ResponseBody>() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
+                Call<Aparcamiento> call = service.getAparcamiento(aparcamiento.get(0).getId());
+                call.enqueue(new Callback<Aparcamiento>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-
-                            //CALLBACK PARA UPDATEAR EL HISTORIAL
-                            final Historial historialUpdate = new Historial(horarioEntrada, LocalDateTime.now().toString(),
-                                    fechaEntrada, aparcamiento.get(0).getId());
-                            Call<ResponseBody> updateCall = service.updateHistorial(idHistorial, historialUpdate);
-
-                            updateCall.enqueue(new Callback<ResponseBody>() {
+                    public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
+                        if(response.isSuccessful()){
+                            final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().getPuntuacion(), aparcamiento.get(0).getNombre(), aparcamiento.get(0).getDimension(),
+                                    aparcamiento.get(0).getLongitud(), aparcamiento.get(0).getLatitud(), "");
+                            Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamiento.get(0).getId(), aparcamientoUpdate);
+                            callUpdate.enqueue(new Callback<ResponseBody>() {
+                                @RequiresApi(api = Build.VERSION_CODES.O)
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     if (response.isSuccessful()) {
 
-                                        Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
+                                        //CALLBACK PARA UPDATEAR EL HISTORIAL
+                                        final Historial historialUpdate = new Historial(horarioEntrada, LocalDateTime.now().toString(),
+                                                fechaEntrada, aparcamiento.get(0).getId());
+                                        Call<ResponseBody> updateCall = service.updateHistorial(idHistorial, historialUpdate);
+
+                                        updateCall.enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                if (response.isSuccessful()) {
+
+                                                    Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                        //Siguiendo callback desocupar
+                                        Intent i = new Intent(MiAparcamientoNavigationActivity.this, MainActivity.class);
+                                        startActivity(i);
                                     } else {
                                         Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
 
                                 @Override
@@ -168,21 +188,15 @@ public class MiAparcamientoNavigationActivity extends AppCompatActivity {
                                     Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            //Siguiendo callback desocupar
-                            Intent i = new Intent(MiAparcamientoNavigationActivity.this, MainActivity.class);
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<Aparcamiento> call, Throwable t) {
+
                     }
                 });
+
 
             }
         });

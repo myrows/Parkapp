@@ -9,6 +9,7 @@ const aparcamientoSchema = Schema({
     dimension: String,
     longitud: Number,
     latitud: Number,
+    puntuacion: { type: Number, default: 0 },
     avatar: String,
     userId: String,
     zonaId: String,
