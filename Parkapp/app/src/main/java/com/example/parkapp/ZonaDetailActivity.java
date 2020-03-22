@@ -8,6 +8,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,9 @@ import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -73,6 +77,8 @@ public class ZonaDetailActivity extends AppCompatActivity {
     int horasAMostrar;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+    double latitude;
+    double longitude;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -96,6 +102,8 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
         parkappService = ServiceGenerator.createServiceZona(ParkappService.class);
 
+        getCurrentLocation();
+
         //Obtengo la información de la zona que he seleccionado
 
         Call<ZonaDetail> call = parkappService.getZonaById(getIntent().getExtras().get("zonaId").toString());
@@ -108,7 +116,7 @@ public class ZonaDetailActivity extends AppCompatActivity {
                     tName.setText(myZona.getNombre());
                     tUbicacion.setText(myZona.getUbicacion());
                     float results[] = new float[10];
-                    Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), myZona.getLatitud(), myZona.getLongitud(), results);
+                    Location.distanceBetween(latitude, longitude, myZona.getLatitud(), myZona.getLongitud(), results);
                     tDistancia.setText(((int)results[0])/1000+" km");
 
                     Glide
@@ -156,8 +164,30 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
         addHourOfAparcamientoOcupado();
         addHourOfAparcamientoDisponible();
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchLastLocation();
+        //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        //fetchLastLocation();
+    }
+
+    private void getCurrentLocation(){
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationServices.getFusedLocationProviderClient(ZonaDetailActivity.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback(){
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(ZonaDetailActivity.this)
+                                .removeLocationUpdates(this);
+                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                            int latestLocationIndex = locationResult.getLocations().size() - 1;
+                            latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                            longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                        }
+                    }
+                }, Looper.getMainLooper());
     }
 
     private void fetchLastLocation() {
@@ -231,7 +261,6 @@ public class ZonaDetailActivity extends AppCompatActivity {
                             tThirdHourD.setText(listHorarioDisponible.get(2) + ":00 h");
                         }
 
-                        Toast.makeText(ZonaDetailActivity.this, listHorarioDisponible+"hour", Toast.LENGTH_SHORT).show();
                     }else{
                     }
                 }else{
