@@ -21,6 +21,6 @@ router.post('/zona', upload.single('avatar'),ZonaController.nuevaZona);
 router.get('/zona', ZonaController.getZonas);
 router.get('/zona/:id', ZonaController.getZona);
 router.delete('/zona/:id', ZonaController.deleteZona);
-router.put('/zona/:id',ZonaController.updateZona);
+router.put('/zona/:id',upload.single('avatar'),ZonaController.updateZona);
 
 module.exports = router
