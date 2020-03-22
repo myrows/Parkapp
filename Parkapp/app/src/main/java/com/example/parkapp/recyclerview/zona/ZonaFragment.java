@@ -1,10 +1,12 @@
 package com.example.parkapp.recyclerview.zona;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,9 +34,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.parkapp.R;
+import com.example.parkapp.ZonaDetailActivity;
+import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.zona.ZonaViewModel;
 import com.example.parkapp.retrofit.model.Zona;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -67,9 +77,13 @@ public class ZonaFragment extends Fragment {
     RecyclerView recyclerView;
     MyZonaRecyclerViewAdapter adapter;
     List<Zona> listZonas = new ArrayList<>();
-    LocationManager locationManager;
+    //LocationManager locationManager;
     LocationListener locationListener;
     LatLng userLatLong;
+    double latitude;
+    double longitude;
+    private static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
 
 
     /**
@@ -94,6 +108,8 @@ public class ZonaFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         zonaViewModel = new ViewModelProvider(getActivity()).get(ZonaViewModel.class);
+        locationManager = (LocationManager) MyApp.getContext().getSystemService(Context.LOCATION_SERVICE);
+        getLocation();
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -128,9 +144,29 @@ public class ZonaFragment extends Fragment {
             @Override
             public void onChanged(List<Zona> results) {
                 listZonas = results;
+                for (int i = 0; i < listZonas.size(); i++){
+                    float resultsLocation[] = new float[10];
+                    Location.distanceBetween(latitude, longitude, listZonas.get(i).getLatitud(), listZonas.get(i).getLongitud(), resultsLocation);
+                    listZonas.get(i).setDistancia((double)resultsLocation[0]/1000);
+                }
                 adapter.setData(listZonas);
             }
         });
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(MyApp.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MyApp.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) MyApp.getContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }else {
+            Location locationGps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location locationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location locationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if(locationGps != null){
+                latitude = locationGps.getLatitude();
+                longitude = locationGps.getLongitude();
+            }
+        }
     }
 
     private void showAlertDialog(){

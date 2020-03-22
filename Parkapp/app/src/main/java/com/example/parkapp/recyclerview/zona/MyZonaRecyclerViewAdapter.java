@@ -69,7 +69,8 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
         ctx = parent.getContext();
 
         locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-        getLocation();
+
+        Collections.sort(mValues, new ComparatorDistance());
 
         return new ViewHolder(view);
     }
@@ -104,16 +105,11 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if(mValues != null) {
+
             holder.mItem = mValues.get(position);
             holder.tName.setText(holder.mItem.getNombre());
             holder.tUbicacion.setText(holder.mItem.getUbicacion());
-
-            Collections.sort(mValues, new ComparatorDistance());
-
-            float results[] = new float[10];
-            Location.distanceBetween(latitude, longitude, holder.mItem.getLatitud(), holder.mItem.getLongitud(), results);
-            holder.tDistancia.setText(df.format((double)results[0]/1000)+" km");
-            holder.mItem.setDistancia((double)results[0]/1000);
+            holder.tDistancia.setText(df.format(holder.mItem.getDistancia())+" km");
 
             Glide
                     .with(ctx)
