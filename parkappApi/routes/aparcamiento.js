@@ -19,6 +19,7 @@ let upload = multer({ storage: storage });
 
 router.post('/aparcamiento', upload.single('avatar'),AparcamientoController.nuevoAparcamiento);
 router.get('/aparcamiento', AparcamientoController.getAparcamientos);
+router.put('/aparcamiento/photo/:id',upload.single('avatar'),AparcamientoController.updateAparcamientoWithPhoto);
 router.get('/aparcamiento/:id', AparcamientoController.getAparcamiento);
 router.get('/aparcamiento/user/:userId', AparcamientoController.getAparcamientoOfUser);
 router.get('/aparcamientos/zona/:zonaId', AparcamientoController.getAparcamientoOfZona);
