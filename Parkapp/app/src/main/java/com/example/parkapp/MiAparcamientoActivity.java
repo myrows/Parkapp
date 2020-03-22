@@ -8,6 +8,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDateTime;
 
@@ -102,6 +104,21 @@ public class MiAparcamientoActivity extends AppCompatActivity {
                                .with(MyApp.getContext())
                                .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + aparcamiento.getAvatar())
                                .into(avatar);
+
+                   }if(aparcamiento.getUserId().equals("") ||aparcamiento.getUserId() == null){
+                       desocupar.setClickable(false);
+                       desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
+                       nombre.setText("Sin información");
+                       listadoHorario.setBackgroundResource(R.drawable.ic_sad);
+                       listadoHorario.setClickable(false);
+                       Glide.with(MyApp.getContext())
+                               .load(R.drawable.ic_traffic)
+                               .into(avatar);
+                       Snackbar snackbar3 = Snackbar.make(desocupar,"NO TIENE NINGUN APARCAMIENTO OCUPADO",Snackbar.LENGTH_LONG);
+                       View sbView = snackbar3.getView();
+                       zona.setVisibility(View.GONE);
+                       sbView.setBackgroundColor(Color.parseColor("#9E0018"));
+                       snackbar3.show();
 
                    }
                }
