@@ -59,7 +59,8 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
         setContentView(R.layout.activity_mi_aparcamiento);
 
         Bundle extras = getIntent().getExtras();
-        final String idAparcamiento = SharedPreferencesManager.getSomeStringValue("APARCAMIENTOID");
+        final String idAparcamiento = SharedPreferencesManager.getSomeStringValue("aparcamiento_id");
+
         nombre = findViewById(R.id.NombreMiAparcamiento);
        zona = findViewById(R.id.zonaMiAparcamiento);
        avatar = findViewById(R.id.imagenMiAparcamiento);
@@ -140,7 +141,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                @Override
                public void onClick(View v) {
                    //CallBack para coger el id del aparcamiento
-                   Call<Aparcamiento> call = service.getAparcamiento(SharedPreferencesManager.getSomeStringValue("aparcamiento_id"));
+                   Call<Aparcamiento> call = service.getAparcamiento(idAparcamiento);
                    call.enqueue(new Callback<Aparcamiento>() {
                        @Override
                        public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
