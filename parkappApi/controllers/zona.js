@@ -59,6 +59,7 @@ let controller = {
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
                         nombre:req.body.nombre,
+                        avatar: req.file.filename,
                         distancia:req.body.distancia
                     })
                     .exec(function(err, zona) {
