@@ -1,11 +1,17 @@
 package com.example.parkapp.recyclerview.zona;
 
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +28,9 @@ import com.example.parkapp.data.zona.ZonaViewModel;
 import com.example.parkapp.recyclerview.zona.ZonaFragment.OnListFragmentInteractionListener;
 import com.example.parkapp.retrofit.model.Zona;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +46,11 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
     Context ctx;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
-    private static final int REQUEST_CODE = 101;
+    private static final int REQUEST_LOCATION = 1;
+    //double latitude;
+    //double longitude;
+    LocationManager locationManager;
+    double latitude, longitude;
 
     public MyZonaRecyclerViewAdapter(List<Zona> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -50,9 +63,31 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
                 .inflate(R.layout.fragment_zona, parent, false);
 
         ctx = parent.getContext();
+        //Add permission
+        //ActivityCompat.requestPermissions(, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
+        locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
+        getLocation();
+        //getCurrentLocation();
+        //fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ctx);
+        //fetchLastLocation();
 
         return new ViewHolder(view);
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }else {
+            Location locationGps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location locationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location locationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if(locationGps != null){
+                latitude = locationGps.getLatitude();
+                longitude = locationGps.getLongitude();
+            }
+        }
     }
 
     private void fetchLastLocation() {
@@ -69,16 +104,14 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ctx);
-        fetchLastLocation();
         if(mValues != null) {
             holder.mItem = mValues.get(position);
             holder.tName.setText(holder.mItem.getNombre());
             holder.tUbicacion.setText(holder.mItem.getUbicacion());
 
-            /*float results[] = new float[10];
-            Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), holder.mItem.getLatitud(), holder.mItem.getLongitud(), results);
-            holder.tDistancia.setText(results[0]+" km");*/
+            float results[] = new float[10];
+            Location.distanceBetween(latitude, longitude, holder.mItem.getLatitud(), holder.mItem.getLongitud(), results);
+            holder.tDistancia.setText((int) results[0]/1000+" km");
 
             Glide
                     .with(ctx)
@@ -101,6 +134,28 @@ public class MyZonaRecyclerViewAdapter extends RecyclerView.Adapter<MyZonaRecycl
     }
 
 
+
+    private void getCurrentLocation(){
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationServices.getFusedLocationProviderClient(MyApp.getContext())
+                .requestLocationUpdates(locationRequest, new LocationCallback(){
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(MyApp.getContext())
+                                .removeLocationUpdates(this);
+                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                            int latestLocationIndex = locationResult.getLocations().size() - 1;
+                            //latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                            //longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                        }
+                    }
+                }, Looper.getMainLooper());
+    }
 
     public void setData(List<Zona> resultList){
         this.mValues = resultList;

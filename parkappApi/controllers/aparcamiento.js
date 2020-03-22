@@ -17,7 +17,8 @@ let controller = {
                 avatar: req.file.filename,
                 nombre:req.body.nombre,
                 userId: req.body.userId,
-                zonaId: req.body.zonaId
+                zonaId: req.body.zonaId,
+                historial: req.body.historial.id
             });
             aparcamiento.save()
             .then(ap => res.status(201).json(ap))
@@ -78,18 +79,16 @@ let controller = {
                            res.send(500, err.message);
                        }
                    },
-                   getAparcamientoOfZona: async(req, res) => {
+                   getAparcamientoOfZona: (req, res) => {
+                    Aparcamiento.find({zonaId: req.params.zonaId})
+                        .populate('historial')
+                        .exec(function(err, aparcamiento){
+                            if (err) res.send(500, err.message);
+                            res.status(200).json({
+                                aparcamiento: aparcamiento
+                            })
+                        })
 
-                    try {
-                       let resultado = null
-                       resultado = await Aparcamiento.find({zonaId: req.params.zonaId})
-                                   .exec();
-           
-                               res.status(200).json(resultado);
-                   
-                           } catch (err) {
-                               res.send(500, err.message);
-                           }
                        },
 
             updateAparcamiento: async(req, res) => {
