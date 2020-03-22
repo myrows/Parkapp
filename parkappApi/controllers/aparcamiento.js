@@ -39,6 +39,18 @@ let controller = {
         
             },
 
+    getAparcamientosPopulares: async(req,res) =>{
+
+        let resultado = null
+        var mysort = { puntuacion: -1 };
+            try{
+                resultado = await Aparcamiento.find({puntuacion: { $gt: 4 }}).sort(mysort)
+                    res.status(200).json(resultado);
+            } catch (err){
+                res.send(500, err.message);
+            }
+    },        
+
     //Coger un aparcamiento
     getAparcamiento: async(req, res) => {
 

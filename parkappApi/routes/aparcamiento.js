@@ -24,5 +24,6 @@ router.get('/aparcamiento/user/:userId', AparcamientoController.getAparcamientoO
 router.get('/aparcamientos/zona/:zonaId', AparcamientoController.getAparcamientoOfZona);
 router.delete('/aparcamiento/:id', AparcamientoController.deleteAparcamiento);
 router.put('/aparcamiento/:id',AparcamientoController.updateAparcamiento);
+router.get('/aparcamientos/populares',AparcamientoController.getAparcamientosPopulares);
 
 module.exports = router
