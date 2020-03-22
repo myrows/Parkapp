@@ -114,6 +114,26 @@ let controller = {
             res.send(204);
         });
     },
+
+    updateAparcamientoWithPhoto: async(req, res) => {
+        const _id = req.params.id;
+        Aparcamiento.updateOne({_id}, {
+                dimension: req.body.dimension,
+                longitud: req.body.longitud,
+                latitud : req.body.latitud,
+                puntuacion: req.body.puntuacion,
+                nombre:req.body.nombre,
+                userId:req.body.userId,
+                avatar:req.file.filename
+            })
+            .exec(function(err, aparcamiento) {
+                if (err) res.send(500, err.message);
+                res.status(201).json({
+                    aparcamiento: aparcamiento
+                })
+            })
+
+    }
     
 
 
