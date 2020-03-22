@@ -171,61 +171,75 @@ public class DetalleAparcamientoActivity extends AppCompatActivity {
                         ocupar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                final Aparcamiento aparcamientoUpdate = new Aparcamiento(aparcamiento.getNombre(),aparcamiento.getDimension(),
-                                        aparcamiento.getLongitud(),aparcamiento.getLatitud(),idUsuario);
-                                Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamientoId,aparcamientoUpdate);
-                                callUpdate.enqueue(new Callback<ResponseBody>() {
-
-                                    @RequiresApi(api = Build.VERSION_CODES.O)
+                                Call<Aparcamiento> call = service.getAparcamiento(aparcamiento.getId());
+                                call.enqueue(new Callback<Aparcamiento>() {
                                     @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        SharedPreferencesManager.setSomeStringValue("APARCAMIENTOID",aparcamientoId);
-                                        final Historial historialNuevo = new Historial(LocalDateTime.now().toString(),"",LocalDate.now().toString(),aparcamientoId);
-                                        //CALLBACK NUEVO HISTORIAL
-                                        final Call<Historial> nuevoHistorial = service.nuevoHistorial(historialNuevo);
-                                        nuevoHistorial.enqueue(new Callback<Historial>() {
-                                            @Override
-                                            public void onResponse(Call<Historial> call, Response<Historial> response) {
-                                                if(response.isSuccessful()){
-                                                Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
-                                                SharedPreferencesManager.setSomeStringValue("historial_id", response.body().getId());
-                                                SharedPreferencesManager.setSomeStringValue("fecha_entrada", response.body().getDia());
-                                                SharedPreferencesManager.setSomeStringValue("horario_entrada",response.body().getFechaEntrada());
+                                    public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
+                                        if(response.isSuccessful()){
+                                            final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().getPuntuacion(), aparcamiento.getNombre(),aparcamiento.getDimension(),
+                                                    aparcamiento.getLongitud(),aparcamiento.getLatitud(),idUsuario);
+                                            Call<ResponseBody> callUpdate = service.updateAparcamiento(aparcamientoId,aparcamientoUpdate);
+                                            callUpdate.enqueue(new Callback<ResponseBody>() {
+
+                                                @RequiresApi(api = Build.VERSION_CODES.O)
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    SharedPreferencesManager.setSomeStringValue("APARCAMIENTOID",aparcamientoId);
+                                                    final Historial historialNuevo = new Historial(LocalDateTime.now().toString(),"",LocalDate.now().toString(),aparcamientoId);
+                                                    //CALLBACK NUEVO HISTORIAL
+                                                    final Call<Historial> nuevoHistorial = service.nuevoHistorial(historialNuevo);
+                                                    nuevoHistorial.enqueue(new Callback<Historial>() {
+                                                        @Override
+                                                        public void onResponse(Call<Historial> call, Response<Historial> response) {
+                                                            if(response.isSuccessful()){
+                                                                Toast.makeText(MyApp.getContext(),"HISTORIAL AÑADIDO",Toast.LENGTH_SHORT).show();
+                                                                SharedPreferencesManager.setSomeStringValue("historial_id", response.body().getId());
+                                                                SharedPreferencesManager.setSomeStringValue("fecha_entrada", response.body().getDia());
+                                                                SharedPreferencesManager.setSomeStringValue("horario_entrada",response.body().getFechaEntrada());
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Historial> call, Throwable t) {
+                                                            Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+
+
+                                                    showNotification(ocupar);
+                                                    //CALLBACK APARCAMIENTO
+
+                                                    ocupar.setClickable(false);
+                                                    ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
+                                                    miAparcamiento.setBackgroundColor(Color.parseColor("#9E0018"));
+                                                    miAparcamiento.setClickable(true);
+
+                                                    miAparcamiento.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+
+                                                            startActivity(i);
+                                                        }
+                                                    });
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onFailure(Call<Historial> call, Throwable t) {
-                                                Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
-
-
-                                        showNotification(ocupar);
-                                        //CALLBACK APARCAMIENTO
-
-                                        ocupar.setClickable(false);
-                                        ocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
-                                        miAparcamiento.setBackgroundColor(Color.parseColor("#9E0018"));
-                                        miAparcamiento.setClickable(true);
-
-                                        miAparcamiento.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-
-                                                startActivity(i);
-                                           }
-                                        });
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
                                     }
 
                                     @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                    public void onFailure(Call<Aparcamiento> call, Throwable t) {
+
                                     }
                                 });
 
-                                SharedPreferencesManager.setSomeStringValue("IDEAPARCAMIENTO",response.body().getId());
+
+                                //SharedPreferencesManager.setSomeStringValue("IDEAPARCAMIENTO",response.body().getId());
 
 
                             }

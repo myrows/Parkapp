@@ -1,9 +1,13 @@
 package com.example.parkapp.recyclerview.zona;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +30,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.parkapp.R;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.zona.ZonaViewModel;
 import com.example.parkapp.retrofit.model.Zona;
+import com.google.android.gms.maps.model.LatLng;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +67,10 @@ public class ZonaFragment extends Fragment {
     RecyclerView recyclerView;
     MyZonaRecyclerViewAdapter adapter;
     List<Zona> listZonas = new ArrayList<>();
+    LocationManager locationManager;
+    LocationListener locationListener;
+    LatLng userLatLong;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -104,6 +121,7 @@ public class ZonaFragment extends Fragment {
         }
         return view;
     }
+
 
     public void loadZonaData() {
         zonaViewModel.getZonas().observe(getActivity(), new Observer<List<Zona>>() {

@@ -28,9 +28,6 @@ public class ResenaActivity extends AppCompatActivity implements ResenaFragment.
     FloatingActionButton fbtnResena;
     Resena resena;
     ParkappService service;
-    RatingBar rate;
-    TextView txtMsgRate;
-    int myRating = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +35,6 @@ public class ResenaActivity extends AppCompatActivity implements ResenaFragment.
         setContentView(R.layout.activity_resena);
 
         fbtnResena = findViewById(R.id.floatAddResena);
-        rate = findViewById(R.id.ratingBarResena);
-        txtMsgRate = findViewById(R.id.textViewMessageR);
 
         service = ServiceGenerator.createServiceResena(ParkappService.class);
 
