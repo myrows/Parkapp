@@ -67,27 +67,26 @@ let controller = {
                 }
             },
             getAparcamientoOfUser: async(req, res) => {
+                let resultado = null
 
                 try {
-                   let resultado = null
-                   resultado = await Aparcamiento.find({userId: req.params.userId})
-                               .exec();
-       
-                           res.status(200).json(resultado);
-               
-                       } catch (err) {
-                           res.send(500, err.message);
-                       }
+                    resultado = await Aparcamiento.find({userId: req.params.userId}) 
+                        res.status(200).json(resultado);
+                
+                        } catch (err) {
+                            res.send(500, err.message);
+                        }
                    },
-                   getAparcamientoOfZona: (req, res) => {
-                    Aparcamiento.find({zonaId: req.params.zonaId})
-                        .populate('historial')
-                        .exec(function(err, aparcamiento){
-                            if (err) res.send(500, err.message);
-                            res.status(200).json({
-                                aparcamiento: aparcamiento
-                            })
-                        })
+                   getAparcamientoOfZona: async(req, res) => {
+
+                try{
+                    let resultado = null
+                    resultado = await Aparcamiento.find({zonaId: req.params.zonaId}).populate('historial').exec();
+                    
+                    res.status(200).json(resultado);
+                }catch (err){
+                    res.send(500, err.message);
+                }
 
                        },
 
