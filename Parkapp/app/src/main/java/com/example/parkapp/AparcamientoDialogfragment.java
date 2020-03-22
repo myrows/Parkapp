@@ -9,12 +9,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.resena.CustomDialogListener;
+import com.example.parkapp.retrofit.generator.ServiceGenerator;
+import com.example.parkapp.retrofit.model.Aparcamiento;
+import com.example.parkapp.retrofit.service.ParkappService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AparcamientoDialogfragment extends DialogFragment {
 
@@ -24,6 +34,7 @@ public class AparcamientoDialogfragment extends DialogFragment {
     Button cancel, save;
     int myRating = 0;
     CustomMiAparcamientoDialogfragment customMiAparcamientoDialogfragment;
+    ParkappService parkappService;
 
     @Nullable
     @Override
@@ -40,6 +51,8 @@ public class AparcamientoDialogfragment extends DialogFragment {
         cancel = view.findViewById(R.id.buttonCancelA);
         save = view.findViewById(R.id.buttonSaveA);
         imgEmot = view.findViewById(R.id.imageViewEmoticon);
+
+        parkappService = ServiceGenerator.createServiceAparcamiento(ParkappService.class);
 
         rtBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -72,6 +85,7 @@ public class AparcamientoDialogfragment extends DialogFragment {
         view.findViewById(R.id.buttonSaveA).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 customMiAparcamientoDialogfragment.submittedinformation(myRating);
                 dismiss();
             }

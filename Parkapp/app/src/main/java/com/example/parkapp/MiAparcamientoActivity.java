@@ -25,6 +25,7 @@ import com.example.parkapp.data.resena.AnotacionDialogfragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
+import com.example.parkapp.retrofit.model.Resena;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 
@@ -121,16 +122,13 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
            desocupar.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   AparcamientoDialogfragment aparcamientoDialogfragment = new AparcamientoDialogfragment();
-                   aparcamientoDialogfragment.show(getSupportFragmentManager(), null);
-                   aparcamientoDialogfragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
-                   /*//CallBack para coger el id del aparcamiento
-                   Call<List<Aparcamiento>> call = service.getAparcamientoOfUser(SharedPreferencesManager.getSomeStringValue("userId"));
-                   call.enqueue(new Callback<List<Aparcamiento>>() {
+                   //CallBack para coger el id del aparcamiento
+                   Call<Aparcamiento> call = service.getAparcamiento(SharedPreferencesManager.getSomeStringValue("aparcamiento_id"));
+                   call.enqueue(new Callback<Aparcamiento>() {
                        @Override
-                       public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
+                       public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
                            if(response.isSuccessful()){
-                               final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().get(0).getPuntuacion(), aparcamiento.getNombre(), aparcamiento.getDimension(),
+                               final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().getPuntuacion(), aparcamiento.getNombre(), aparcamiento.getDimension(),
                                        aparcamiento.getLongitud(), aparcamiento.getLatitud(), "");
                                Call<ResponseBody> callUpdate = service.updateAparcamiento(idAparcamiento, aparcamientoUpdate);
                                callUpdate.enqueue(new Callback<ResponseBody>() {
@@ -147,6 +145,9 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                                                @Override
                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                    if (response.isSuccessful()) {
+                                                       AparcamientoDialogfragment aparcamientoDialogfragment = new AparcamientoDialogfragment();
+                                                       aparcamientoDialogfragment.show(getSupportFragmentManager(), null);
+                                                       aparcamientoDialogfragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
                                                        Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
                                                    } else {
                                                        Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
@@ -176,12 +177,13 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                        }
 
                        @Override
-                       public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
+                       public void onFailure(Call<Aparcamiento> call, Throwable t) {
 
                        }
-                   });*/
+                   });
                }
            });
+
            listadoHorario.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -226,8 +228,9 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
     @Override
     public void submittedinformation(int puntuacion) {
+
         //Callback para obtener mi aparcamiento
-        Call<Aparcamiento> call = service.getAparcamiento(SharedPreferencesManager.getSomeStringValue("MIAPARCAMIENTOID"));
+        Call<Aparcamiento> call = service.getAparcamiento(SharedPreferencesManager.getSomeStringValue("aparcamiento_id"));
 
         call.enqueue(new Callback<Aparcamiento>() {
 
@@ -235,8 +238,11 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
             public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
                 //Toast.makeText(MiAparcamientoActivity.this, "Callback mi aparcamiento", Toast.LENGTH_SHORT).show();
                 if(response.isSuccessful()){
-
                     Aparcamiento myAparcamiento = response.body();
+
+                    if(myAparcamiento.getPuntuacion() == null){
+                        myAparcamiento.setPuntuacion(0);
+                    }
                     aparcamientoUpdated = new Aparcamiento(myAparcamiento.getPuntuacion() + puntuacion, myAparcamiento.getDimension(), myAparcamiento.getLongitud(), myAparcamiento.getLatitud(), myAparcamiento.getNombre(), myAparcamiento.getUserId());
 
                     //Callback para actualizar la puntuación
