@@ -7,19 +7,17 @@ import { LoginDto } from '../dto/loginDto.interface';
 import { LoginResponse } from '../models/login-response.interface';
 
 
-const accessTokenKey = 'access_token';
-const refreshTokenKey = 'refresh_token';
-
-const httpOptionsLogin = {//application/x-www-form-urlencoded
-  headers: new HttpHeaders().append('Authorization',
-    'Basic ' + btoa(`cemapp:secret`)).append('Content-type','application/x-www-form-urlencoded')
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private accessTokenSubject: BehaviorSubject<string>
+  //private accessTokenSubject: BehaviorSubject<string>
 
   constructor(
     private config: ConfigService,
@@ -27,12 +25,9 @@ export class AuthService {
   ) { }
 
   login(loginDto? : LoginDto): Observable<LoginResponse> {
-    const params = new HttpParams()
-        .set('username', loginDto.username)
-        .set('password', loginDto.password)
-        .set('grant_type', 'password');
-    return this.http.post<LoginResponse>('http://localhost:9000/oauth/token', params,
-      httpOptionsLogin
+    return this.http.post<LoginResponse>('https://parkappsalesianos.herokuapp.com/parkapp/login',
+      loginDto,
+      httpOptions
     );
   }
 
