@@ -47,6 +47,7 @@ import { EditUsuarioDialogComponent } from './edit-usuario-dialog/edit-usuario-d
 import { UploadPsmComponent } from './upload-psm/upload-psm.component';
 import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
 import { AparcamientosService } from './services/aparcamiento.service';
+import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 
 
 
@@ -94,7 +95,8 @@ const routes: Routes = [
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
     UploadPsmComponent,
-    AparcamientoListadoComponent
+    AparcamientoListadoComponent,
+    BorrarAparcamientoDialogComponent
 
   ],
   entryComponents: [
@@ -104,7 +106,8 @@ const routes: Routes = [
     BorrarAnyoEscolarDialogComponent,
     EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
-    EditUsuarioDialogComponent
+    EditUsuarioDialogComponent,
+    BorrarAparcamientoDialogComponent
   ],
   imports: [
     BrowserModule,

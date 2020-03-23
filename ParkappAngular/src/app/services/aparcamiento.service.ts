@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AparcamientoResponse } from '../models/aparcamiento-response.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HistorialResponse } from '../models/historial-response.interface';
 
 
 
@@ -39,10 +40,36 @@ export class AparcamientosService {
       );
     }
 
-    deleteAparcamiento(aparcamientoId: number):Observable<AparcamientoResponse>{
+    deleteAparcamiento(aparcamientoId: string):Observable<AparcamientoResponse>{
       return this.http.delete<AparcamientoResponse>(
           URL_DELETEAPARCAMIENTO+aparcamientoId,
           httpOptions
         );
-      }  
+      }
+    
+     /* uploadAparcamiento(historial: HistorialResponse[],
+        dimension: string,
+        longitud: number,
+        latitud: number,
+        avatar: File,
+        nombre:string,
+        userId:string,
+        zonaId:string): Observable<AparcamientoResponse> {
+        let formData = new FormData();
+        formData.append("avatar", avatar);
+        formData.append("nombre", nombre);
+        formData.append("userId", userId);
+        formData.append("latitud", latitud.toString());
+        formData.append("longitud", longitud.toString());
+        formData.append("zonaId", zonaId);
+        formData.append("zonaId", zonaId);
+        formData.append("historial", historial);
+    
+        
+        return this.http.post<PsmResponse>(
+          'http://localhost:9000/uploadPsm',
+          formData,
+          httpOptionsWithUpload
+        )
+      }*/
 }
