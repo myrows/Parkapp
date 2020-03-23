@@ -50,6 +50,8 @@ import { AparcamientosService } from './services/aparcamiento.service';
 import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 import { UsuariosListadoComponent } from './usuarios-listado/usuarios-listado.component';
 import { UsuariosService } from './services/usuarios.service';
+import { BorrarZonaDialogComponent } from './borrar-zona-dialog/borrar-zona-dialog.component';
+import { ZonaComponent } from './zona/zona.component';
 
 
 
@@ -59,7 +61,9 @@ export function tokenGetter() {
 }
 
 const routes: Routes = [ 
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
+  { path: 'zonas', component: ZonaComponent },
+  { path: 'header', component: HeaderComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
   { path: 'createAdmin', component: SuperAdminComponent },
   { path: 'colegio', component: ColegioComponent },
@@ -99,7 +103,9 @@ const routes: Routes = [
     UploadPsmComponent,
     AparcamientoListadoComponent,
     BorrarAparcamientoDialogComponent,
-    UsuariosListadoComponent
+    UsuariosListadoComponent,
+    ZonaComponent,
+    BorrarZonaDialogComponent
 
   ],
   entryComponents: [
@@ -110,7 +116,8 @@ const routes: Routes = [
     EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
-    BorrarAparcamientoDialogComponent
+    BorrarAparcamientoDialogComponent,
+    BorrarZonaDialogComponent
   ],
   imports: [
     BrowserModule,

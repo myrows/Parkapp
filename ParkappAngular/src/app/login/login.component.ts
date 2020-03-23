@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginDto : LoginDto;
 
   constructor(private authentication: AuthService, private router: Router, private snackBar: MatSnackBar,public jwtHelper: JwtHelperService) { 
-    this.loginDto = new LoginDto('', '', 'password');
+    this.loginDto = new LoginDto('', '');
   }
 
   ngOnInit() {
@@ -22,15 +22,18 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authentication.login(this.loginDto).subscribe(resul => {
-      this.authentication.setToken(resul.access_token);
-      this.authentication.setTokenRefres(resul.refresh_token);
-      console.log(this.jwtHelper.decodeToken(this.authentication.getToken()));
-      //this.router.navigate(['/']);
+      this.snackBar.open('Sesión iniciada correctamente');
+      this.router.navigate(['/header']);
+      this.setToken(resul.token);
       
     },
     error => {
-        this.snackBar.open('Authentication failed.');
+        this.snackBar.open('El username o la contraseña no son válidos');
     });
+  }
+
+  setToken(token : string){
+    this.authentication.setToken(token);
   }
 
 }

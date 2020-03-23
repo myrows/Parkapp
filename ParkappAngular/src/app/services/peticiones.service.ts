@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CrearAdminResponse } from '../models/crearAdmin-response.interface';
-import { AdminDto } from '../dto/admin.dto';
 import { ColegioDto } from '../dto/colegio.dto';
 import { ColegioResponse } from '../models/colegio-response.interface';
 import { EtapaDto } from '../dto/etapa.dto';
@@ -21,14 +20,17 @@ import { UnidadResponse } from '../models/unidad-response.interface';
 import { CursoListResponse } from '../models/listCurso-response.interface';
 import { UnidadListResponse } from '../models/listUnidad-response.interface';
 import { PsmResponse } from '../models/psm-response.interface';
+import { ZonaDto } from '../dto/zona.dto';
+import { ZonaResponse } from '../models/zona-response.interface';
 
 const apiURL = 'http://localhost:9000/colegio/usuarios/';
 const apiURLEdit = 'http://localhost:9000/colegio/usuario/edit/';
+const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
+    //'Authorization': 'Bearer ' + localStorage.getItem('token')
   })
 };
 
@@ -46,12 +48,20 @@ export class PeticionesService {
 
   constructor(private http: HttpClient) { }
 
-  createAdmin(adminDto: AdminDto): Observable<CrearAdminResponse> {
+  createZona(zonaDto: ZonaDto): Observable<CrearAdminResponse> {
     return this.http.post<CrearAdminResponse>(
-      'http://localhost:9000/colegio/createAdmin',
-      adminDto,
+      apiZona,
+      zonaDto,
       httpOptions
     );
+  }
+
+  loadZona(): Observable<ZonaResponse[]> {
+    return this.http.get<ZonaResponse[]>(
+      apiZona,
+      httpOptions
+
+    )
   }
 
   createColegio(colegioDto: ColegioDto): Observable<ColegioResponse> {
@@ -169,12 +179,11 @@ export class PeticionesService {
     )
   }
 
-  public editCursoAcademico(id:string,usuarioDto: AdminDto): Observable<UsuarioResponse> {
-    return this.http.put<UsuarioResponse>(
-      apiURLEdit + id,
-      usuarioDto,
+  public deleteZona(idZona: string): Observable<ZonaResponse> {
+    return this.http.delete<ZonaResponse>(
+      apiZona + idZona,
       httpOptions
     )
-    }
+  }
 
 }
