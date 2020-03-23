@@ -1,0 +1,8 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="colegio" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+        <label>Colegio</label>
+        <input type="text" [(ngModel)]="colegio.nombre" #co="ngModel" required />
+        <button mat-raised-button color="primary" (click)="doCreateColegio()" value="Crear">Crear</button>
+
+    </div>
+</div>

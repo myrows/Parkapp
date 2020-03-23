@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Editar Usuario</h1>
+<div mat-dialog-content>
+    <h1>Crear Usuario</h1>
+
+    <input type="email" [(ngModel)]="usuarioDto.email" value="{{usuarioDto.email}}" #em="ngModel" placeholder="Email" required
+        [email]="true" />
+
+    <div [hidden]="em.valid || em.pristine" class="alert alert-danger">
+        <p *ngIf="em.errors?.required">El campo email es requerido.</p>
+        <p *ngIf="em.errors?.email">El campo email debe estar bien formado.</p>
+    </div>
+
+    <input type="password" [(ngModel)]="usuarioDto.password" value="{{usuarioDto.password}}" #pwd="ngModel" placeholder="Contraseña" pattern="[0-9]{4,6}"
+        required />
+
+    <div [hidden]="pwd.valid || pwd.pristine" class="alert alert-danger">
+        <p *ngIf="pwd.errors?.required"> El campo contraseña es requerido.</p>
+        <p *ngIf="pwd.errors?.pattern">La contraeña debe ser un número entre 4 y 6 dígitos</p>
+    </div>
+
+    <h4>Roles</h4>
+    <mat-form-field>
+        <mat-label>Roles</mat-label>
+        <mat-select name="miselectRoles" [(ngModel)]="usuarioDto.roles">
+            <mat-option *ngFor="let roles of listaRoles" [value]="roles">{{roles}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <h4>Colegio</h4>
+    <mat-form-field>
+        <mat-label>Colegio</mat-label>
+        <mat-select name="miselect" [(ngModel)]="usuarioDto.colegio">
+            <mat-option *ngFor="let colegio of listaColegios" [value]="colegio.id">{{colegio.nombre}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="cerrarDialog()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="confirmarEditado()">Editar</button>
+</div>

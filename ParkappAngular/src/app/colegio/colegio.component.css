@@ -1,0 +1,11 @@
+.container {
+    padding: 30px;
+    margin-bottom: 100px;
+}
+
+.colegio {
+    padding: 50px 50px;
+    width: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.555);
+    border-radius: 15%;
+}

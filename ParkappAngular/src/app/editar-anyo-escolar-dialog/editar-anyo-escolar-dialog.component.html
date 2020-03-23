@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Editar Año Escolar</h1>
+<div mat-dialog-content>
+    <p>Diga el nuevo nombre del año escolar</p>
+    <input matInput [(ngModel)]="anyoEscolarDto.nombreAnyoEscolar" type="text" #nombre="ngModel" value="{{anyoEscolarDto.nombreAnyoEscolar}}" required>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="cerrarDialog()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="confirmarEditado()">Editar</button>
+</div>

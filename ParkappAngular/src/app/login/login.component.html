@@ -1,0 +1,20 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="login" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+        <label>Usuario</label>
+        <input type="email" [(ngModel)]="loginDto.username" #em="ngModel" required [email]="true" />
+
+        <div [hidden]="em.valid || em.pristine" class="alert alert-danger">
+            <p *ngIf="em.errors?.required">El campo email es requerido.</p>
+            <p *ngIf="em.errors?.email">El campo email debe estar bien formado.</p>
+        </div>
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="loginDto.password" #pwd="ngModel"  required />
+
+        <div [hidden]="pwd.valid || pwd.pristine" class="alert alert-danger">
+            <p *ngIf="pwd.errors?.required"> El campo contraseña es requerido.</p>
+            <p *ngIf="pwd.errors?.pattern">La contraeña debe ser un número entre 4 y 6 dígitos</p>
+        </div>
+        <button mat-raised-button color="primary" (click)="login()" value="Login">Login</button>
+
+    </div>
+</div>

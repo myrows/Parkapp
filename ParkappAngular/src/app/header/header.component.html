@@ -1,0 +1,38 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav id="sidenav" mode="side" opened>
+        <mat-toolbar fxFlex="100%">
+            <!-- Logo -->
+            <mat-toolbar-row>
+                <a [routerLink]="[ '/' ]">
+                    <img src="./assets/img/logo.png" alt="" class="logo">
+                </a>
+            </mat-toolbar-row>
+
+            <!-- Enlaces-->
+            <mat-toolbar-row>
+                <a *ngIf="!token" [routerLink]="['/login']">Iniciar sesión</a>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                <a *ngIf="token">
+                    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
+                        (click)="logout()">exit_to_app</mat-icon>
+                </a>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                <a [routerLink]="[ '/usuarios' ]" mat-menu-item>
+                    Gestionar Usuarios
+                </a>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                <a [routerLink]="[ '/estructuraCentro' ]"mat-menu-item>
+                    Estructura Centro
+                </a>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                <a [routerLink]="[ '/anyosEscolares' ]" mat-menu-item>
+                    Gestionar Cursos Escolares
+                </a>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </mat-sidenav>
+</mat-sidenav-container>
