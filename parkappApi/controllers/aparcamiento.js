@@ -81,7 +81,9 @@ let controller = {
 
                 try{
                     let resultado = null
-                    resultado = await Aparcamiento.find({zonaId: req.params.zonaId}).populate('historial').exec();
+                    resultado = await Aparcamiento.find({zonaId: req.params.zonaId})
+                    .populate('historial')
+                    .exec();
                     
                     res.status(200).json(resultado);
                 }catch (err){
