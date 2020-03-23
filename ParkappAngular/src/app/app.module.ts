@@ -48,6 +48,8 @@ import { UploadPsmComponent } from './upload-psm/upload-psm.component';
 import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
 import { AparcamientosService } from './services/aparcamiento.service';
 import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
+import { UsuariosListadoComponent } from './usuarios-listado/usuarios-listado.component';
+import { UsuariosService } from './services/usuarios.service';
 
 
 
@@ -58,7 +60,7 @@ export function tokenGetter() {
 
 const routes: Routes = [ 
   { path: 'login', component: LoginComponent },
-  { path: 'usuarios', component: ListadoUsuariosSaComponent},
+  { path: 'usuarios', component: UsuariosListadoComponent},
   { path: 'createAdmin', component: SuperAdminComponent },
   { path: 'colegio', component: ColegioComponent },
   { path: 'anyosEscolares', component: AnyoEscolarComponent },
@@ -96,7 +98,8 @@ const routes: Routes = [
     EditUsuarioDialogComponent,
     UploadPsmComponent,
     AparcamientoListadoComponent,
-    BorrarAparcamientoDialogComponent
+    BorrarAparcamientoDialogComponent,
+    UsuariosListadoComponent
 
   ],
   entryComponents: [
@@ -149,6 +152,7 @@ const routes: Routes = [
     },
     JwtHelperService,
     AparcamientosService,
+    UsuariosService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
 
   ],

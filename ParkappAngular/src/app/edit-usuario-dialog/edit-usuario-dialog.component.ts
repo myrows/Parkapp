@@ -31,7 +31,7 @@ export class EditUsuarioDialogComponent implements OnInit {
     this.usuarioDto = new AdminDto('', '', '', '')
     this.usuario = this.data.usuario;
     this.usuarioDto.email = this.usuario.email;
-    this.usuarioDto.roles = this.usuario.roles;
+    //this.usuarioDto.roles = this.usuario.roles;
     }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class EditUsuarioDialogComponent implements OnInit {
   }
 
   confirmarEditado() {
-    this.id = this.usuario.id;
+    //this.id = this.usuario.id;
     this.peticionesService.editCursoAcademico(this.id.toString(), this.usuarioDto).subscribe(resp => {
     });
     this.dialogRef.close();

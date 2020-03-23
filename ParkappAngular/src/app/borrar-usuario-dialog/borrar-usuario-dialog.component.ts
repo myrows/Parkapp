@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UsuarioResponse } from '../models/usuario-response.interface';
-import { PeticionesService } from '../services/peticiones.service';
+import { UsuariosService } from '../services/usuarios.service';
 
 export interface DatosEntradaDialog {
   usuarioResponse: UsuarioResponse;
@@ -18,7 +18,7 @@ export class BorrarUsuarioDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<BorrarUsuarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DatosEntradaDialog,
-    private peticionesService: PeticionesService
+    private usuariosService: UsuariosService
   ) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class BorrarUsuarioDialogComponent implements OnInit {
   }
 
   confirmarBorrado() {
-    this.peticionesService.deleteUsuario(this.usuarioResponse.id).subscribe(resp => {
+    this.usuariosService.deleteUsuario(this.usuarioResponse._id).subscribe(resp => {
     });
     this.dialogRef.close();
     location.reload();

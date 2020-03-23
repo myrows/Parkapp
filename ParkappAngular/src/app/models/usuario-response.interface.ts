@@ -2,8 +2,11 @@ import { Authority } from './authority.interface';
 import { ColegioResponse } from './colegio-response.interface';
 
 export interface UsuarioResponse {
-    id: number;
+    _id: string;
+    fullname: string;
+    username: string;
     email: string;
-    roles: string;
-    colegio: string;
+    password: string;
+    created_date: string;
+
 }
