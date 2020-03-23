@@ -1,0 +1,989 @@
+
+<span class="hljs-comment">/* tslint:disable */</span>
+<span class="hljs-comment">/** DO NOT MANUALLY EDIT THIS FILE, IT IS GENERATED VIA GULP 'build-examples-module' */</span>
+<span class="hljs-keyword">import</span> {NgModule} <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> {FormsModule, ReactiveFormsModule} <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/forms'</span>;
+<span class="hljs-keyword">import</span> {CommonModule} <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common'</span>;
+<span class="hljs-keyword">import</span> {ExampleMaterialModule} <span class="hljs-keyword">from</span> <span class="hljs-string">'./material-module'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteAutoActiveFirstOptionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-auto-active-first-option/autocomplete-auto-active-first-option-example'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteDisplayExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-display/autocomplete-display-example'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteFilterExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-filter/autocomplete-filter-example'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteOptgroupExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-optgroup/autocomplete-optgroup-example'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-overview/autocomplete-overview-example'</span>;
+<span class="hljs-keyword">import</span> {AutocompleteSimpleExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./autocomplete-simple/autocomplete-simple-example'</span>;
+<span class="hljs-keyword">import</span> {BadgeOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./badge-overview/badge-overview-example'</span>;
+<span class="hljs-keyword">import</span> {BottomSheetOverviewExampleSheet,BottomSheetOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./bottom-sheet-overview/bottom-sheet-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ButtonOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./button-overview/button-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ButtonToggleExclusiveExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./button-toggle-exclusive/button-toggle-exclusive-example'</span>;
+<span class="hljs-keyword">import</span> {ButtonToggleOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./button-toggle-overview/button-toggle-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ButtonTypesExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./button-types/button-types-example'</span>;
+<span class="hljs-keyword">import</span> {CardFancyExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./card-fancy/card-fancy-example'</span>;
+<span class="hljs-keyword">import</span> {CardOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./card-overview/card-overview-example'</span>;
+<span class="hljs-keyword">import</span> {CdkTableBasicFlexExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./cdk-table-basic-flex/cdk-table-basic-flex-example'</span>;
+<span class="hljs-keyword">import</span> {CdkTableBasicExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./cdk-table-basic/cdk-table-basic-example'</span>;
+<span class="hljs-keyword">import</span> {CdkTreeFlatExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./cdk-tree-flat/cdk-tree-flat-example'</span>;
+<span class="hljs-keyword">import</span> {CdkTreeNestedExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./cdk-tree-nested/cdk-tree-nested-example'</span>;
+<span class="hljs-keyword">import</span> {CheckboxConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./checkbox-configurable/checkbox-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {CheckboxOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./checkbox-overview/checkbox-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ChipsAutocompleteExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./chips-autocomplete/chips-autocomplete-example'</span>;
+<span class="hljs-keyword">import</span> {ChipsInputExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./chips-input/chips-input-example'</span>;
+<span class="hljs-keyword">import</span> {ChipsOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./chips-overview/chips-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ChipsStackedExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./chips-stacked/chips-stacked-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerApiExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-api/datepicker-api-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerColorExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-color/datepicker-color-example'</span>;
+<span class="hljs-keyword">import</span> {ExampleHeader,DatepickerCustomHeaderExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-custom-header/datepicker-custom-header-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerCustomIconExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-custom-icon/datepicker-custom-icon-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerDisabledExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-disabled/datepicker-disabled-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerEventsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-events/datepicker-events-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerFilterExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-filter/datepicker-filter-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerFormatsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-formats/datepicker-formats-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerLocaleExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-locale/datepicker-locale-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerMinMaxExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-min-max/datepicker-min-max-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerMomentExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-moment/datepicker-moment-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-overview/datepicker-overview-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerStartViewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-start-view/datepicker-start-view-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerTouchExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-touch/datepicker-touch-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerValueExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-value/datepicker-value-example'</span>;
+<span class="hljs-keyword">import</span> {DatepickerViewsSelectionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./datepicker-views-selection/datepicker-views-selection-example'</span>;
+<span class="hljs-keyword">import</span> {DialogContentExampleDialog,DialogContentExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./dialog-content/dialog-content-example'</span>;
+<span class="hljs-keyword">import</span> {DialogDataExampleDialog,DialogDataExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./dialog-data/dialog-data-example'</span>;
+<span class="hljs-keyword">import</span> {DialogElementsExampleDialog,DialogElementsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./dialog-elements/dialog-elements-example'</span>;
+<span class="hljs-keyword">import</span> {DialogOverviewExampleDialog,DialogOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./dialog-overview/dialog-overview-example'</span>;
+<span class="hljs-keyword">import</span> {DividerOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./divider-overview/divider-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ElevationOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./elevation-overview/elevation-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ExpansionExpandCollapseAllExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./expansion-expand-collapse-all/expansion-expand-collapse-all-example'</span>;
+<span class="hljs-keyword">import</span> {ExpansionOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./expansion-overview/expansion-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ExpansionStepsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./expansion-steps/expansion-steps-example'</span>;
+<span class="hljs-keyword">import</span> {FocusMonitorDirectivesExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./focus-monitor-directives/focus-monitor-directives-example'</span>;
+<span class="hljs-keyword">import</span> {FocusMonitorFocusViaExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./focus-monitor-focus-via/focus-monitor-focus-via-example'</span>;
+<span class="hljs-keyword">import</span> {FocusMonitorOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./focus-monitor-overview/focus-monitor-overview-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldAppearanceExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-appearance/form-field-appearance-example'</span>;
+<span class="hljs-keyword">import</span> {MyTelInput,FormFieldCustomControlExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-custom-control/form-field-custom-control-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldErrorExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-error/form-field-error-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldHintExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-hint/form-field-hint-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldLabelExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-label/form-field-label-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-overview/form-field-overview-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldPrefixSuffixExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-prefix-suffix/form-field-prefix-suffix-example'</span>;
+<span class="hljs-keyword">import</span> {FormFieldThemingExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./form-field-theming/form-field-theming-example'</span>;
+<span class="hljs-keyword">import</span> {GridListDynamicExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./grid-list-dynamic/grid-list-dynamic-example'</span>;
+<span class="hljs-keyword">import</span> {GridListOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./grid-list-overview/grid-list-overview-example'</span>;
+<span class="hljs-keyword">import</span> {IconOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./icon-overview/icon-overview-example'</span>;
+<span class="hljs-keyword">import</span> {IconSvgExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./icon-svg/icon-svg-example'</span>;
+<span class="hljs-keyword">import</span> {InputClearableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-clearable/input-clearable-example'</span>;
+<span class="hljs-keyword">import</span> {InputErrorStateMatcherExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-error-state-matcher/input-error-state-matcher-example'</span>;
+<span class="hljs-keyword">import</span> {InputErrorsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-errors/input-errors-example'</span>;
+<span class="hljs-keyword">import</span> {InputFormExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-form/input-form-example'</span>;
+<span class="hljs-keyword">import</span> {InputHintExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-hint/input-hint-example'</span>;
+<span class="hljs-keyword">import</span> {InputOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-overview/input-overview-example'</span>;
+<span class="hljs-keyword">import</span> {InputPrefixSuffixExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./input-prefix-suffix/input-prefix-suffix-example'</span>;
+<span class="hljs-keyword">import</span> {ListOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./list-overview/list-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ListSectionsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./list-sections/list-sections-example'</span>;
+<span class="hljs-keyword">import</span> {ListSelectionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./list-selection/list-selection-example'</span>;
+<span class="hljs-keyword">import</span> {MenuIconsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./menu-icons/menu-icons-example'</span>;
+<span class="hljs-keyword">import</span> {MenuOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./menu-overview/menu-overview-example'</span>;
+<span class="hljs-keyword">import</span> {NestedMenuExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./nested-menu/nested-menu-example'</span>;
+<span class="hljs-keyword">import</span> {PaginatorConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./paginator-configurable/paginator-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {PaginatorOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./paginator-overview/paginator-overview-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressBarBufferExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-bar-buffer/progress-bar-buffer-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressBarConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-bar-configurable/progress-bar-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressBarDeterminateExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-bar-determinate/progress-bar-determinate-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressBarIndeterminateExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-bar-indeterminate/progress-bar-indeterminate-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressBarQueryExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-bar-query/progress-bar-query-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressSpinnerConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-spinner-configurable/progress-spinner-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {ProgressSpinnerOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./progress-spinner-overview/progress-spinner-overview-example'</span>;
+<span class="hljs-keyword">import</span> {RadioNgModelExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./radio-ng-model/radio-ng-model-example'</span>;
+<span class="hljs-keyword">import</span> {RadioOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./radio-overview/radio-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SelectCustomTriggerExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-custom-trigger/select-custom-trigger-example'</span>;
+<span class="hljs-keyword">import</span> {SelectDisabledExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-disabled/select-disabled-example'</span>;
+<span class="hljs-keyword">import</span> {SelectErrorStateMatcherExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-error-state-matcher/select-error-state-matcher-example'</span>;
+<span class="hljs-keyword">import</span> {SelectFormExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-form/select-form-example'</span>;
+<span class="hljs-keyword">import</span> {SelectHintErrorExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-hint-error/select-hint-error-example'</span>;
+<span class="hljs-keyword">import</span> {SelectMultipleExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-multiple/select-multiple-example'</span>;
+<span class="hljs-keyword">import</span> {SelectNoRippleExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-no-ripple/select-no-ripple-example'</span>;
+<span class="hljs-keyword">import</span> {SelectOptgroupExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-optgroup/select-optgroup-example'</span>;
+<span class="hljs-keyword">import</span> {SelectOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-overview/select-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SelectPanelClassExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-panel-class/select-panel-class-example'</span>;
+<span class="hljs-keyword">import</span> {SelectResetExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-reset/select-reset-example'</span>;
+<span class="hljs-keyword">import</span> {SelectValueBindingExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./select-value-binding/select-value-binding-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavAutosizeExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-autosize/sidenav-autosize-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavBackdropExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-backdrop/sidenav-backdrop-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavDisableCloseExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-disable-close/sidenav-disable-close-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavDrawerOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-drawer-overview/sidenav-drawer-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavFixedExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-fixed/sidenav-fixed-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavModeExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-mode/sidenav-mode-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavOpenCloseExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-open-close/sidenav-open-close-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-overview/sidenav-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavPositionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-position/sidenav-position-example'</span>;
+<span class="hljs-keyword">import</span> {SidenavResponsiveExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sidenav-responsive/sidenav-responsive-example'</span>;
+<span class="hljs-keyword">import</span> {SlideToggleConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slide-toggle-configurable/slide-toggle-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {SlideToggleFormsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slide-toggle-forms/slide-toggle-forms-example'</span>;
+<span class="hljs-keyword">import</span> {SlideToggleOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slide-toggle-overview/slide-toggle-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SliderConfigurableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slider-configurable/slider-configurable-example'</span>;
+<span class="hljs-keyword">import</span> {SliderFormattingExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slider-formatting/slider-formatting-example'</span>;
+<span class="hljs-keyword">import</span> {SliderOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./slider-overview/slider-overview-example'</span>;
+<span class="hljs-keyword">import</span> {PizzaPartyComponent,SnackBarComponentExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./snack-bar-component/snack-bar-component-example'</span>;
+<span class="hljs-keyword">import</span> {SnackBarOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./snack-bar-overview/snack-bar-overview-example'</span>;
+<span class="hljs-keyword">import</span> {SnackBarPositionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./snack-bar-position/snack-bar-position-example'</span>;
+<span class="hljs-keyword">import</span> {SortOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./sort-overview/sort-overview-example'</span>;
+<span class="hljs-keyword">import</span> {StepperEditableExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./stepper-editable/stepper-editable-example'</span>;
+<span class="hljs-keyword">import</span> {StepperOptionalExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./stepper-optional/stepper-optional-example'</span>;
+<span class="hljs-keyword">import</span> {StepperOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./stepper-overview/stepper-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TableBasicFlexExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-basic-flex/table-basic-flex-example'</span>;
+<span class="hljs-keyword">import</span> {TableBasicExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-basic/table-basic-example'</span>;
+<span class="hljs-keyword">import</span> {TableDynamicColumnsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-dynamic-columns/table-dynamic-columns-example'</span>;
+<span class="hljs-keyword">import</span> {TableFilteringExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-filtering/table-filtering-example'</span>;
+<span class="hljs-keyword">import</span> {TableFooterRowExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-footer-row/table-footer-row-example'</span>;
+<span class="hljs-keyword">import</span> {TableHttpExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-http/table-http-example'</span>;
+<span class="hljs-keyword">import</span> {TableMultipleHeaderFooterExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-multiple-header-footer/table-multiple-header-footer-example'</span>;
+<span class="hljs-keyword">import</span> {TableNativeOnlyExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-native-only/table-native-only-example'</span>;
+<span class="hljs-keyword">import</span> {TableOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-overview/table-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TablePaginationExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-pagination/table-pagination-example'</span>;
+<span class="hljs-keyword">import</span> {TableRowContextExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-row-context/table-row-context-example'</span>;
+<span class="hljs-keyword">import</span> {TableSelectionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-selection/table-selection-example'</span>;
+<span class="hljs-keyword">import</span> {TableSortingExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./table-sorting/table-sorting-example'</span>;
+<span class="hljs-keyword">import</span> {TabsOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tabs-overview/tabs-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TabsTemplateLabelExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tabs-template-label/tabs-template-label-example'</span>;
+<span class="hljs-keyword">import</span> {TextFieldAutofillDirectiveExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./text-field-autofill-directive/text-field-autofill-directive-example'</span>;
+<span class="hljs-keyword">import</span> {TextFieldAutofillMonitorExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./text-field-autofill-monitor/text-field-autofill-monitor-example'</span>;
+<span class="hljs-keyword">import</span> {TextFieldAutosizeTextareaExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./text-field-autosize-textarea/text-field-autosize-textarea-example'</span>;
+<span class="hljs-keyword">import</span> {ToolbarMultirowExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./toolbar-multirow/toolbar-multirow-example'</span>;
+<span class="hljs-keyword">import</span> {ToolbarOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./toolbar-overview/toolbar-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipAutoHideExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-auto-hide/tooltip-auto-hide-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipCustomClassExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-custom-class/tooltip-custom-class-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipDelayExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-delay/tooltip-delay-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipDisabledExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-disabled/tooltip-disabled-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipManualExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-manual/tooltip-manual-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipMessageExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-message/tooltip-message-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipModifiedDefaultsExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-modified-defaults/tooltip-modified-defaults-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-overview/tooltip-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TooltipPositionExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tooltip-position/tooltip-position-example'</span>;
+<span class="hljs-keyword">import</span> {TreeChecklistExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tree-checklist/tree-checklist-example'</span>;
+<span class="hljs-keyword">import</span> {TreeDynamicExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tree-dynamic/tree-dynamic-example'</span>;
+<span class="hljs-keyword">import</span> {TreeFlatOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tree-flat-overview/tree-flat-overview-example'</span>;
+<span class="hljs-keyword">import</span> {TreeLoadmoreExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tree-loadmore/tree-loadmore-example'</span>;
+<span class="hljs-keyword">import</span> {TreeNestedOverviewExample} <span class="hljs-keyword">from</span> <span class="hljs-string">'./tree-nested-overview/tree-nested-overview-example'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> LiveExample {
+  title: <span class="hljs-built_in">string</span>;
+  component: <span class="hljs-built_in">any</span>;
+  additionalFiles?: <span class="hljs-built_in">string</span>[];
+  selectorName?: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> EXAMPLE_COMPONENTS: {[key: <span class="hljs-built_in">string</span>]: LiveExample} = {
+  <span class="hljs-string">'autocomplete-auto-active-first-option'</span>: {
+    title: <span class="hljs-string">'Highlight the first autocomplete option'</span>,
+    component: AutocompleteAutoActiveFirstOptionExample
+  },
+  <span class="hljs-string">'autocomplete-display'</span>: {
+    title: <span class="hljs-string">'Display value autocomplete'</span>,
+    component: AutocompleteDisplayExample
+  },
+  <span class="hljs-string">'autocomplete-filter'</span>: {
+    title: <span class="hljs-string">'Filter autocomplete'</span>,
+    component: AutocompleteFilterExample
+  },
+  <span class="hljs-string">'autocomplete-optgroup'</span>: {
+    title: <span class="hljs-string">'Option groups autocomplete'</span>,
+    component: AutocompleteOptgroupExample
+  },
+  <span class="hljs-string">'autocomplete-overview'</span>: {
+    title: <span class="hljs-string">'Autocomplete overview'</span>,
+    component: AutocompleteOverviewExample
+  },
+  <span class="hljs-string">'autocomplete-simple'</span>: {
+    title: <span class="hljs-string">'Simple autocomplete'</span>,
+    component: AutocompleteSimpleExample
+  },
+  <span class="hljs-string">'badge-overview'</span>: {
+    title: <span class="hljs-string">'Badge overview'</span>,
+    component: BadgeOverviewExample
+  },
+  <span class="hljs-string">'bottom-sheet-overview'</span>: {
+    title: <span class="hljs-string">'Bottom Sheet Overview'</span>,
+    component: BottomSheetOverviewExample,
+    additionalFiles: [<span class="hljs-string">"bottom-sheet-overview-example-sheet.html"</span>],
+    selectorName: <span class="hljs-string">'BottomSheetOverviewExample, BottomSheetOverviewExampleSheet'</span>
+  },
+  <span class="hljs-string">'button-overview'</span>: {
+    title: <span class="hljs-string">'Basic buttons'</span>,
+    component: ButtonOverviewExample
+  },
+  <span class="hljs-string">'button-toggle-exclusive'</span>: {
+    title: <span class="hljs-string">'Exclusive selection'</span>,
+    component: ButtonToggleExclusiveExample
+  },
+  <span class="hljs-string">'button-toggle-overview'</span>: {
+    title: <span class="hljs-string">'Basic button-toggles'</span>,
+    component: ButtonToggleOverviewExample
+  },
+  <span class="hljs-string">'button-types'</span>: {
+    title: <span class="hljs-string">'Button varieties'</span>,
+    component: ButtonTypesExample
+  },
+  <span class="hljs-string">'card-fancy'</span>: {
+    title: <span class="hljs-string">'Card with multiple sections'</span>,
+    component: CardFancyExample
+  },
+  <span class="hljs-string">'card-overview'</span>: {
+    title: <span class="hljs-string">'Basic cards'</span>,
+    component: CardOverviewExample
+  },
+  <span class="hljs-string">'cdk-table-basic-flex'</span>: {
+    title: <span class="hljs-string">'Basic use of `&lt;cdk-table&gt;` (uses display flex)'</span>,
+    component: CdkTableBasicFlexExample
+  },
+  <span class="hljs-string">'cdk-table-basic'</span>: {
+    title: <span class="hljs-string">'Basic CDK data-table'</span>,
+    component: CdkTableBasicExample
+  },
+  <span class="hljs-string">'cdk-tree-flat'</span>: {
+    title: <span class="hljs-string">'Tree with flat nodes'</span>,
+    component: CdkTreeFlatExample
+  },
+  <span class="hljs-string">'cdk-tree-nested'</span>: {
+    title: <span class="hljs-string">'Tree with nested nodes'</span>,
+    component: CdkTreeNestedExample
+  },
+  <span class="hljs-string">'checkbox-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable checkbox'</span>,
+    component: CheckboxConfigurableExample
+  },
+  <span class="hljs-string">'checkbox-overview'</span>: {
+    title: <span class="hljs-string">'Basic checkboxes'</span>,
+    component: CheckboxOverviewExample
+  },
+  <span class="hljs-string">'chips-autocomplete'</span>: {
+    title: <span class="hljs-string">'Chips Autocomplete'</span>,
+    component: ChipsAutocompleteExample
+  },
+  <span class="hljs-string">'chips-input'</span>: {
+    title: <span class="hljs-string">'Chips with input'</span>,
+    component: ChipsInputExample
+  },
+  <span class="hljs-string">'chips-overview'</span>: {
+    title: <span class="hljs-string">'Basic chips'</span>,
+    component: ChipsOverviewExample
+  },
+  <span class="hljs-string">'chips-stacked'</span>: {
+    title: <span class="hljs-string">'Stacked chips'</span>,
+    component: ChipsStackedExample
+  },
+  <span class="hljs-string">'datepicker-api'</span>: {
+    title: <span class="hljs-string">'Datepicker open method'</span>,
+    component: DatepickerApiExample
+  },
+  <span class="hljs-string">'datepicker-color'</span>: {
+    title: <span class="hljs-string">'Datepicker palette colors'</span>,
+    component: DatepickerColorExample
+  },
+  <span class="hljs-string">'datepicker-custom-header'</span>: {
+    title: <span class="hljs-string">'Datepicker with custom calendar header'</span>,
+    component: DatepickerCustomHeaderExample,
+    selectorName: <span class="hljs-string">'DatepickerCustomHeaderExample, ExampleHeader'</span>
+  },
+  <span class="hljs-string">'datepicker-custom-icon'</span>: {
+    title: <span class="hljs-string">'Datepicker with custom icon'</span>,
+    component: DatepickerCustomIconExample
+  },
+  <span class="hljs-string">'datepicker-disabled'</span>: {
+    title: <span class="hljs-string">'Disabled datepicker'</span>,
+    component: DatepickerDisabledExample
+  },
+  <span class="hljs-string">'datepicker-events'</span>: {
+    title: <span class="hljs-string">'Datepicker input and change events'</span>,
+    component: DatepickerEventsExample
+  },
+  <span class="hljs-string">'datepicker-filter'</span>: {
+    title: <span class="hljs-string">'Datepicker with filter validation'</span>,
+    component: DatepickerFilterExample
+  },
+  <span class="hljs-string">'datepicker-formats'</span>: {
+    title: <span class="hljs-string">'Datepicker with custom formats'</span>,
+    component: DatepickerFormatsExample
+  },
+  <span class="hljs-string">'datepicker-locale'</span>: {
+    title: <span class="hljs-string">'Datepicker with different locale'</span>,
+    component: DatepickerLocaleExample
+  },
+  <span class="hljs-string">'datepicker-min-max'</span>: {
+    title: <span class="hljs-string">'Datepicker with min &amp; max validation'</span>,
+    component: DatepickerMinMaxExample
+  },
+  <span class="hljs-string">'datepicker-moment'</span>: {
+    title: <span class="hljs-string">'Datepicker that uses Moment.js dates'</span>,
+    component: DatepickerMomentExample
+  },
+  <span class="hljs-string">'datepicker-overview'</span>: {
+    title: <span class="hljs-string">'Basic datepicker'</span>,
+    component: DatepickerOverviewExample
+  },
+  <span class="hljs-string">'datepicker-start-view'</span>: {
+    title: <span class="hljs-string">'Datepicker start date'</span>,
+    component: DatepickerStartViewExample
+  },
+  <span class="hljs-string">'datepicker-touch'</span>: {
+    title: <span class="hljs-string">'Datepicker touch UI'</span>,
+    component: DatepickerTouchExample
+  },
+  <span class="hljs-string">'datepicker-value'</span>: {
+    title: <span class="hljs-string">'Datepicker selected value'</span>,
+    component: DatepickerValueExample
+  },
+  <span class="hljs-string">'datepicker-views-selection'</span>: {
+    title: <span class="hljs-string">'Datepicker emulating a Year and month picker'</span>,
+    component: DatepickerViewsSelectionExample
+  },
+  <span class="hljs-string">'dialog-content'</span>: {
+    title: <span class="hljs-string">'Dialog with header, scrollable content and actions'</span>,
+    component: DialogContentExample,
+    additionalFiles: [<span class="hljs-string">"dialog-content-example-dialog.html"</span>],
+    selectorName: <span class="hljs-string">'DialogContentExample, DialogContentExampleDialog'</span>
+  },
+  <span class="hljs-string">'dialog-data'</span>: {
+    title: <span class="hljs-string">'Injecting data when opening a dialog'</span>,
+    component: DialogDataExample,
+    additionalFiles: [<span class="hljs-string">"dialog-data-example-dialog.html"</span>],
+    selectorName: <span class="hljs-string">'DialogDataExample, DialogDataExampleDialog'</span>
+  },
+  <span class="hljs-string">'dialog-elements'</span>: {
+    title: <span class="hljs-string">'Dialog elements'</span>,
+    component: DialogElementsExample,
+    additionalFiles: [<span class="hljs-string">"dialog-elements-example-dialog.html"</span>],
+    selectorName: <span class="hljs-string">'DialogElementsExample, DialogElementsExampleDialog'</span>
+  },
+  <span class="hljs-string">'dialog-overview'</span>: {
+    title: <span class="hljs-string">'Dialog Overview'</span>,
+    component: DialogOverviewExample,
+    additionalFiles: [<span class="hljs-string">"dialog-overview-example-dialog.html"</span>],
+    selectorName: <span class="hljs-string">'DialogOverviewExample, DialogOverviewExampleDialog'</span>
+  },
+  <span class="hljs-string">'divider-overview'</span>: {
+    title: <span class="hljs-string">'Basic divider'</span>,
+    component: DividerOverviewExample
+  },
+  <span class="hljs-string">'elevation-overview'</span>: {
+    title: <span class="hljs-string">'Elevation CSS classes'</span>,
+    component: ElevationOverviewExample
+  },
+  <span class="hljs-string">'expansion-expand-collapse-all'</span>: {
+    title: <span class="hljs-string">'Accordion with expand/collapse all toggles'</span>,
+    component: ExpansionExpandCollapseAllExample
+  },
+  <span class="hljs-string">'expansion-overview'</span>: {
+    title: <span class="hljs-string">'Basic expansion panel'</span>,
+    component: ExpansionOverviewExample
+  },
+  <span class="hljs-string">'expansion-steps'</span>: {
+    title: <span class="hljs-string">'Expansion panel as accordion'</span>,
+    component: ExpansionStepsExample
+  },
+  <span class="hljs-string">'focus-monitor-directives'</span>: {
+    title: <span class="hljs-string">'Monitoring focus with FocusMonitor'</span>,
+    component: FocusMonitorDirectivesExample
+  },
+  <span class="hljs-string">'focus-monitor-focus-via'</span>: {
+    title: <span class="hljs-string">'Focusing with a specific FocusOrigin'</span>,
+    component: FocusMonitorFocusViaExample
+  },
+  <span class="hljs-string">'focus-monitor-overview'</span>: {
+    title: <span class="hljs-string">'Monitoring focus with FocusMonitor'</span>,
+    component: FocusMonitorOverviewExample
+  },
+  <span class="hljs-string">'form-field-appearance'</span>: {
+    title: <span class="hljs-string">'Form field appearance variants'</span>,
+    component: FormFieldAppearanceExample
+  },
+  <span class="hljs-string">'form-field-custom-control'</span>: {
+    title: <span class="hljs-string">'Form field with custom telephone number input control.'</span>,
+    component: FormFieldCustomControlExample,
+    additionalFiles: [<span class="hljs-string">"form-field-custom-control-example.html"</span>],
+    selectorName: <span class="hljs-string">'FormFieldCustomControlExample, MyTelInput'</span>
+  },
+  <span class="hljs-string">'form-field-error'</span>: {
+    title: <span class="hljs-string">'Form field with error messages'</span>,
+    component: FormFieldErrorExample
+  },
+  <span class="hljs-string">'form-field-hint'</span>: {
+    title: <span class="hljs-string">'Form field with hints'</span>,
+    component: FormFieldHintExample
+  },
+  <span class="hljs-string">'form-field-label'</span>: {
+    title: <span class="hljs-string">'Form field with label'</span>,
+    component: FormFieldLabelExample
+  },
+  <span class="hljs-string">'form-field-overview'</span>: {
+    title: <span class="hljs-string">'Simple form field'</span>,
+    component: FormFieldOverviewExample
+  },
+  <span class="hljs-string">'form-field-prefix-suffix'</span>: {
+    title: <span class="hljs-string">'Form field with prefix &amp; suffix'</span>,
+    component: FormFieldPrefixSuffixExample
+  },
+  <span class="hljs-string">'form-field-theming'</span>: {
+    title: <span class="hljs-string">'Form field theming'</span>,
+    component: FormFieldThemingExample
+  },
+  <span class="hljs-string">'grid-list-dynamic'</span>: {
+    title: <span class="hljs-string">'Dynamic grid-list'</span>,
+    component: GridListDynamicExample
+  },
+  <span class="hljs-string">'grid-list-overview'</span>: {
+    title: <span class="hljs-string">'Basic grid-list'</span>,
+    component: GridListOverviewExample
+  },
+  <span class="hljs-string">'icon-overview'</span>: {
+    title: <span class="hljs-string">'Basic icons'</span>,
+    component: IconOverviewExample
+  },
+  <span class="hljs-string">'icon-svg'</span>: {
+    title: <span class="hljs-string">'SVG icons'</span>,
+    component: IconSvgExample
+  },
+  <span class="hljs-string">'input-clearable'</span>: {
+    title: <span class="hljs-string">'Input with a clear button'</span>,
+    component: InputClearableExample
+  },
+  <span class="hljs-string">'input-error-state-matcher'</span>: {
+    title: <span class="hljs-string">'Input with a custom ErrorStateMatcher'</span>,
+    component: InputErrorStateMatcherExample
+  },
+  <span class="hljs-string">'input-errors'</span>: {
+    title: <span class="hljs-string">'Input with error messages'</span>,
+    component: InputErrorsExample
+  },
+  <span class="hljs-string">'input-form'</span>: {
+    title: <span class="hljs-string">'Inputs in a form'</span>,
+    component: InputFormExample
+  },
+  <span class="hljs-string">'input-hint'</span>: {
+    title: <span class="hljs-string">'Input with hints'</span>,
+    component: InputHintExample
+  },
+  <span class="hljs-string">'input-overview'</span>: {
+    title: <span class="hljs-string">'Basic Inputs'</span>,
+    component: InputOverviewExample
+  },
+  <span class="hljs-string">'input-prefix-suffix'</span>: {
+    title: <span class="hljs-string">'Inputs with prefixes and suffixes'</span>,
+    component: InputPrefixSuffixExample
+  },
+  <span class="hljs-string">'list-overview'</span>: {
+    title: <span class="hljs-string">'Basic list'</span>,
+    component: ListOverviewExample
+  },
+  <span class="hljs-string">'list-sections'</span>: {
+    title: <span class="hljs-string">'List with sections'</span>,
+    component: ListSectionsExample
+  },
+  <span class="hljs-string">'list-selection'</span>: {
+    title: <span class="hljs-string">'List with selection'</span>,
+    component: ListSelectionExample
+  },
+  <span class="hljs-string">'menu-icons'</span>: {
+    title: <span class="hljs-string">'Menu with icons'</span>,
+    component: MenuIconsExample
+  },
+  <span class="hljs-string">'menu-overview'</span>: {
+    title: <span class="hljs-string">'Basic menu'</span>,
+    component: MenuOverviewExample
+  },
+  <span class="hljs-string">'nested-menu'</span>: {
+    title: <span class="hljs-string">'Nested menu'</span>,
+    component: NestedMenuExample
+  },
+  <span class="hljs-string">'paginator-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable paginator'</span>,
+    component: PaginatorConfigurableExample
+  },
+  <span class="hljs-string">'paginator-overview'</span>: {
+    title: <span class="hljs-string">'Paginator'</span>,
+    component: PaginatorOverviewExample
+  },
+  <span class="hljs-string">'progress-bar-buffer'</span>: {
+    title: <span class="hljs-string">'Buffer progress-bar'</span>,
+    component: ProgressBarBufferExample
+  },
+  <span class="hljs-string">'progress-bar-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable progress-bar'</span>,
+    component: ProgressBarConfigurableExample
+  },
+  <span class="hljs-string">'progress-bar-determinate'</span>: {
+    title: <span class="hljs-string">'Determinate progress-bar'</span>,
+    component: ProgressBarDeterminateExample
+  },
+  <span class="hljs-string">'progress-bar-indeterminate'</span>: {
+    title: <span class="hljs-string">'Indeterminate progress-bar'</span>,
+    component: ProgressBarIndeterminateExample
+  },
+  <span class="hljs-string">'progress-bar-query'</span>: {
+    title: <span class="hljs-string">'Query progress-bar'</span>,
+    component: ProgressBarQueryExample
+  },
+  <span class="hljs-string">'progress-spinner-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable progress spinner'</span>,
+    component: ProgressSpinnerConfigurableExample
+  },
+  <span class="hljs-string">'progress-spinner-overview'</span>: {
+    title: <span class="hljs-string">'Basic progress-spinner'</span>,
+    component: ProgressSpinnerOverviewExample
+  },
+  <span class="hljs-string">'radio-ng-model'</span>: {
+    title: <span class="hljs-string">'Radios with ngModel'</span>,
+    component: RadioNgModelExample
+  },
+  <span class="hljs-string">'radio-overview'</span>: {
+    title: <span class="hljs-string">'Basic radios'</span>,
+    component: RadioOverviewExample
+  },
+  <span class="hljs-string">'select-custom-trigger'</span>: {
+    title: <span class="hljs-string">'Select with custom trigger text'</span>,
+    component: SelectCustomTriggerExample
+  },
+  <span class="hljs-string">'select-disabled'</span>: {
+    title: <span class="hljs-string">'Disabled select'</span>,
+    component: SelectDisabledExample
+  },
+  <span class="hljs-string">'select-error-state-matcher'</span>: {
+    title: <span class="hljs-string">'Select with a custom ErrorStateMatcher'</span>,
+    component: SelectErrorStateMatcherExample
+  },
+  <span class="hljs-string">'select-form'</span>: {
+    title: <span class="hljs-string">'Select in a form'</span>,
+    component: SelectFormExample
+  },
+  <span class="hljs-string">'select-hint-error'</span>: {
+    title: <span class="hljs-string">'Select with form field features'</span>,
+    component: SelectHintErrorExample
+  },
+  <span class="hljs-string">'select-multiple'</span>: {
+    title: <span class="hljs-string">'Select with multiple selection'</span>,
+    component: SelectMultipleExample
+  },
+  <span class="hljs-string">'select-no-ripple'</span>: {
+    title: <span class="hljs-string">'Select with no option ripple'</span>,
+    component: SelectNoRippleExample
+  },
+  <span class="hljs-string">'select-optgroup'</span>: {
+    title: <span class="hljs-string">'Select with option groups'</span>,
+    component: SelectOptgroupExample
+  },
+  <span class="hljs-string">'select-overview'</span>: {
+    title: <span class="hljs-string">'Basic select'</span>,
+    component: SelectOverviewExample
+  },
+  <span class="hljs-string">'select-panel-class'</span>: {
+    title: <span class="hljs-string">'Select with custom panel styling'</span>,
+    component: SelectPanelClassExample
+  },
+  <span class="hljs-string">'select-reset'</span>: {
+    title: <span class="hljs-string">'Select with reset option'</span>,
+    component: SelectResetExample
+  },
+  <span class="hljs-string">'select-value-binding'</span>: {
+    title: <span class="hljs-string">'Select with 2-way value binding'</span>,
+    component: SelectValueBindingExample
+  },
+  <span class="hljs-string">'sidenav-autosize'</span>: {
+    title: <span class="hljs-string">'Autosize sidenav'</span>,
+    component: SidenavAutosizeExample
+  },
+  <span class="hljs-string">'sidenav-backdrop'</span>: {
+    title: <span class="hljs-string">'Drawer with explicit backdrop setting'</span>,
+    component: SidenavBackdropExample
+  },
+  <span class="hljs-string">'sidenav-disable-close'</span>: {
+    title: <span class="hljs-string">'Sidenav with custom escape and backdrop click behavior'</span>,
+    component: SidenavDisableCloseExample
+  },
+  <span class="hljs-string">'sidenav-drawer-overview'</span>: {
+    title: <span class="hljs-string">'Basic drawer'</span>,
+    component: SidenavDrawerOverviewExample
+  },
+  <span class="hljs-string">'sidenav-fixed'</span>: {
+    title: <span class="hljs-string">'Fixed sidenav'</span>,
+    component: SidenavFixedExample
+  },
+  <span class="hljs-string">'sidenav-mode'</span>: {
+    title: <span class="hljs-string">'Sidenav with configurable mode'</span>,
+    component: SidenavModeExample
+  },
+  <span class="hljs-string">'sidenav-open-close'</span>: {
+    title: <span class="hljs-string">'Sidenav open &amp; close behavior'</span>,
+    component: SidenavOpenCloseExample
+  },
+  <span class="hljs-string">'sidenav-overview'</span>: {
+    title: <span class="hljs-string">'Basic sidenav'</span>,
+    component: SidenavOverviewExample
+  },
+  <span class="hljs-string">'sidenav-position'</span>: {
+    title: <span class="hljs-string">'Implicit main content with two sidenavs'</span>,
+    component: SidenavPositionExample
+  },
+  <span class="hljs-string">'sidenav-responsive'</span>: {
+    title: <span class="hljs-string">'Responsive sidenav'</span>,
+    component: SidenavResponsiveExample
+  },
+  <span class="hljs-string">'slide-toggle-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable slide-toggle'</span>,
+    component: SlideToggleConfigurableExample
+  },
+  <span class="hljs-string">'slide-toggle-forms'</span>: {
+    title: <span class="hljs-string">'Slide-toggle with forms'</span>,
+    component: SlideToggleFormsExample
+  },
+  <span class="hljs-string">'slide-toggle-overview'</span>: {
+    title: <span class="hljs-string">'Basic slide-toggles'</span>,
+    component: SlideToggleOverviewExample
+  },
+  <span class="hljs-string">'slider-configurable'</span>: {
+    title: <span class="hljs-string">'Configurable slider'</span>,
+    component: SliderConfigurableExample
+  },
+  <span class="hljs-string">'slider-formatting'</span>: {
+    title: <span class="hljs-string">'Slider with custom thumb label formatting.'</span>,
+    component: SliderFormattingExample
+  },
+  <span class="hljs-string">'slider-overview'</span>: {
+    title: <span class="hljs-string">'Basic slider'</span>,
+    component: SliderOverviewExample
+  },
+  <span class="hljs-string">'snack-bar-component'</span>: {
+    title: <span class="hljs-string">'Snack-bar with a custom component'</span>,
+    component: SnackBarComponentExample,
+    additionalFiles: [<span class="hljs-string">"snack-bar-component-example-snack.html"</span>],
+    selectorName: <span class="hljs-string">'SnackBarComponentExample, PizzaPartyComponent'</span>
+  },
+  <span class="hljs-string">'snack-bar-overview'</span>: {
+    title: <span class="hljs-string">'Basic snack-bar'</span>,
+    component: SnackBarOverviewExample
+  },
+  <span class="hljs-string">'snack-bar-position'</span>: {
+    title: <span class="hljs-string">'Snack-bar with configurable position'</span>,
+    component: SnackBarPositionExample
+  },
+  <span class="hljs-string">'sort-overview'</span>: {
+    title: <span class="hljs-string">'Sorting overview'</span>,
+    component: SortOverviewExample
+  },
+  <span class="hljs-string">'stepper-editable'</span>: {
+    title: <span class="hljs-string">'Stepper with editable steps'</span>,
+    component: StepperEditableExample
+  },
+  <span class="hljs-string">'stepper-optional'</span>: {
+    title: <span class="hljs-string">'Stepper with optional steps'</span>,
+    component: StepperOptionalExample
+  },
+  <span class="hljs-string">'stepper-overview'</span>: {
+    title: <span class="hljs-string">'Stepper overview'</span>,
+    component: StepperOverviewExample
+  },
+  <span class="hljs-string">'table-basic-flex'</span>: {
+    title: <span class="hljs-string">'Basic use of `&lt;mat-table&gt;` (uses display flex)'</span>,
+    component: TableBasicFlexExample
+  },
+  <span class="hljs-string">'table-basic'</span>: {
+    title: <span class="hljs-string">'Basic use of `&lt;table mat-table&gt;`'</span>,
+    component: TableBasicExample
+  },
+  <span class="hljs-string">'table-dynamic-columns'</span>: {
+    title: <span class="hljs-string">'Table dynamically changing the columns displayed'</span>,
+    component: TableDynamicColumnsExample
+  },
+  <span class="hljs-string">'table-filtering'</span>: {
+    title: <span class="hljs-string">'Table with filtering'</span>,
+    component: TableFilteringExample
+  },
+  <span class="hljs-string">'table-footer-row'</span>: {
+    title: <span class="hljs-string">'Footer row table'</span>,
+    component: TableFooterRowExample
+  },
+  <span class="hljs-string">'table-http'</span>: {
+    title: <span class="hljs-string">'Table retrieving data through HTTP'</span>,
+    component: TableHttpExample
+  },
+  <span class="hljs-string">'table-multiple-header-footer'</span>: {
+    title: <span class="hljs-string">'Table with multiple header and footer rows'</span>,
+    component: TableMultipleHeaderFooterExample
+  },
+  <span class="hljs-string">'table-native-only'</span>: {
+    title: <span class="hljs-string">'Native `&lt;table&gt;` that only applies the Material styles'</span>,
+    component: TableNativeOnlyExample
+  },
+  <span class="hljs-string">'table-overview'</span>: {
+    title: <span class="hljs-string">'Data table with sorting, pagination, and filtering.'</span>,
+    component: TableOverviewExample
+  },
+  <span class="hljs-string">'table-pagination'</span>: {
+    title: <span class="hljs-string">'Table with pagination'</span>,
+    component: TablePaginationExample
+  },
+  <span class="hljs-string">'table-row-context'</span>: {
+    title: <span class="hljs-string">'Table showing each row context properties.'</span>,
+    component: TableRowContextExample
+  },
+  <span class="hljs-string">'table-selection'</span>: {
+    title: <span class="hljs-string">'Table with selection'</span>,
+    component: TableSelectionExample
+  },
+  <span class="hljs-string">'table-sorting'</span>: {
+    title: <span class="hljs-string">'Table with sorting'</span>,
+    component: TableSortingExample
+  },
+  <span class="hljs-string">'tabs-overview'</span>: {
+    title: <span class="hljs-string">'Basic tabs'</span>,
+    component: TabsOverviewExample
+  },
+  <span class="hljs-string">'tabs-template-label'</span>: {
+    title: <span class="hljs-string">'Complex Example'</span>,
+    component: TabsTemplateLabelExample
+  },
+  <span class="hljs-string">'text-field-autofill-directive'</span>: {
+    title: <span class="hljs-string">'Monitoring autofill state with cdkAutofill'</span>,
+    component: TextFieldAutofillDirectiveExample
+  },
+  <span class="hljs-string">'text-field-autofill-monitor'</span>: {
+    title: <span class="hljs-string">'Monitoring autofill state with AutofillMonitor'</span>,
+    component: TextFieldAutofillMonitorExample
+  },
+  <span class="hljs-string">'text-field-autosize-textarea'</span>: {
+    title: <span class="hljs-string">'Auto-resizing textarea'</span>,
+    component: TextFieldAutosizeTextareaExample
+  },
+  <span class="hljs-string">'toolbar-multirow'</span>: {
+    title: <span class="hljs-string">'Multi-row toolbar'</span>,
+    component: ToolbarMultirowExample
+  },
+  <span class="hljs-string">'toolbar-overview'</span>: {
+    title: <span class="hljs-string">'Basic toolbar'</span>,
+    component: ToolbarOverviewExample
+  },
+  <span class="hljs-string">'tooltip-auto-hide'</span>: {
+    title: <span class="hljs-string">'Tooltip that demonstrates auto-hiding when it clips out of its scrolling container.'</span>,
+    component: TooltipAutoHideExample
+  },
+  <span class="hljs-string">'tooltip-custom-class'</span>: {
+    title: <span class="hljs-string">'Tooltip that can have a custom class applied.'</span>,
+    component: TooltipCustomClassExample
+  },
+  <span class="hljs-string">'tooltip-delay'</span>: {
+    title: <span class="hljs-string">'Tooltip with a show and hide delay'</span>,
+    component: TooltipDelayExample
+  },
+  <span class="hljs-string">'tooltip-disabled'</span>: {
+    title: <span class="hljs-string">'Tooltip that can be disabled'</span>,
+    component: TooltipDisabledExample
+  },
+  <span class="hljs-string">'tooltip-manual'</span>: {
+    title: <span class="hljs-string">'Tooltip that can be manually shown/hidden.'</span>,
+    component: TooltipManualExample
+  },
+  <span class="hljs-string">'tooltip-message'</span>: {
+    title: <span class="hljs-string">'Tooltip with a changing message'</span>,
+    component: TooltipMessageExample
+  },
+  <span class="hljs-string">'tooltip-modified-defaults'</span>: {
+    title: <span class="hljs-string">'Tooltip with a show and hide delay'</span>,
+    component: TooltipModifiedDefaultsExample
+  },
+  <span class="hljs-string">'tooltip-overview'</span>: {
+    title: <span class="hljs-string">'Basic tooltip'</span>,
+    component: TooltipOverviewExample
+  },
+  <span class="hljs-string">'tooltip-position'</span>: {
+    title: <span class="hljs-string">'Tooltip with a custom position'</span>,
+    component: TooltipPositionExample
+  },
+  <span class="hljs-string">'tree-checklist'</span>: {
+    title: <span class="hljs-string">'Tree with checkboxes'</span>,
+    component: TreeChecklistExample
+  },
+  <span class="hljs-string">'tree-dynamic'</span>: {
+    title: <span class="hljs-string">'Tree with dynamic data'</span>,
+    component: TreeDynamicExample
+  },
+  <span class="hljs-string">'tree-flat-overview'</span>: {
+    title: <span class="hljs-string">'Tree with flat nodes'</span>,
+    component: TreeFlatOverviewExample
+  },
+  <span class="hljs-string">'tree-loadmore'</span>: {
+    title: <span class="hljs-string">'Tree with partially loaded data'</span>,
+    component: TreeLoadmoreExample
+  },
+  <span class="hljs-string">'tree-nested-overview'</span>: {
+    title: <span class="hljs-string">'Tree with nested nodes'</span>,
+    component: TreeNestedOverviewExample
+  },
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> EXAMPLE_LIST = [
+  AutocompleteAutoActiveFirstOptionExample,
+  AutocompleteDisplayExample,
+  AutocompleteFilterExample,
+  AutocompleteOptgroupExample,
+  AutocompleteOverviewExample,
+  AutocompleteSimpleExample,
+  BadgeOverviewExample,
+  BottomSheetOverviewExampleSheet,BottomSheetOverviewExample,
+  ButtonOverviewExample,
+  ButtonToggleExclusiveExample,
+  ButtonToggleOverviewExample,
+  ButtonTypesExample,
+  CardFancyExample,
+  CardOverviewExample,
+  CdkTableBasicFlexExample,
+  CdkTableBasicExample,
+  CdkTreeFlatExample,
+  CdkTreeNestedExample,
+  CheckboxConfigurableExample,
+  CheckboxOverviewExample,
+  ChipsAutocompleteExample,
+  ChipsInputExample,
+  ChipsOverviewExample,
+  ChipsStackedExample,
+  DatepickerApiExample,
+  DatepickerColorExample,
+  ExampleHeader,DatepickerCustomHeaderExample,
+  DatepickerCustomIconExample,
+  DatepickerDisabledExample,
+  DatepickerEventsExample,
+  DatepickerFilterExample,
+  DatepickerFormatsExample,
+  DatepickerLocaleExample,
+  DatepickerMinMaxExample,
+  DatepickerMomentExample,
+  DatepickerOverviewExample,
+  DatepickerStartViewExample,
+  DatepickerTouchExample,
+  DatepickerValueExample,
+  DatepickerViewsSelectionExample,
+  DialogContentExampleDialog,DialogContentExample,
+  DialogDataExampleDialog,DialogDataExample,
+  DialogElementsExampleDialog,DialogElementsExample,
+  DialogOverviewExampleDialog,DialogOverviewExample,
+  DividerOverviewExample,
+  ElevationOverviewExample,
+  ExpansionExpandCollapseAllExample,
+  ExpansionOverviewExample,
+  ExpansionStepsExample,
+  FocusMonitorDirectivesExample,
+  FocusMonitorFocusViaExample,
+  FocusMonitorOverviewExample,
+  FormFieldAppearanceExample,
+  MyTelInput,FormFieldCustomControlExample,
+  FormFieldErrorExample,
+  FormFieldHintExample,
+  FormFieldLabelExample,
+  FormFieldOverviewExample,
+  FormFieldPrefixSuffixExample,
+  FormFieldThemingExample,
+  GridListDynamicExample,
+  GridListOverviewExample,
+  IconOverviewExample,
+  IconSvgExample,
+  InputClearableExample,
+  InputErrorStateMatcherExample,
+  InputErrorsExample,
+  InputFormExample,
+  InputHintExample,
+  InputOverviewExample,
+  InputPrefixSuffixExample,
+  ListOverviewExample,
+  ListSectionsExample,
+  ListSelectionExample,
+  MenuIconsExample,
+  MenuOverviewExample,
+  NestedMenuExample,
+  PaginatorConfigurableExample,
+  PaginatorOverviewExample,
+  ProgressBarBufferExample,
+  ProgressBarConfigurableExample,
+  ProgressBarDeterminateExample,
+  ProgressBarIndeterminateExample,
+  ProgressBarQueryExample,
+  ProgressSpinnerConfigurableExample,
+  ProgressSpinnerOverviewExample,
+  RadioNgModelExample,
+  RadioOverviewExample,
+  SelectCustomTriggerExample,
+  SelectDisabledExample,
+  SelectErrorStateMatcherExample,
+  SelectFormExample,
+  SelectHintErrorExample,
+  SelectMultipleExample,
+  SelectNoRippleExample,
+  SelectOptgroupExample,
+  SelectOverviewExample,
+  SelectPanelClassExample,
+  SelectResetExample,
+  SelectValueBindingExample,
+  SidenavAutosizeExample,
+  SidenavBackdropExample,
+  SidenavDisableCloseExample,
+  SidenavDrawerOverviewExample,
+  SidenavFixedExample,
+  SidenavModeExample,
+  SidenavOpenCloseExample,
+  SidenavOverviewExample,
+  SidenavPositionExample,
+  SidenavResponsiveExample,
+  SlideToggleConfigurableExample,
+  SlideToggleFormsExample,
+  SlideToggleOverviewExample,
+  SliderConfigurableExample,
+  SliderFormattingExample,
+  SliderOverviewExample,
+  PizzaPartyComponent,SnackBarComponentExample,
+  SnackBarOverviewExample,
+  SnackBarPositionExample,
+  SortOverviewExample,
+  StepperEditableExample,
+  StepperOptionalExample,
+  StepperOverviewExample,
+  TableBasicFlexExample,
+  TableBasicExample,
+  TableDynamicColumnsExample,
+  TableFilteringExample,
+  TableFooterRowExample,
+  TableHttpExample,
+  TableMultipleHeaderFooterExample,
+  TableNativeOnlyExample,
+  TableOverviewExample,
+  TablePaginationExample,
+  TableRowContextExample,
+  TableSelectionExample,
+  TableSortingExample,
+  TabsOverviewExample,
+  TabsTemplateLabelExample,
+  TextFieldAutofillDirectiveExample,
+  TextFieldAutofillMonitorExample,
+  TextFieldAutosizeTextareaExample,
+  ToolbarMultirowExample,
+  ToolbarOverviewExample,
+  TooltipAutoHideExample,
+  TooltipCustomClassExample,
+  TooltipDelayExample,
+  TooltipDisabledExample,
+  TooltipManualExample,
+  TooltipMessageExample,
+  TooltipModifiedDefaultsExample,
+  TooltipOverviewExample,
+  TooltipPositionExample,
+  TreeChecklistExample,
+  TreeDynamicExample,
+  TreeFlatOverviewExample,
+  TreeLoadmoreExample,
+  TreeNestedOverviewExample,
+];
+
+<span class="hljs-meta">@NgModule</span>({
+  declarations: EXAMPLE_LIST,
+  entryComponents: EXAMPLE_LIST,
+  imports: [
+    ExampleMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
+  ]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> ExampleModule { }
