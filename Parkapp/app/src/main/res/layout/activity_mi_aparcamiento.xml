@@ -11,17 +11,16 @@
         android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/imagenMiAparcamiento"
-        android:layout_width="0dp"
-        android:layout_height="204dp"
-        android:layout_marginTop="28dp"
-        android:background="#FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_parkapp" />
+        <ImageView
+            android:id="@+id/imagenMiAparcamiento"
+            android:layout_width="0dp"
+            android:layout_height="204dp"
+            android:background="#FFFFFF"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_parkapp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
