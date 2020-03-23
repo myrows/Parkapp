@@ -45,6 +45,9 @@ import { EditarAnyoEscolarDialogComponent } from './editar-anyo-escolar-dialog/e
 import { BorrarUsuarioDialogComponent } from './borrar-usuario-dialog/borrar-usuario-dialog.component';
 import { EditUsuarioDialogComponent } from './edit-usuario-dialog/edit-usuario-dialog.component';
 import { UploadPsmComponent } from './upload-psm/upload-psm.component';
+import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
+import { AparcamientosService } from './services/aparcamiento.service';
+import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 
 
 
@@ -65,7 +68,8 @@ const routes: Routes = [
   { path: 'createUnidad', component:  UnidadComponent},
   { path: 'estructuraCentro', component:  EstructuraCentroComponent},
   { path: 'upload/estructuraCentro', component:  UploadEstructuraCentroComponent},
-  { path: 'upload/psm', component:  UploadPsmComponent}
+  { path: 'upload/psm', component:  UploadPsmComponent},
+  { path: 'aparcamientos',component:AparcamientoListadoComponent}
 ];
 
 @NgModule({
@@ -90,7 +94,9 @@ const routes: Routes = [
     EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
-    UploadPsmComponent
+    UploadPsmComponent,
+    AparcamientoListadoComponent,
+    BorrarAparcamientoDialogComponent
 
   ],
   entryComponents: [
@@ -100,7 +106,8 @@ const routes: Routes = [
     BorrarAnyoEscolarDialogComponent,
     EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
-    EditUsuarioDialogComponent
+    EditUsuarioDialogComponent,
+    BorrarAparcamientoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -141,6 +148,7 @@ const routes: Routes = [
       multi: true
     },
     JwtHelperService,
+    AparcamientosService,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
 
   ],
