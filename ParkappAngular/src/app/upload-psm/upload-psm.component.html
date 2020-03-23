@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="etapa" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+
+        <h1>Añadir Psm</h1>
+
+
+
+        <h4>Año Escolar</h4>
+        <mat-form-field>
+            <mat-label>Año Escolar</mat-label>
+            <mat-select name="miselectAnyoEscolar" [(ngModel)]="psm.idAnyoEscolar">
+                <mat-option *ngFor="let anyo of listaAnyos" [value]="anyo.id">
+                    {{anyo.nombreAnyoEscolar}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <h4>Colegio</h4>
+        <mat-form-field>
+            <mat-label>Colegio</mat-label>
+            <mat-select name="miselectColegio" [(ngModel)]="psm.idColegio">
+                <mat-option *ngFor="let colegio of listaColegios" [value]="colegio.id">{{colegio.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <input type="text" [(ngModel)]="psm.evaluacion" #evaluacion="ngModel" placeholder="Evaluacion" required />
+        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required />
+
+
+
+        <button mat-raised-button color="primary" (click)="doUploadPsm()" value="Subir">Generar PSM</button>
+
+    </div>
+</div>

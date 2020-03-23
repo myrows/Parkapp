@@ -1,0 +1,50 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="etapa" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+
+        <h1>Añadir Estructura</h1>
+
+
+        <!--
+        <h4>Año Escolar</h4>
+        <mat-form-field>
+            <mat-label>Año Escolar</mat-label>
+            <mat-select name="miselectAnyoEscolar" [(ngModel)]="estructuraCentro.idAnyoEscolar">
+                <mat-option *ngFor="let etapaPadres of etapaPadres" [value]="estructuraCentro.idAnyoEscolar">
+                    {{etapaPadres.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+-->
+        <!--
+        <h4>Colegio</h4>
+        <mat-form-field>
+            <mat-label>Colegio</mat-label>
+            <mat-select name="miselectColegio" [(ngModel)]="estructuraCentro.idColegio">
+                <mat-option *ngFor="let etapaPadres of etapaPadres" [value]="etapaPadres.id">{{etapaPadres.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+-->
+        <mat-form-field>
+            <mat-label>Años Escolar</mat-label>
+            <mat-select name="miselectAnyos" [(ngModel)]="estructuraCentro.idAnyoEscolar">
+                <mat-option *ngFor="let anyo of listaAnyos" [value]="anyo.id">{{anyo.nombreAnyoEscolar}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Colegio</mat-label>
+            <mat-select name="miselectColegios" [(ngModel)]="estructuraCentro.idColegio">
+                <mat-option *ngFor="let colegio of listaColegios" [value]="colegio.id">{{colegio.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required />
+
+
+
+        <button mat-raised-button color="primary" (click)="doUploadEstructuraCentro()" value="Subir">Crear
+            estructura</button>
+
+    </div>
+</div>

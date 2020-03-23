@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="unidad" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+  
+    <h1>Añadir Unidad</h1>
+
+    <input type="text" [(ngModel)]="unidad.nombre" #nom="ngModel" placeholder="Curso" required />
+  
+    <h4>Curso</h4>
+    <mat-form-field>
+      <mat-label>Curso</mat-label>
+      <mat-select name="miselectCurso" [(ngModel)]="unidad.curso">
+        <mat-option *ngFor="let cursos of listaCursos" [value]="cursos.id">{{cursos.nombre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="doCreateUnidad()" value="Añadir">Añadir</button>
+
+    </div>
+</div>

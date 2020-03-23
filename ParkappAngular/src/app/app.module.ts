@@ -1,120 +1,149 @@
-import {
-  AdminLayoutComponent,
-  AuthLayoutComponent,
-  HeaderComponent,
-  LayoutComponent,
-  MenuComponent,
-  NotificationComponent,
-  OptionsComponent,
-  SidebarComponent
-} from './core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatListModule,
-  MatMenuModule,
-  MatProgressBarModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSlideToggleModule,
-  MatTabsModule,
-  MatToolbarModule
-} from '@angular/material';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { AgmCoreModule } from '@agm/core';
-import { AppComponent } from './app.component';
-import { AppRoutes } from './app.routing';
-import { BidiModule } from '@angular/cdk/bidi';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER,NgModule } from '@angular/core';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
-import { NgModule } from '@angular/core';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { RouterModule } from '@angular/router';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {FormsModule} from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
+import { ConfigService, configServiceInitializerFactory } from './services/config.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule,  MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import {MatSelectModule} from '@angular/material/select';
+import { ColegioComponent } from './colegio/colegio.component';
+import { PeticionesService } from './services/peticiones.service';
+import { AnyoEscolarComponent } from './anyo-escolar/anyo-escolar.component';
 import { AuthService } from './services/auth.service';
-import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { SigninComponent } from './session/signin/signin.component';
+import { AnyosEscolaresService } from './services/anyos-escolares.service';
+import { AdminComponent } from './admin/admin.component';
+import { EtapaComponent } from './etapa/etapa.component';
+import { ListadoUsuariosSaComponent } from './listado-usuarios-sa/listado-usuarios-sa.component';
+import { CursoComponent } from './curso/curso.component';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+import { UploadEstructuraCentroComponent } from './upload-estructura-centro/upload-estructura-centro.component';
+
+import { CrearAnyoEscolarDialogComponent } from './crear-anyo-escolar-dialog/crear-anyo-escolar-dialog.component';
+import { UnidadComponent } from './unidad/unidad.component';
+import { EstructuraCentroComponent } from './estructura-centro/estructura-centro.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { BorrarAnyoEscolarDialogComponent } from './borrar-anyo-escolar-dialog/borrar-anyo-escolar-dialog.component';
+import { EditarAnyoEscolarDialogComponent } from './editar-anyo-escolar-dialog/editar-anyo-escolar-dialog.component';
+
+import { BorrarUsuarioDialogComponent } from './borrar-usuario-dialog/borrar-usuario-dialog.component';
+import { EditUsuarioDialogComponent } from './edit-usuario-dialog/edit-usuario-dialog.component';
+import { UploadPsmComponent } from './upload-psm/upload-psm.component';
+
+
+
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
 }
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelSpeed: 2,
-  wheelPropagation: true,
-  minScrollbarLength: 20
-};
+const routes: Routes = [ 
+  { path: 'login', component: LoginComponent },
+  { path: 'usuarios', component: ListadoUsuariosSaComponent},
+  { path: 'createAdmin', component: SuperAdminComponent },
+  { path: 'colegio', component: ColegioComponent },
+  { path: 'anyosEscolares', component: AnyoEscolarComponent },
+  { path: 'createUser', component: AdminComponent },
+  { path: 'createEtapa', component:  EtapaComponent},
+  { path: 'createCurso', component:  CursoComponent},
+  { path: 'createUnidad', component:  UnidadComponent},
+  { path: 'estructuraCentro', component:  EstructuraCentroComponent},
+  { path: 'upload/estructuraCentro', component:  UploadEstructuraCentroComponent},
+  { path: 'upload/psm', component:  UploadPsmComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidebarComponent,
-    NotificationComponent,
-    OptionsComponent,
-    MenuComponent,
-    AdminLayoutComponent,
-    LayoutComponent,
-    AuthLayoutComponent
+    FooterComponent,
+    LoginComponent,
+    UsuarioComponent,
+    SuperAdminComponent,
+    ColegioComponent,
+    AnyoEscolarComponent,
+    AdminComponent,
+    EtapaComponent,
+    CursoComponent,
+    UploadEstructuraCentroComponent,
+    CrearAnyoEscolarDialogComponent,
+    ListadoUsuariosSaComponent,
+    UnidadComponent,
+    EstructuraCentroComponent,
+    BorrarAnyoEscolarDialogComponent,
+    EditarAnyoEscolarDialogComponent,
+    BorrarUsuarioDialogComponent,
+    EditUsuarioDialogComponent,
+    UploadPsmComponent
+
+  ],
+  entryComponents: [
+    CrearAnyoEscolarDialogComponent,
+    ListadoUsuariosSaComponent,
+    CursoComponent,
+    BorrarAnyoEscolarDialogComponent,
+    EditarAnyoEscolarDialogComponent,
+    BorrarUsuarioDialogComponent,
+    EditUsuarioDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes),
-    FormsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
-    LoadingBarRouterModule,
-    MatSidenavModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatTableModule,
+    FormsModule,
+    MatDialogModule,
     MatCardModule,
     MatMenuModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatTabsModule,
-    MatListModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatProgressBarModule,
-    FlexLayoutModule,
-    BidiModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOURAPIKEY'
+    MatSidenavModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["example.com"],
+        blacklistedRoutes: ["example.com/examplebadroute/"]
+      }
     }),
-    PerfectScrollbarModule,
-    NgMaterialMultilevelMenuModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
+    RouterModule.forRoot(
+      routes
+    ),
   ],
   providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    PeticionesService,
+    AuthService,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
+    AnyosEscolaresService,
+    ConfigService, {
+      provide: APP_INITIALIZER,
+      useFactory: configServiceInitializerFactory,
+      deps: [ConfigService],
+      multi: true
     },
-    AuthService
+    JwtHelperService,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
+
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

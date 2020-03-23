@@ -1,0 +1,41 @@
+.logo {
+    width: 70px;
+    margin-left: 55%;
+    margin-top: 15%;
+    cursor: pointer;
+}
+
+mat-icon{
+  cursor: pointer;
+}
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+  width: 15%;
+}
+
+#sidenav, mat-toolbar {
+  color: white;
+  width: 100%;
+  background-color: #DB001E;
+}
+
+button{
+  color: white;
+  text-decoration: none;
+}
+a:link{
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+  size: 15px;
+}
+
+a,mat-menu-item{
+  color: white;
+}

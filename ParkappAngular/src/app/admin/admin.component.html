@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="admin" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+  
+    <h1>Crear Usuario</h1>
+
+    <input type="email" [(ngModel)]="usuario.email" #em="ngModel" placeholder="Email" required [email]="true" />
+
+    <div [hidden]="em.valid || em.pristine" class="alert alert-danger">
+      <p *ngIf="em.errors?.required">El campo email es requerido.</p>
+      <p *ngIf="em.errors?.email">El campo email debe estar bien formado.</p>
+    </div>
+
+    <input type="password" [(ngModel)]="usuario.password" #pwd="ngModel" placeholder="Contraseña" pattern="[0-9]{4,6}" required />
+
+    <div [hidden]="pwd.valid || pwd.pristine" class="alert alert-danger">
+        <p *ngIf="pwd.errors?.required"> El campo contraseña es requerido.</p>
+        <p *ngIf="pwd.errors?.pattern">La contraseña debe ser un número entre 4 y 6 dígitos</p>
+  </div>
+  
+  <h4>Colegio</h4>
+<mat-form-field>
+  <mat-label>Colegio</mat-label>
+  <mat-select name="miselect" [(ngModel)]="usuario.colegio">
+    <mat-option *ngFor="let colegio of listaColegios" [value]="colegio.id">{{colegio.nombre}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="doCreateAdmin()" value="Crear">Crear</button>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Crea Año Escolar</h1>
+<div mat-dialog-content>
+  <p>Diga año escolar</p>
+  <input matInput [(ngModel)]="anyoEscolar.nombreAnyoEscolar" type="text" #nombre="ngModel" required>
+  <div [hidden]="nombre.pristine" class="alert alert-danger">
+    <p *ngIf="nombre.errors?.required" class="error"> El campo nombre del año es requerido.</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary"  (click)="cerrarDialog()">Cancelar</button>
+  <button mat-raised-button color="primary"  [mat-dialog-close]="anyoEscolar" cdkFocusInitial>Crear</button>
+</div>

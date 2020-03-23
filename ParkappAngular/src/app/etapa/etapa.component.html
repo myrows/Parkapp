@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="etapa" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+  
+    <h1>Añadir Etapa</h1>
+
+    <input type="text" [(ngModel)]="etapa.nombre" #nom="ngModel" placeholder="Etapa" required />
+  
+  <h4>Etapa padre</h4>
+  <mat-form-field>
+    <mat-label>Etapa</mat-label>
+    <mat-select name="miselectEtapa" [(ngModel)]="etapa.padre">
+      <mat-option *ngFor="let etapaPadres of etapaPadres" [value]="etapaPadres.id">{{etapaPadres.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="doCreateEtapa()" value="Añadir">Añadir</button>
+
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+<a [routerLink]="[ '/createEtapa' ]">
+<button mat-flat-button class="color">Etapas +</button>
+</a>
+<a [routerLink]="[ '/createCurso' ]">
+<button mat-flat-button class="color">Curso +</button>
+</a>
+<a [routerLink]="[ '/createUnidad' ]">
+<button mat-flat-button class="color">Unidad +</button>
+</a>
+
+<!-- Etapas padre -->
+<div *ngIf="etapaPadres">
+
+<div *ngFor="let etapaPadre of etapaPadres">
+  <button mat-menu-item [matMenuTriggerFor]="etapas" (mouseover)="seleccionarEtapaPadre(etapaPadre)">{{etapaPadre?.nombre}}</button> 
+</div>
+
+<!-- Etapas hijas -->
+<mat-menu #etapas="matMenu">
+  <div *ngFor="let etapa of listaEtapas">
+    <button *ngIf="etapa.padre !== null && etapa.padre.id == etapaPadreSeleccionada" mat-menu-item [matMenuTriggerFor]="cursos" (mouseover)="seleccionarEtapa(etapa)"  [value]="etapa.id">{{etapa.nombre}}</button>
+  </div>  
+</mat-menu>
+
+<mat-menu #cursos="matMenu">
+    <div *ngFor="let curso of listaCursos">
+        <button *ngIf="curso.idEtapa == etapaSeleccionada" mat-menu-item [matMenuTriggerFor]="unidad" (mouseover)="seleccionarCurso(curso)" [value]="curso.id">{{curso.nombre}}</button>
+      </div>  
+</mat-menu>
+
+<mat-menu #unidad="matMenu">
+    <div *ngFor="let unidad of listaUnidades">
+  <button mat-menu-item *ngIf="unidad.idCurso == cursoSeleccionada" [value]="unidad.id">{{unidad.nombre}}</button>
+    </div>
+</mat-menu>
+</div>
+
+</div>
