@@ -21,30 +21,14 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import { UsuarioComponent } from './usuario/usuario.component';
-import { SuperAdminComponent } from './super-admin/super-admin.component';
 import {MatSelectModule} from '@angular/material/select';
-import { ColegioComponent } from './colegio/colegio.component';
 import { PeticionesService } from './services/peticiones.service';
-import { AnyoEscolarComponent } from './anyo-escolar/anyo-escolar.component';
 import { AuthService } from './services/auth.service';
 import { AnyosEscolaresService } from './services/anyos-escolares.service';
-import { AdminComponent } from './admin/admin.component';
-import { EtapaComponent } from './etapa/etapa.component';
 import { ListadoUsuariosSaComponent } from './listado-usuarios-sa/listado-usuarios-sa.component';
-import { CursoComponent } from './curso/curso.component';
-
-import { UploadEstructuraCentroComponent } from './upload-estructura-centro/upload-estructura-centro.component';
-
-import { CrearAnyoEscolarDialogComponent } from './crear-anyo-escolar-dialog/crear-anyo-escolar-dialog.component';
-import { UnidadComponent } from './unidad/unidad.component';
-import { EstructuraCentroComponent } from './estructura-centro/estructura-centro.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { BorrarAnyoEscolarDialogComponent } from './borrar-anyo-escolar-dialog/borrar-anyo-escolar-dialog.component';
-import { EditarAnyoEscolarDialogComponent } from './editar-anyo-escolar-dialog/editar-anyo-escolar-dialog.component';
-
 import { BorrarUsuarioDialogComponent } from './borrar-usuario-dialog/borrar-usuario-dialog.component';
 import { EditUsuarioDialogComponent } from './edit-usuario-dialog/edit-usuario-dialog.component';
-import { UploadPsmComponent } from './upload-psm/upload-psm.component';
 import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
 import { AparcamientosService } from './services/aparcamiento.service';
 import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
@@ -65,16 +49,6 @@ const routes: Routes = [
   { path: 'zonas', component: ZonaComponent },
   { path: 'header', component: HeaderComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
-  { path: 'createAdmin', component: SuperAdminComponent },
-  { path: 'colegio', component: ColegioComponent },
-  { path: 'anyosEscolares', component: AnyoEscolarComponent },
-  { path: 'createUser', component: AdminComponent },
-  { path: 'createEtapa', component:  EtapaComponent},
-  { path: 'createCurso', component:  CursoComponent},
-  { path: 'createUnidad', component:  UnidadComponent},
-  { path: 'estructuraCentro', component:  EstructuraCentroComponent},
-  { path: 'upload/estructuraCentro', component:  UploadEstructuraCentroComponent},
-  { path: 'upload/psm', component:  UploadPsmComponent},
   { path: 'aparcamientos',component:AparcamientoListadoComponent}
 ];
 
@@ -85,22 +59,9 @@ const routes: Routes = [
     FooterComponent,
     LoginComponent,
     UsuarioComponent,
-    SuperAdminComponent,
-    ColegioComponent,
-    AnyoEscolarComponent,
-    AdminComponent,
-    EtapaComponent,
-    CursoComponent,
-    UploadEstructuraCentroComponent,
-    CrearAnyoEscolarDialogComponent,
     ListadoUsuariosSaComponent,
-    UnidadComponent,
-    EstructuraCentroComponent,
-    BorrarAnyoEscolarDialogComponent,
-    EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
-    UploadPsmComponent,
     AparcamientoListadoComponent,
     BorrarAparcamientoDialogComponent,
     UsuariosListadoComponent,
@@ -109,11 +70,7 @@ const routes: Routes = [
 
   ],
   entryComponents: [
-    CrearAnyoEscolarDialogComponent,
     ListadoUsuariosSaComponent,
-    CursoComponent,
-    BorrarAnyoEscolarDialogComponent,
-    EditarAnyoEscolarDialogComponent,
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
     BorrarAparcamientoDialogComponent,

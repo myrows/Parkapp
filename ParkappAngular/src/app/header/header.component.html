@@ -4,7 +4,7 @@
             <!-- Logo -->
             <mat-toolbar-row>
                 <a [routerLink]="[ '/' ]">
-                    <img src="./assets/img/logo.png" alt="" class="logo">
+                    <img src="./assets/img/logoParkapp.png" alt="" class="logo">
                 </a>
             </mat-toolbar-row>
 
@@ -13,29 +13,24 @@
                 <a *ngIf="!token" [routerLink]="['/login']">Iniciar sesión</a>
             </mat-toolbar-row>
             <mat-toolbar-row>
-                <a *ngIf="token">
-                    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
-                        (click)="logout()">exit_to_app</mat-icon>
-                </a>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
                 <a [routerLink]="[ '/zonas' ]" mat-menu-item>
                     Zonas
                 </a>
             </mat-toolbar-row>
             <mat-toolbar-row>
-                <a [routerLink]="[ '/estructuraCentro' ]"mat-menu-item>
-                    Estructura Centro
-                </a>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                <a [routerLink]="[ '/anyosEscolares' ]" mat-menu-item>
-                    Gestionar Cursos Escolares
+                <a [routerLink]="[ '/usuarios' ]"mat-menu-item>
+                    Usuarios
                 </a>
             </mat-toolbar-row>
             <mat-toolbar-row>
                 <a [routerLink]="[ '/aparcamientos' ]" mat-menu-item>
                     Aparcamientos
+                </a>
+            </mat-toolbar-row>
+            <mat-toolbar-row>
+                <a *ngIf="token">
+                    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
+                        (click)="logout()">exit_to_app</mat-icon>
                 </a>
             </mat-toolbar-row>
         </mat-toolbar>
