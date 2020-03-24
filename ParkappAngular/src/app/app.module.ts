@@ -36,6 +36,8 @@ import { UsuariosListadoComponent } from './usuarios-listado/usuarios-listado.co
 import { UsuariosService } from './services/usuarios.service';
 import { BorrarZonaDialogComponent } from './borrar-zona-dialog/borrar-zona-dialog.component';
 import { ZonaComponent } from './zona/zona.component';
+import { ResenaComponent } from './resena/resena.component';
+import { BorrarResenaDialogComponent } from './borrar-resena-dialog/borrar-resena-dialog.component';
 
 
 
@@ -49,7 +51,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'zonas', component: ZonaComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
-  { path: 'aparcamientos',component:AparcamientoListadoComponent}
+  { path: 'aparcamientos',component:AparcamientoListadoComponent},
+  { path: 'resenas',component: ResenaComponent}
 ];
 
 @NgModule({
@@ -66,7 +69,9 @@ const routes: Routes = [
     BorrarAparcamientoDialogComponent,
     UsuariosListadoComponent,
     ZonaComponent,
-    BorrarZonaDialogComponent
+    BorrarZonaDialogComponent,
+    ResenaComponent,
+    BorrarResenaDialogComponent
 
   ],
   entryComponents: [
@@ -74,7 +79,8 @@ const routes: Routes = [
     BorrarUsuarioDialogComponent,
     EditUsuarioDialogComponent,
     BorrarAparcamientoDialogComponent,
-    BorrarZonaDialogComponent
+    BorrarZonaDialogComponent,
+    BorrarResenaDialogComponent
   ],
   imports: [
     BrowserModule,
