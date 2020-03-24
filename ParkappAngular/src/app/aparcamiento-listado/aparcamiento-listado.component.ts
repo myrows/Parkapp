@@ -5,6 +5,7 @@ import { AparcamientoResponse } from '../models/aparcamiento-response.interface'
 import { BorrarAparcamientoDialogComponent } from '../borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { UploadAparcamientoComponent } from '../upload-aparcamiento/upload-aparcamiento.component';
 
 @Component({
   selector: 'app-aparcamiento-listado',
@@ -41,6 +42,20 @@ export class AparcamientoListadoComponent implements OnInit {
   this.authService.clearToken();
   this.router.navigate(['/login']);
   this.snackBar.open('Has cerrado sesión');
+}
+
+dialogCrearAparcamiento(){
+  var dialogReference = this.dialog.open(UploadAparcamientoComponent, {width: '300px'});
+
+  dialogReference.afterClosed().subscribe(resp => {
+    if(resp != null){
+      if(resp){
+      this.snackBar.open("Aparcamiento creado con éxito ✔️");
+      }else{
+        this.snackBar.open("Error al crear el aparcamiento ❌");
+      }
+    }
+  })
 }
 
 }

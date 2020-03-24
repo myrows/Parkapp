@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER,NgModule } from '@angular/core';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -83,7 +83,8 @@ const routes: Routes = [
     EditUsuarioDialogComponent,
     BorrarAparcamientoDialogComponent,
     BorrarZonaDialogComponent,
-    BorrarResenaDialogComponent
+    BorrarResenaDialogComponent,
+    UploadAparcamientoComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +97,7 @@ const routes: Routes = [
     MatIconModule,
     MatSelectModule,
     MatTableModule,
+    MatFormFieldModule,
     FormsModule,
     MatDialogModule,
     MatCardModule,

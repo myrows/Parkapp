@@ -67,7 +67,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <button mat-fab (click)="['/uploadAparcamiento']" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #c02127; color: white">
+      <button mat-fab (click)="dialogCrearAparcamiento()" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #c02127; color: white">
         <mat-icon class="mat-24">add</mat-icon>
       </button>    
       </div>
