@@ -52,12 +52,20 @@ ul li:hover a{
 #check{
   display: none;
 }
-label #btn,label #cancel{
+label #btn,label{
   position: absolute;
   background: #042331;
   border-radius: 3px;
   cursor: pointer;
 }
+
+label #cancel{
+  position: absolute;
+  background: a02125;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
 label #btn{
   left: 40px;
   top: 25px;
@@ -71,7 +79,7 @@ label #cancel{
   left: -195px;
   top: 17px;
   font-size: 30px;
-  color: #0a5275;
+  color: white;
   padding: 4px 9px;
   transition: all .5s ease;
 }

@@ -4,6 +4,9 @@ import { UsuarioResponse } from '../models/usuario-response.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { BorrarUsuarioDialogComponent } from '../borrar-usuario-dialog/borrar-usuario-dialog.component';
 import { EditUsuarioDialogComponent } from '../edit-usuario-dialog/edit-usuario-dialog.component';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-listado-usuarios-sa',

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authentication.login(this.loginDto).subscribe(resul => {
       this.snackBar.open('Sesión iniciada correctamente');
-      this.router.navigate(['/header']);
+      this.router.navigate(['/zonas']);
       this.setToken(resul.token);
       
     },

@@ -1,4 +1,34 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="container">
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Opciones</title>
+    <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <script src="https://kit.fontawesome.com/ba901dc1bc.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="material-icons" id="btn">reorder</i>
+      <i class="material-icons" id="cancel">chevron_left</i>
+    </label>
+    <div class="sidebar">
+    <header>
+        <a [routerLink]="[ '/' ]">
+            <img src="./assets/img/logoParkapp.png" alt="" class="logo">
+        </a>
+    </header>
+  <ul>
+    <i class="fas fa-thumbs-up fa-5x"></i>
+    <li><a [routerLink]="[ '/zonas' ]" mat-menu-item><i class="material-icons">place</i>Zonas</a></li>
+    <li><a [routerLink]="[ '/usuarios' ]"mat-menu-item><i class="material-icons">person_pin</i>Usuarios</a></li>
+    <li><a [routerLink]="[ '/aparcamientos' ]" mat-menu-item><i class="material-icons">directions_car</i>Aparcamientos</a></li>
+
+  </ul>
+</div>
+ <section>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="8px" class="container">
     <button mat-fab color="primary" [routerLink]="[ '/createAdmin' ]">
         <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">add</mat-icon>
     </button>
@@ -51,3 +81,6 @@
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 </table>
 </div>
+</section>
+  </body>
+</html>

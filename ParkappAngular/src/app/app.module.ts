@@ -48,7 +48,6 @@ const routes: Routes = [
   { path: '', redirectTo : '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'zonas', component: ZonaComponent },
-  { path: 'header', component: HeaderComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
   { path: 'aparcamientos',component:AparcamientoListadoComponent}
 ];
