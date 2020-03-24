@@ -22,13 +22,6 @@ export class ListadoUsuariosSaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.listarUsuarios();
-  }
-
-  listarUsuarios(){
-    this.peticionesService.loadAllUsuarios().subscribe(resp =>{
-      this.listaUsuarios = resp;
-    })
   }
 
   openDeleteDialog(usuarioResponse: UsuarioResponse) {

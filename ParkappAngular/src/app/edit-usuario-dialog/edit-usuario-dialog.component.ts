@@ -28,13 +28,6 @@ export class EditUsuarioDialogComponent implements OnInit {
     ){}
 
   ngOnInit() {
-  this.listarColegio();
-  }
-
-  listarColegio(){
-    this.peticionesService.loadColegio().subscribe(resp =>{
-      this.listaColegios = resp;
-    })
   }
 
   cerrarDialog() {
