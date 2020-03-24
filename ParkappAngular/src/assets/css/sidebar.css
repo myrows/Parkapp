@@ -43,6 +43,19 @@ body {
   border-top: 1px solid rgba(255,255,255,.1);
   transition: .4s;
 }
+
+.optselect:hover{
+  background: #a02125;
+}
+
+.optselect:focus {
+  background: #a02125;
+}
+
+.logout{
+  cursor: pointer;
+}
+
 ul li:hover a{
   padding-left: 50px;
 }
