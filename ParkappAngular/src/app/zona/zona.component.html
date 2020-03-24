@@ -1,34 +1,70 @@
-<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" class="container">
-    <table mat-table [dataSource]="listaZona" class="mat-elevation-z8">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Opciones</title>
+    <link rel="stylesheet" href="./assets/css/sidebar.css">
+    <script
+      src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
+    ></script>
+  </head>
+  <body>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars"></i>
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+    <header>
+        <a [routerLink]="[ '/' ]">
+            <img src="./assets/img/logoParkapp.png" alt="" class="logo">
+        </a>
+    </header>
+  <ul>
+    <li><a [routerLink]="[ '/zonas' ]" mat-menu-item><i class="fas fa-qrcode"></i>Zonas</a></li>
+    <li><a [routerLink]="[ '/usuarios' ]"mat-menu-item><i class="fas fa-stream"></i>Usuarios</a></li>
+    <li><a [routerLink]="[ '/aparcamientos' ]" mat-menu-item><i class="fas fa-calendar-week"></i>Aparcamientos</a></li>
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> id </th>
-        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
-      </ng-container>
-      
-      <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-      </ng-container>
+    <li><a (click)="logout()"><i class="far fa-envelope"></i>Cerrar sesión</a></li>
+  </ul>
+</div>
+ <section>
+ <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" class="container">
+  <table mat-table [dataSource]="listaZona" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+    </ng-container>
     
-      <ng-container matColumnDef="ubicacion">
-        <th mat-header-cell *matHeaderCellDef> Ubicación </th>
-        <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
-      </ng-container>
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="ubicacion">
+      <th mat-header-cell *matHeaderCellDef> Ubicación </th>
+      <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element"> 
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element"> 
 <!--                 <button mat-icon-button aria-label="Editar fotocopia" (click)="dialogEditFotocopia(element)">
-                <mat-icon>edit</mat-icon>
-            </button>  -->
-            <button mat-icon-button aria-label="Eliminar zona" (click)="dialogDeleteZona(element)">
-              <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>    
-    </div>
+              <mat-icon>edit</mat-icon>
+          </button>  -->
+          <button mat-icon-button aria-label="Eliminar zona" (click)="dialogDeleteZona(element)">
+            <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>    
+  </div>
+</section>
+  </body>
+</html>
+
