@@ -14,7 +14,7 @@ import { UploadAparcamientoComponent } from '../upload-aparcamiento/upload-aparc
 })
 export class AparcamientoListadoComponent implements OnInit {
 
-  aparcamientos:AparcamientoResponse[];
+  aparcamientos: AparcamientoResponse[];
   displayedColumns: string[] = ['nombre', 'idaparcamiento', 'dimension', 'acciones']
   
   constructor(private aparcamientosService: AparcamientosService, public dialog: MatDialog, private snackBar: MatSnackBar, private authService: AuthService,private router: Router) { }

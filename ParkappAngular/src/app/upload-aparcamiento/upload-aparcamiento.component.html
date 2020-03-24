@@ -23,7 +23,13 @@
 
         
 
-        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required />
+        <div class="form-group">
+          <label for="file">Choose File</label>
+          <input type="file"
+                 id="file"
+                 (change)="handleFileInput($event.target.files)">
+      </div>
+      
         <button mat-raised-button color="primary" (click)="doUploadAparcamiento()" value="Subir">Generar PSM</button>
 
     </div>

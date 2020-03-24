@@ -2,7 +2,7 @@
 import { AparcamientoDto } from '../models/aparcamiento.dto';
 import { Observable } from 'rxjs';
 import { AparcamientoResponse } from '../models/aparcamiento-response.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HistorialResponse } from '../models/historial-response.interface';
 
@@ -33,23 +33,13 @@ export class AparcamientosService {
   constructor(private http: HttpClient) { }
 
 
-  uploadAparcamiento(avatar: File, dimension: string, puntuacion: string, longitud: string, latitud: string,nombre:string,userId:string,zonaId:string): Observable<AparcamientoResponse> {
-    let formData = new FormData();
-    formData.append("avatar", avatar);
-    formData.append("dimension", dimension);
-    formData.append("puntuacion", puntuacion);
-    formData.append("longitud", longitud);
-    formData.append("latitud", latitud);
-    formData.append("nombre", nombre);
-    formData.append("userId", userId);
-    formData.append("zonaId", zonaId);
-
+  uploadAparcamiento(puntuacion: string, dimension: string, longitud: string, latitud: string, avatar: File, nombre:string, userId:string, zonaId:string): Observable<AparcamientoResponse> {
 
     return this.http.post<AparcamientoResponse>(
       URL_NUEVOAPARCAMIENTO,
-      formData,
+      avatar,
       httpOptionsWithUpload
-    )
+    );
   }
 
   nuevoAparcamiento (nuevoAparcamiento: AparcamientoDto): Observable<AparcamientoResponse> {

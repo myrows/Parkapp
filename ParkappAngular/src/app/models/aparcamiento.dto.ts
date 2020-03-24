@@ -11,17 +11,4 @@ export class AparcamientoDto{
         public zonaId:string){
 
     }
-
-    transformarDto(){
-        return {
-            puntuacion: this.puntuacion,
-            dimension: this.dimension,
-            longitud: this.longitud,
-            latitud: this.latitud,
-            avatar: this.avatar,
-            nombre: this.nombre,
-            userId: this.userId,
-            zonaId: this.zonaId
-        }
-    }
 }
