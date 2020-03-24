@@ -33,6 +33,9 @@ export class AparcamientoListadoComponent implements OnInit {
      data: { aparcamientoResponse: aparcamientoResponse }
    });
  }
+ openCrearDialog(){
+   this.router.navigate(['/uploadAparcamiento']);
+ }
 
  logout() {
   this.authService.clearToken();

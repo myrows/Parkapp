@@ -1,13 +1,11 @@
 import { HistorialResponse } from './historial-response.interface';
 
 export class AparcamientoDto{
-    constructor(public puntuacion:Number,
-        public historial: HistorialResponse[],
-        public _id: string,
+    constructor(public puntuacion:string,
         public dimension: string,
-        public longitud: number,
-        public latitud: number,
-        public avatar: string,
+        public longitud: string,
+        public latitud: string,
+        public avatar: File,
         public nombre:string,
         public userId:string,
         public zonaId:string){
@@ -17,8 +15,6 @@ export class AparcamientoDto{
     transformarDto(){
         return {
             puntuacion: this.puntuacion,
-            historial: this.historial,
-            _id: this._id,
             dimension: this.dimension,
             longitud: this.longitud,
             latitud: this.latitud,

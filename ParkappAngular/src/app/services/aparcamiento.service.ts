@@ -17,6 +17,14 @@ const httpOptions = {
     'Content-Type':  'application/json'
   })
 };
+const httpOptionsWithUpload = {
+  headers: new HttpHeaders({
+    'Content-Type':  'multipart/form-data',
+    //'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +32,25 @@ export class AparcamientosService {
 
   constructor(private http: HttpClient) { }
 
+
+  uploadAparcamiento(avatar: File, dimension: string, puntuacion: string, longitud: string, latitud: string,nombre:string,userId:string,zonaId:string): Observable<AparcamientoResponse> {
+    let formData = new FormData();
+    formData.append("avatar", avatar);
+    formData.append("dimension", dimension);
+    formData.append("puntuacion", puntuacion);
+    formData.append("longitud", longitud);
+    formData.append("latitud", latitud);
+    formData.append("nombre", nombre);
+    formData.append("userId", userId);
+    formData.append("zonaId", zonaId);
+
+
+    return this.http.post<AparcamientoResponse>(
+      URL_NUEVOAPARCAMIENTO,
+      formData,
+      httpOptionsWithUpload
+    )
+  }
 
   nuevoAparcamiento (nuevoAparcamiento: AparcamientoDto): Observable<AparcamientoResponse> {
     return this.http.post<AparcamientoResponse>(

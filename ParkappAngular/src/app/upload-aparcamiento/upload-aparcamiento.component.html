@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="zona" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+
+      <mat-form-field>
+        <mat-label>Zonas</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let zona of listaZona" [value]="zona._id">
+            {{zona.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.nombre" placeholder="Nombre">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.puntuacion" placeholder="Puntuacion">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.longitud" placeholder="Longitud">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.latitud" placeholder="Latitud">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.dimension" placeholder="dimension">
+          </mat-form-field>
+        
+
+        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required />
+        <button mat-raised-button color="primary" (click)="doUploadAparcamiento()" value="Subir">Generar PSM</button>
+
+    </div>
+</div>
