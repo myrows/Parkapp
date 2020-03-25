@@ -40,6 +40,7 @@ import { UploadAparcamientoComponent } from './upload-aparcamiento/upload-aparca
 import { ResenaComponent } from './resena/resena.component';
 import { BorrarResenaDialogComponent } from './borrar-resena-dialog/borrar-resena-dialog.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { CreateResenaComponent } from './create-resena/create-resena.component';
 
 
 
@@ -76,7 +77,8 @@ const routes: Routes = [
     BorrarZonaDialogComponent,
     UploadAparcamientoComponent,
     ResenaComponent,
-    BorrarResenaDialogComponent
+    BorrarResenaDialogComponent,
+    CreateResenaComponent
 
   ],
   entryComponents: [

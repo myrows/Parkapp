@@ -1,9 +1,30 @@
-<form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
+<!--<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
+    <div class="zona" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
+
+      <h4>Zona</h4>
+      <mat-form-field>
+        <mat-label>Zona</mat-label>
+        <mat-select name="miselectZona" [(ngModel)]="aparcamiento.zonaId">
+          <mat-option *ngFor="let zona of listaZona" [value]="zona._id">{{zona.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <input type="text" [(ngModel)]="aparcamiento.nombre" #nombre="ngModel" placeholder="Nombre">
+      
+        <input type="text" [(ngModel)]="aparcamiento.puntuacion" #puntuacion="ngModel" placeholder="Puntuacion">
+
+        <input type="text" [(ngModel)]="aparcamiento.longitud" #longitud="ngModel" placeholder="Longitud">
+
+
+        <input type="text" [(ngModel)]="aparcamiento.latitud" #latitud="ngModel" placeholder="Latitud">
+
+
+        <input type="text" [(ngModel)]="aparcamiento.dimension" #dimension="ngModel" placeholder="dimension">
 
         
-<!--
-        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required /> -->
-<!--
+
+        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required />
+
       <div class="col-md-6 offset-md-3">
           <h3>Choose File</h3>            
           <div class="form-group">
@@ -19,18 +40,23 @@
           <div class="mb-3" *ngIf="uploadedFilePath">
               {{uploadedFilePath}}
           </div>
-      </div> -->
+      </div>
 
-      <input
-            type="file"
-            id="file"
-            placeholder="File"
-            (change)="onFileChange($event)"
-            #fileInput 
-            formControlName="file">
-    <img *ngIf="image" id="thumbnail" title="thumb" src={{image}} class="thumbnail"/>
-
+    </div>
+    <div mat-dialog-actions>
       <button mat-button (click)="close()">Cancelar</button>
-      <!--<button mat-button (click)="doUploadAparcamiento()" cdkFocusInitial>Guardar</button>-->
-      <button mat-raised-button color="primary" type="submit" [disabled]="imageForm.valid">Enviar</button>
+      <button mat-button (click)="doUploadAparcamiento()" cdkFocusInitial>Guardar</button>
+    </div>
+</div> -->
+
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="puntuacion"/>
+  <input type="text" formControlName="dimension" />
+  <input type="text" formControlName="longitud" />
+  <input type="text" formControlName="latitud" />
+  <input type="text" formControlName="nombre" />
+  <input type="text" formControlName="userId" />
+  <input type="text" formControlName="zonaId" />
+  <input type="file" formControlName="image" (onchange)="onFileChange($event, 'image')" />
+  <button type="submit">Submit</button>
 </form>

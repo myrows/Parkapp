@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AparcamientoDto } from '../models/aparcamiento.dto';
 import { ZonaResponse } from '../models/zona-response.interface';
 import { AparcamientosService } from '../services/aparcamiento.service';
 import { PeticionesService } from '../services/peticiones.service';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 const URL = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
@@ -28,19 +28,30 @@ uploadedFilePath: string = null;
 imageForm:FormGroup;
 image:any;
 file:any;
+images;
+todoForm: FormGroup = this.fb.group({
+  todo: ['', Validators.required],
+  puntuacion: ['', Validators.required],
+  image: ['', Validators.required], //making the image required here
+  dimension: ['', Validators.required],
+  longitud: ['', Validators.required],
+  latitud: ['', Validators.required],
+  nombre: ['', Validators.required],
+  userId: ['', Validators.required],
+  zonaId: ['', Validators.required],
+  done: [false]
+})
   
 
   constructor(private aparcamientoService: AparcamientosService, private peticionesService: PeticionesService,
-     private dialogRef: MatDialogRef<UploadAparcamientoComponent>, private http: HttpClient, public snackBar:MatSnackBar, private router:Router) {
-    this.aparcamiento = new AparcamientoDto('' ,'' ,'' ,'', null, '', '', '');
+     private dialogRef: MatDialogRef<UploadAparcamientoComponent>, private http: HttpClient, public snackBar:MatSnackBar, private router:Router,
+     private fb: FormBuilder,
+     private cd: ChangeDetectorRef) {
+    //this.aparcamiento = new AparcamientoDto('' ,'' ,'' ,'', null, '', '', '');
   }
 
   ngOnInit() {
     this.loadZonas();
-    this.imageForm=new FormGroup({
-      name: new FormControl(null,Validators.required),
-      file:new FormControl(null, Validators.required)
-  });
      }
 
 fileProgress(fileInput: any) {
@@ -111,7 +122,7 @@ preview() {
 
   //MEAN
 
-  onFileChange(event){
+  /*onFileChange(event){
     if(event.target.files && event.target.files.length>0){//Identifica si hay archivos
         const file=event.target.files[0];
         if(file.type.includes("image")){//Evaluar si es una imagen
@@ -125,13 +136,13 @@ preview() {
             this.snackBar.open('Error imagen');
         }
     }
-}
+}*/
 
-onSubmit(){
+/*onSubmit(){
   const form=this.imageForm;
   //Verifica que el formulario sea válido y pasa parámetros
-      this.aparcamientoService.uploadAparcamiento(form.value.name, this.aparcamiento.puntuacion, this.aparcamiento.dimension, this.aparcamiento.longitud, this.aparcamiento.latitud,
-        this.file, this.aparcamiento.nombre, this.aparcamiento.userId, this.aparcamiento.zonaId)
+      this.aparcamientoService.uploadAparcamiento(form.value.name,
+        this.file)
       .subscribe(
           (data:any)=>{
               console.log(data);
@@ -139,6 +150,50 @@ onSubmit(){
           },
           err=>console.log
       )
+}*/
+
+onFileChange(event, field) {
+  if (event.target.files && event.target.files.length) {
+    const [file] = event.target.files;
+    // just checking if it is an image, ignore if you want
+    if (!file.type.startsWith('image')) {
+      this.todoForm.get(field).setErrors({
+        required: true
+      });
+      this.cd.markForCheck();
+    } else {
+      // unlike most tutorials, i am using the actual Blob/file object instead of the data-url
+      this.todoForm.patchValue({
+        [field]: file
+      });
+      // need to run CD since file load runs outside of zone
+      this.cd.markForCheck();
+    }
+  }
 }
 
+/*onSubmit(){
+  const formData = new FormData();
+  formData.append('avatar', this.images);
+
+  this.http.post<any>('http://localhost:3000/parkapp/aparcamiento', formData).subscribe(
+    (res) => console.log(res),
+    (err) => console.log(err)
+  );
+}*/
+
+    onSubmit() {
+      const formData = new FormData();
+      Object.entries(this.todoForm.value).forEach(
+        ([key, value]: any[]) => {
+          formData.set(key, value);
+        }
+
+        //submit the form using formData
+        // if you are using nodejs use something like multer
+      )
+      this.http.post<any>('http://localhost:3000/parkapp/aparcamiento', formData).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err));
+    }
 }

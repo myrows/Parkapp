@@ -37,7 +37,7 @@ export class AparcamientosService {
   constructor(private http: HttpClient) { }
 
 
-  uploadAparcamiento(filename : string, puntuacion: string, dimension: string, longitud: string, latitud: string, avatar: File, nombre:string, userId:string, zonaId:string):Observable<Object> {
+  uploadAparcamiento(filename : string, avatar: File):Observable<Object> {
     const form = new FormData();
     /*let headers = new HttpHeaders();
     headers.append("Content-Type", "multipart/form-data");
@@ -56,7 +56,7 @@ export class AparcamientosService {
     form.append('zonaId', '5e6e070536dd1732649c1cf1');
     return this.http.post<Object>(
       URL_NUEVOAPARCAMIENTO,
-      form, httpOptionsWithUpload);
+      form, { headers: {'Content-Type': undefined} });
   }
 
   nuevoAparcamiento (nuevoAparcamiento: AparcamientoDto): Observable<AparcamientoResponse> {
