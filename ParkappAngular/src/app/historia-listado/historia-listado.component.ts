@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginator, MatTableDataSource } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { HistorialResponse } from '../models/historial-response.interface';
@@ -16,6 +16,9 @@ export class HistoriaListadoComponent implements OnInit {
 
   listadoHistorial: HistorialResponse[];
   displayedColumns: string[] = ['id', 'fechaEntrada', 'fechaSalida', 'acciones'];
+  dataSource;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private peticionesService: PeticionesService, private dialog: MatDialog, private authService: AuthService,
               private router: Router, private snackBar: MatSnackBar) { }
@@ -27,6 +30,11 @@ export class HistoriaListadoComponent implements OnInit {
   loadHistorial() {
     this.peticionesService.loadHistorial().subscribe(resp => {
       this.listadoHistorial = resp;
+
+      this.dataSource = new MatTableDataSource(resp);
+      this.dataSource.data = resp;
+  
+      this.dataSource.paginator = this.paginator;
     });
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
 import { ZonaDto } from '../dto/zona.dto';
 import { ZonaResponse } from '../models/zona-response.interface';
-import { MatDialog, MatSnackBar, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { BorrarAparcamientoDialogComponent } from '../borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 import { BorrarZonaDialogComponent } from '../borrar-zona-dialog/borrar-zona-dialog.component';
 import { AuthService } from '../services/auth.service';
