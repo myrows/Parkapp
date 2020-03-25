@@ -71,6 +71,7 @@ export class PeticionesService {
   createHistorial(historialDto: HistorialDto): Observable<HistorialResponse> {
     return this.http.post<HistorialResponse>(
       apiHistorial,
+      historialDto,
       httpOptions
     );
   }
