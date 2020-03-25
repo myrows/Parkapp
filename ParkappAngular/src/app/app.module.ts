@@ -47,9 +47,9 @@ var route: string;
 const token = localStorage.getItem('token');
 
 if (token != null) {
-  route = 'zonas';
+  route = '/zonas';
 } else {
-  route = 'login';
+  route = '/login';
 }
 
 
