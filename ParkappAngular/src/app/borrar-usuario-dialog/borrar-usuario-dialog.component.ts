@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsuarioResponse } from '../models/usuario-response.interface';
 import { UsuariosService } from '../services/usuarios.service';
+import { UsuarioResponse } from '../models/usuario.response';
 
 export interface DatosEntradaDialog {
   usuarioResponse: UsuarioResponse;

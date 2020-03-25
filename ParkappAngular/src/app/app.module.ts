@@ -27,7 +27,6 @@ import { AnyosEscolaresService } from './services/anyos-escolares.service';
 import { ListadoUsuariosSaComponent } from './listado-usuarios-sa/listado-usuarios-sa.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { BorrarUsuarioDialogComponent } from './borrar-usuario-dialog/borrar-usuario-dialog.component';
-import { EditUsuarioDialogComponent } from './edit-usuario-dialog/edit-usuario-dialog.component';
 import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
 import { AparcamientosService } from './services/aparcamiento.service';
 import { BorrarAparcamientoDialogComponent } from './borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
@@ -82,7 +81,6 @@ const routes: Routes = [
     UsuarioComponent,
     ListadoUsuariosSaComponent,
     BorrarUsuarioDialogComponent,
-    EditUsuarioDialogComponent,
     AparcamientoListadoComponent,
     BorrarAparcamientoDialogComponent,
     UsuariosListadoComponent,
@@ -103,7 +101,6 @@ const routes: Routes = [
   entryComponents: [
     ListadoUsuariosSaComponent,
     BorrarUsuarioDialogComponent,
-    EditUsuarioDialogComponent,
     BorrarAparcamientoDialogComponent,
     BorrarZonaDialogComponent,
     BorrarResenaDialogComponent,
@@ -112,8 +109,8 @@ const routes: Routes = [
     CreateZonaComponent,
     NuevoAparcamientoDialogComponent,
     NuevoUsuarioDialogComponent,
-    EditUsuarioDialogComponent,
-    EditarAparcamientoDialogComponent
+    EditarAparcamientoDialogComponent,
+    EditarUsuarioDialogComponent
   ],
   imports: [
     BrowserModule,

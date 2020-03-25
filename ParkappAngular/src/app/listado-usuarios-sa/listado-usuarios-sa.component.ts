@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
-import { UsuarioResponse } from '../models/usuario-response.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { BorrarUsuarioDialogComponent } from '../borrar-usuario-dialog/borrar-usuario-dialog.component';
-import { EditUsuarioDialogComponent } from '../edit-usuario-dialog/edit-usuario-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { UsuarioResponse } from '../models/usuario.response';
 
 @Component({
   selector: 'app-listado-usuarios-sa',
@@ -29,11 +28,5 @@ export class ListadoUsuariosSaComponent implements OnInit {
      data: { usuarioResponse: usuarioResponse }
    });
  }
-
- openEditDialog(usuario: UsuarioResponse) {
-  this.dialog.open(EditUsuarioDialogComponent, {
-   data: { usuario: usuario }
- });
-}
 
 }

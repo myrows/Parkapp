@@ -69,7 +69,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
     formData.append('zonaId', this.aparcamientoDto.zonaId);
     formData.append('nombre', this.aparcamientoDto.nombre);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/', formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/photo/', formData).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

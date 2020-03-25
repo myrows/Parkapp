@@ -24,13 +24,16 @@ export class AparcamientoListadoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   ngOnInit() {
     this.cargarAparcamientos();
-    this.dataSource = new MatTableDataSource<AparcamientoResponse>(this.aparcamientos);
-    this.dataSource.paginator = this.paginator;
+    
   }
 
   cargarAparcamientos(){
     this.aparcamientosService.getAparcamientos().subscribe(resp => {
       this.aparcamientos = resp;
+
+      this.dataSource = new MatTableDataSource<AparcamientoResponse>(this.aparcamientos);
+      this.dataSource.data = resp;
+      this.dataSource.paginator = this.paginator;
     });
 
   }

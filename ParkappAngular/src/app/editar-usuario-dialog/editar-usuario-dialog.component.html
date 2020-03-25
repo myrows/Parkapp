@@ -1,1 +1,39 @@
-<p>editar-usuario-dialog works!</p>
+<div fxFlexLayout="column">
+    <h1 mat-dialog-title>Nueva Reseña</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput [(ngModel)]="usuarioDto.fullname" placeholder="Nombre">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="usuarioDto.username" placeholder="Nombre de Usuario">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="usuarioDto.email" type="email" placeholder="Email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="usuarioDto.password" type="password" placeholder="Contraseña">
+      </mat-form-field>
+
+      <h4>Roles</h4>
+      <mat-form-field>
+        <mat-label>Roles</mat-label>
+        <mat-select name="miselectRol" [(ngModel)]="usuarioDto.rol">
+          <mat-option *ngFor="let rol of roles" [value]="rol.value">
+            {{rol.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <input [(ngModel)]="usuarioDto.avatar" type="file" placeholder="Imagen" (change)="selectImage($event)">
+      
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="close()">Cancelar</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Guardar</button>
+    </div>
+
+    </div>
+

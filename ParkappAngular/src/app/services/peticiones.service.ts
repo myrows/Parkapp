@@ -11,7 +11,6 @@ import { EtapaPadreResponse } from '../models/etapaPadre-response.interface';
 import { UploadCsvEstructuraCentroDto } from '../dto/uploadCsv-estrucuraCentro.dto';
 import { EstructuraCentroResponse } from '../models/uploadCsv-estructuraCentro-response.interface';
 
-import { UsuarioResponse } from '../models/usuario-response.interface';
 import { CursoDto } from '../dto/curso.dto';
 import { CursoResponse } from '../models/curso-response.interface';
 import { EtapaListResponse } from '../models/listaEtapa-response.interface';

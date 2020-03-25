@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HistorialResponse } from '../models/historial-response.interface';
 import { UsuarioDto } from '../models/usuario.dto';
-import { UsuarioResponse } from '../models/usuario-response.interface';
+import { UsuarioResponse } from '../models/usuario.response';
 
 
 
@@ -14,6 +14,7 @@ import { UsuarioResponse } from '../models/usuario-response.interface';
 const URL_ALLUSUARIOS = 'https://parkappsalesianos.herokuapp.com/parkapp/users';
 const URL_NUEVOUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/register/';
 const URL_DELETEUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/user/';
+const URL_EDITARUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/user/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -48,13 +49,13 @@ export class UsuariosService {
           httpOptions
         );
       }
-     /* public editarUsuario(id:string,usuarioDto:UsuarioDto): Observable<UsuarioResponse> {
+      public editarUsuario(id:string,usuarioDto:UsuarioDto): Observable<UsuarioResponse> {
         return this.http.put<UsuarioResponse>(
-          URL_EDITARPARCAMIENTO +id,
-          AparcamientoDto,
+          URL_EDITARUSUARIO +id,
+          usuarioDto,
           httpOptions
         )
-      }*/
+      }
     
      /* uploadAparcamiento(historial: HistorialResponse[],
         dimension: string,

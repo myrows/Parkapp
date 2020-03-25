@@ -1,11 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UsuarioResponse } from '../models/usuario-response.interface';
 import { UsuarioDto } from '../models/usuario.dto';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { PeticionesService } from '../services/peticiones.service';
+import { UsuariosService } from '../services/usuarios.service';
+import { UsuarioResponse } from '../models/usuario.response';
 
-
+interface Roles {
+  value: string;
+  viewValue: string;
+}
 export interface DatosEntradaDialog {
   usuarioResponse: UsuarioResponse;
 }
@@ -19,18 +23,21 @@ export class EditarUsuarioDialogComponent implements OnInit {
   usuarioResponse :UsuarioResponse;
   usuarioDto: UsuarioDto;
   images;
+  roles: Roles[] = [
+    {value: 'ADMIN', viewValue: 'ADMIN'},
+    {value: 'USER', viewValue: 'USER'},
+  ];
 
   constructor(public dialogRef: MatDialogRef<EditarUsuarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DatosEntradaDialog,
     private http: HttpClient, public snackBar:MatSnackBar,
-    private peticionesSevice:PeticionesService) {
+    private usuarioService:UsuariosService) {
 
      }
 
   ngOnInit() {
-    //this.loadZonas();
     this.usuarioResponse = this.data.usuarioResponse;
-    this.usuarioDto = new UsuarioDto(undefined,this.usuarioResponse.fullname,this.usuarioResponse.username,this.usuarioResponse.email,this.usuarioResponse.password,this.usuarioResponse.created_date,'');
+    this.usuarioDto = new UsuarioDto(undefined,this.usuarioResponse.fullname,this.usuarioResponse.username,this.usuarioResponse.email,this.usuarioResponse.password,this.usuarioResponse.created_date.toString(),this.usuarioResponse.rol);
   }
 
   cerrarDialog() {
@@ -44,33 +51,28 @@ export class EditarUsuarioDialogComponent implements OnInit {
     }
   }
 
-  /*editarAparcamiento() {
-    this.peticionesSevice.(this.aparcamientoResponse._id,this.aparcamientoDto).subscribe(resp => {
+  editarAparcamiento() {
+    this.usuarioService.editarUsuario(this.usuarioResponse._id,this.usuarioDto).subscribe(resp => {
       this.dialogRef.close(true);
     });
-  }*/
-  /*loadZonas() {
-    this.peticionesSevice.loadZona().subscribe(resp => {
-      this.listaZona = resp;
-      console.log(this.listaZona);
-    });
-  }*/
-
-  /*onSubmit() {
+  }
+  close(){
+    this.dialogRef.close(null);
+  }
+  onSubmit() {
     const formData = new FormData();
     formData.append('avatar', this.images);
-    formData.append('puntuacion', this.aparcamientoDto.puntuacion);
-    formData.append('longitud', this.aparcamientoDto.longitud);
-    formData.append('latitud', this.aparcamientoDto.latitud);
-    formData.append('userId', this.aparcamientoDto.userId);
-    formData.append('zonaId', this.aparcamientoDto.zonaId);
-    formData.append('nombre', this.aparcamientoDto.nombre);
+    formData.append('fullname', this.usuarioDto.fullname);
+    formData.append('username', this.usuarioDto.username);
+    formData.append('email', this.usuarioDto.email);
+    formData.append('password', this.usuarioDto.password);
+    formData.append('created_date', this.usuarioDto.created_date);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/', formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/user/', formData).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );
     this.dialogRef.close(true);
-  }*/
+  }
 
 }
