@@ -1,9 +1,9 @@
 export class AparcamientoDto{
-    constructor(public puntuacion:number,
+    constructor(public puntuacion:string,
         public dimension: String,
-        public longitud: number,
+        public longitud: string,
         public avatar: File,
-        public latitud: number,
+        public latitud: string,
         public nombre: string,
         public userId: string,
         public zonaId: string){

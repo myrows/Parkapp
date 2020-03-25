@@ -20,3 +20,10 @@ th.mat-header-cell{
   mat-icon{
     cursor: pointer;
   }
+  .fbtn{
+    top: auto;
+    right: 20px;
+    bottom: 1rem;
+    left: auto;
+    position: fixed;
+  }
