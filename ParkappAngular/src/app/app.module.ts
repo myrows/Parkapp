@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -39,6 +39,7 @@ import { ZonaComponent } from './zona/zona.component';
 import { UploadAparcamientoComponent } from './upload-aparcamiento/upload-aparcamiento.component';
 import { ResenaComponent } from './resena/resena.component';
 import { BorrarResenaDialogComponent } from './borrar-resena-dialog/borrar-resena-dialog.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 
 
@@ -71,6 +72,7 @@ const routes: Routes = [
     BorrarAparcamientoDialogComponent,
     UsuariosListadoComponent,
     ZonaComponent,
+    FileSelectDirective,
     BorrarZonaDialogComponent,
     UploadAparcamientoComponent,
     ResenaComponent,
@@ -99,6 +101,7 @@ const routes: Routes = [
     MatTableModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatCardModule,
     MatMenuModule,

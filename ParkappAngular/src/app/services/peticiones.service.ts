@@ -25,8 +25,12 @@ import { ZonaResponse } from '../models/zona-response.interface';
 import { ResenaDto } from '../dto/resena.dto';
 import { ResenaResponse } from '../models/resena-response.interface';
 
-const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
-const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';
+/*const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
+const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';*/
+
+const apiZona = 'http://localhost:3000/parkapp/zona/';
+const apiResena = 'http://localhost:3000/parkapp/resena/';
+
 
 const httpOptions = {
   headers: new HttpHeaders({

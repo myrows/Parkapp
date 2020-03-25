@@ -1,40 +1,36 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" class="container">
-    <div class="zona" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="10px">
-
-      <h4>Zona</h4>
-      <mat-form-field>
-        <mat-label>Zona</mat-label>
-        <mat-select name="miselectZona" [(ngModel)]="aparcamiento.zonaId">
-          <mat-option *ngFor="let zona of listaZona" [value]="zona._id">{{zona.nombre}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-        <input type="text" [(ngModel)]="aparcamiento.nombre" #nombre="ngModel" placeholder="Nombre">
-      
-        <input type="text" [(ngModel)]="aparcamiento.puntuacion" #puntuacion="ngModel" placeholder="Puntuacion">
-
-        <input type="text" [(ngModel)]="aparcamiento.longitud" #longitud="ngModel" placeholder="Longitud">
-
-
-        <input type="text" [(ngModel)]="aparcamiento.latitud" #latitud="ngModel" placeholder="Latitud">
-
-
-        <input type="text" [(ngModel)]="aparcamiento.dimension" #dimension="ngModel" placeholder="dimension">
+<form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
 
         
+<!--
+        <input type="file" (change)="ficheroSeleccionado($event)" placeholder="Archivo" required /> -->
+<!--
+      <div class="col-md-6 offset-md-3">
+          <h3>Choose File</h3>            
+          <div class="form-group">
+              <input type="file" name="image" (change)="fileProgress($event)" />
+          </div>
+          <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+          </div>
+          <div class="image-preview mb-3" *ngIf="previewUrl">
+              <img [src]="previewUrl" height="300" />                 
+          </div>
 
-        <div class="form-group">
-          <label for="file">Choose File</label>
-          <input type="file"
-                 id="file"
-                 (change)="handleFileInput($event.target.files)">
-      </div>
-      
-        <button mat-raised-button color="primary" (click)="doUploadAparcamiento()" value="Subir">Generar PSM</button>
+          <div class="mb-3" *ngIf="uploadedFilePath">
+              {{uploadedFilePath}}
+          </div>
+      </div> -->
 
-    </div>
-    <div mat-dialog-actions>
+      <input
+            type="file"
+            id="file"
+            placeholder="File"
+            (change)="onFileChange($event)"
+            #fileInput 
+            formControlName="file">
+    <img *ngIf="image" id="thumbnail" title="thumb" src={{image}} class="thumbnail"/>
+
       <button mat-button (click)="close()">Cancelar</button>
-      <button mat-button (click)="doUploadAparcamiento()" cdkFocusInitial>Guardar</button>
-    </div>
-</div>
+      <!--<button mat-button (click)="doUploadAparcamiento()" cdkFocusInitial>Guardar</button>-->
+      <button mat-raised-button color="primary" type="submit" [disabled]="imageForm.valid">Enviar</button>
+</form>
