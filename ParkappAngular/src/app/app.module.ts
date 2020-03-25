@@ -59,7 +59,7 @@ export function tokenGetter() {
 }
 
 const routes: Routes = [ 
-  { path: '', redirectTo : route, pathMatch: 'full' },
+  { path: '', redirectTo : '/login' , pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'zonas', component: ZonaComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
