@@ -28,7 +28,7 @@ let controller = {
                     fullname: req.body.fullname,
                     username: req.body.username,
                     email: req.body.email,
-                    avatar: req.file.filename,
+                    avatar: (typeof req.file != "undefined") ? req.file.filename : '',
                     rol: req.body.rol,
                     password: hash
                 });

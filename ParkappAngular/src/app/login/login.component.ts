@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
       this.snackBar.open('Sesión iniciada correctamente');
       this.router.navigate(['/zonas']);
       this.setToken(resul.token);
+      localStorage.setItem("avatarUser", resul.avatar);
       
     },
     error => {

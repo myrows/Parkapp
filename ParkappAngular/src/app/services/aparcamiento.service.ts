@@ -9,13 +9,13 @@ import { HistorialResponse } from '../models/historial-response.interface';
 
 
 
-/*const URL_ALLAPARCAMIENTOS = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
+const URL_ALLAPARCAMIENTOS = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
 const URL_NUEVOAPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
-const URL_DELETEAPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';*/
+const URL_DELETEAPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
 
-const URL_ALLAPARCAMIENTOS = 'http://localhost:3000/parkapp/aparcamiento';
+/*const URL_ALLAPARCAMIENTOS = 'http://localhost:3000/parkapp/aparcamiento';
 const URL_NUEVOAPARCAMIENTO = 'http://localhost:3000/parkapp/aparcamiento';
-const URL_DELETEAPARCAMIENTO = 'http://localhost:3000/parkapp/aparcamiento';
+const URL_DELETEAPARCAMIENTO = 'http://localhost:3000/parkapp/aparcamiento';*/
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'

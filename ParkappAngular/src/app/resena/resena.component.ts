@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ResenaDto } from '../dto/resena.dto';
 import { ResenaResponse } from '../models/resena-response.interface';
 import { BorrarResenaDialogComponent } from '../borrar-resena-dialog/borrar-resena-dialog.component';
+import { CreateResenaComponent } from '../create-resena/create-resena.component';
 
 @Component({
   selector: 'app-resena',
@@ -34,6 +35,21 @@ export class ResenaComponent implements OnInit {
   loadResena(){
     this.peticionesService.loadResena().subscribe(resp =>{
       this.listadoResena = resp;
+      console.log(resp);
+    })
+  }
+
+  dialogCrearResena(){
+    var dialogReference = this.dialog.open(CreateResenaComponent, {width: '300px'});
+
+    dialogReference.afterClosed().subscribe(resp => {
+      if(resp != null){
+        if(resp){
+        this.snackBar.open("Reseña creada con éxito ✔️");
+        }else{
+          this.snackBar.open("Error al crear la reseña ❌");
+        }
+      }
     })
   }
 

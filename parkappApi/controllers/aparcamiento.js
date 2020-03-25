@@ -14,7 +14,7 @@ let controller = {
                 longitud: req.body.longitud,
                 latitud: req.body.latitud,
                 puntuacion : req.body.puntuacion,
-                avatar: req.file.filename,
+                avatar: (typeof req.file != "undefined") ? req.file.filename : '',
                 nombre:req.body.nombre,
                 userId: req.body.userId,
                 zonaId: req.body.zonaId,

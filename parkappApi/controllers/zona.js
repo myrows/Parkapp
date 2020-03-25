@@ -13,7 +13,7 @@ let controller = {
                 ubicacion: req.body.ubicacion,
                 longitud: req.body.longitud,
                 latitud: req.body.latitud,
-                avatar: req.file.filename,
+                avatar: (typeof req.file != "undefined") ? req.file.filename : '',
                 nombre:req.body.nombre,
                 distancia:req.body.distancia
             });

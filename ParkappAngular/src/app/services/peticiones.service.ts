@@ -25,11 +25,11 @@ import { ZonaResponse } from '../models/zona-response.interface';
 import { ResenaDto } from '../dto/resena.dto';
 import { ResenaResponse } from '../models/resena-response.interface';
 
-/*const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
-const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';*/
+const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
+const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';
 
-const apiZona = 'http://localhost:3000/parkapp/zona/';
-const apiResena = 'http://localhost:3000/parkapp/resena/';
+/*const apiZona = 'http://localhost:3000/parkapp/zona/';
+const apiResena = 'http://localhost:3000/parkapp/resena/';*/
 
 
 const httpOptions = {
@@ -68,8 +68,8 @@ export class PeticionesService {
     );
   }
 
-  createResena(resenaDto: ResenaDto): Observable<CrearAdminResponse> {
-    return this.http.post<CrearAdminResponse>(
+  createResena(resenaDto: ResenaDto): Observable<ResenaResponse> {
+    return this.http.post<ResenaResponse>(
       apiResena,
       resenaDto,
       httpOptions
