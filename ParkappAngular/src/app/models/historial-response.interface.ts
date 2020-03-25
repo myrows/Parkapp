@@ -1,9 +1,7 @@
-export class HistorialResponse{
-
-
-    idHistorial:string;
-    fechaEntrada:string;
-    fechaSalida:string;
-    dia:string;
-    aparcamientoId:string;
+export interface HistorialResponse {
+    _id: string;
+    fechaEntrada: Date;
+    fechaSalida: Date;
+    dia: Date;
+    aparcamientoId: string;
 }

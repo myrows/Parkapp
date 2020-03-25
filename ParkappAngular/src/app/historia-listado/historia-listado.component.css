@@ -1,0 +1,30 @@
+th.mat-header-cell{
+    text-align: center;
+    font-weight: bolder;
+  }
+  
+  tr.mat-row{
+    text-align: center;
+  }
+  
+  .container {
+    padding: 30px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  mat-icon{
+    cursor: pointer;
+  }
+
+  .fbtn{
+    top: auto;
+    right: 20px;
+    bottom: 1rem;
+    left: auto;
+    position: fixed;
+  }
