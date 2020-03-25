@@ -19,7 +19,7 @@ export class CreateZonaComponent implements OnInit {
               public dialogRef: MatDialogRef<CreateZonaComponent>) { }
 
   ngOnInit() {
-    this.zonaDto = new ZonaDto('', '', 0, 0, undefined, 0);
+    this.zonaDto = new ZonaDto('', '', '', '', undefined, '');
   }
 
   createZona() {
