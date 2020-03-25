@@ -1,14 +1,12 @@
-import { HistorialResponse } from './historial-response.interface';
-
 export class AparcamientoDto{
-    constructor(public puntuacion:Number,
+    constructor(public puntuacion:number,
         public dimension: String,
-        public longitud: Number,
-        public latitud: Number,
+        public longitud: number,
         public avatar: File,
-        public nombre: String,
-        public userId: String,
-        public zonaId: String){
+        public latitud: number,
+        public nombre: string,
+        public userId: string,
+        public zonaId: string){
 
     }
 }

@@ -1,0 +1,39 @@
+<div fxFlexLayout="column">
+    <h1 mat-dialog-title>Nuevo Aparcamiento</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <input matInput [(ngModel)]="aparcamientoDto.nombre" type="text" placeholder="Nombre">
+          </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="aparcamientoDto.puntuacion" type="number" placeholder="Puntuación">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="aparcamientoDto.dimension" placeholder="Dimensión">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="aparcamientoDto.longitud" type="text" placeholder="Longitud">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="aparcamientoDto.latitud" type="text" placeholder="Latitud">
+      </mat-form-field>
+
+      <h4>Zona</h4>
+      <mat-form-field>
+        <mat-label>Zona</mat-label>
+        <mat-select name="miselectZona" [(ngModel)]="aparcamientoDto.zonaId">
+          <mat-option *ngFor="let zona of listaZona" [value]="zona._id">{{zona.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="close()">Cancelar</button>
+      <button mat-button (click)="createAparcamiento()" cdkFocusInitial>Guardar</button>
+    </div>
+
+    </div>
+

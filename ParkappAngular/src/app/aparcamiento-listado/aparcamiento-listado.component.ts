@@ -6,6 +6,7 @@ import { BorrarAparcamientoDialogComponent } from '../borrar-aparcamiento-dialog
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { UploadAparcamientoComponent } from '../upload-aparcamiento/upload-aparcamiento.component';
+import { NuevoAparcamientoDialogComponent } from '../nuevo-aparcamiento-dialog/nuevo-aparcamiento-dialog.component';
 
 @Component({
   selector: 'app-aparcamiento-listado',
@@ -34,9 +35,6 @@ export class AparcamientoListadoComponent implements OnInit {
      data: { aparcamientoResponse: aparcamientoResponse }
    });
  }
- openCrearDialog(){
-   this.router.navigate(['/uploadAparcamiento']);
- }
 
  logout() {
   this.authService.clearToken();
@@ -45,7 +43,7 @@ export class AparcamientoListadoComponent implements OnInit {
 }
 
 dialogCrearAparcamiento(){
-  var dialogReference = this.dialog.open(UploadAparcamientoComponent, {width: '300px'});
+  var dialogReference = this.dialog.open(NuevoAparcamientoDialogComponent, {width: '300px'});
 
   dialogReference.afterClosed().subscribe(resp => {
     if(resp != null){

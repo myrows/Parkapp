@@ -12,7 +12,7 @@ import { UsuarioResponse } from '../models/usuario-response.interface';
 
 
 const URL_ALLUSUARIOS = 'https://parkappsalesianos.herokuapp.com/parkapp/users';
-const URL_NUEVOUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/register?';
+const URL_NUEVOUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/register/';
 const URL_DELETEUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/user/';
 const httpOptions = {
   headers: new HttpHeaders({

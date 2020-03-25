@@ -5,6 +5,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { BorrarUsuarioDialogComponent } from '../borrar-usuario-dialog/borrar-usuario-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { NuevoUsuarioDialogComponent } from '../nuevo-usuario-dialog/nuevo-usuario-dialog.component';
 
 @Component({
   selector: 'app-usuarios-listado',
@@ -41,6 +42,20 @@ export class UsuariosListadoComponent implements OnInit {
   this.authService.clearToken();
   this.router.navigate(['/login']);
   this.snackBar.open('Has cerrado sesión');
+}
+
+dialogCrearUsuario(){
+  var dialogReference = this.dialog.open(NuevoUsuarioDialogComponent, {width: '300px'});
+
+  dialogReference.afterClosed().subscribe(resp => {
+    if(resp != null){
+      if(resp){
+      this.snackBar.open("Usuario creado con éxito ✔️");
+      }else{
+        this.snackBar.open("Error al crear el usuario ❌");
+      }
+    }
+  })
 }
 
 }

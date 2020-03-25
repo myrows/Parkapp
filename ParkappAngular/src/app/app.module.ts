@@ -43,6 +43,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { CreateResenaComponent } from './create-resena/create-resena.component';
 import {MatInputModule} from '@angular/material';
 import { CreateZonaComponent } from './create-zona/create-zona.component';
+import { NuevoAparcamientoDialogComponent } from './nuevo-aparcamiento-dialog/nuevo-aparcamiento-dialog.component';
+import { NuevoUsuarioDialogComponent } from './nuevo-usuario-dialog/nuevo-usuario-dialog.component';
 
 var route: string;
 const token = localStorage.getItem('token');
@@ -59,7 +61,7 @@ export function tokenGetter() {
 }
 
 const routes: Routes = [ 
-  { path: '', redirectTo : route, pathMatch: 'full' },
+  { path: '', redirectTo : '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'zonas', component: ZonaComponent },
   { path: 'usuarios', component: UsuariosListadoComponent},
@@ -88,7 +90,9 @@ const routes: Routes = [
     ResenaComponent,
     BorrarResenaDialogComponent,
     CreateResenaComponent,
-    CreateZonaComponent
+    CreateZonaComponent,
+    NuevoAparcamientoDialogComponent,
+    NuevoUsuarioDialogComponent
 
   ],
   entryComponents: [
@@ -100,7 +104,9 @@ const routes: Routes = [
     BorrarResenaDialogComponent,
     UploadAparcamientoComponent,
     CreateResenaComponent,
-    CreateZonaComponent
+    CreateZonaComponent,
+    NuevoAparcamientoDialogComponent,
+    NuevoUsuarioDialogComponent
   ],
   imports: [
     BrowserModule,

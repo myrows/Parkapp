@@ -1,10 +1,6 @@
-import { HistorialResponse } from './historial-response.interface';
-
-
 export interface AparcamientoResponse{
 
-    puntuacion:Number;
-    historial: HistorialResponse[];
+    puntuacion:number;
     _id: string;
     dimension: string;
     longitud: number;
