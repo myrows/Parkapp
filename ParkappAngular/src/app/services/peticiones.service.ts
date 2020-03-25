@@ -24,6 +24,7 @@ import { ZonaDto } from '../dto/zona.dto';
 import { ZonaResponse } from '../models/zona-response.interface';
 import { ResenaDto } from '../dto/resena.dto';
 import { ResenaResponse } from '../models/resena-response.interface';
+import { UsuarioDto } from '../models/usuario.dto';
 
 const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
 const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';
@@ -126,5 +127,6 @@ export class PeticionesService {
       httpOptions
     )
   }
+
 
 }

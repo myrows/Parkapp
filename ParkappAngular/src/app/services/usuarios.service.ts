@@ -48,6 +48,13 @@ export class UsuariosService {
           httpOptions
         );
       }
+     /* public editarUsuario(id:string,usuarioDto:UsuarioDto): Observable<UsuarioResponse> {
+        return this.http.put<UsuarioResponse>(
+          URL_EDITARPARCAMIENTO +id,
+          AparcamientoDto,
+          httpOptions
+        )
+      }*/
     
      /* uploadAparcamiento(historial: HistorialResponse[],
         dimension: string,

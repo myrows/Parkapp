@@ -12,6 +12,7 @@ import { HistorialResponse } from '../models/historial-response.interface';
 const URL_ALLAPARCAMIENTOS = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
 const URL_NUEVOAPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
 const URL_DELETEAPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
+const URL_EDITARPARCAMIENTO = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
 
 /*const URL_ALLAPARCAMIENTOS = 'http://localhost:3000/parkapp/aparcamiento';
 const URL_NUEVOAPARCAMIENTO = 'http://localhost:3000/parkapp/aparcamiento';
@@ -79,6 +80,14 @@ export class AparcamientosService {
           URL_DELETEAPARCAMIENTO+aparcamientoId,
           httpOptions
         );
+      }
+
+      public editarAparcamiento(id:string,AparcamientoDto:AparcamientoDto): Observable<AparcamientoResponse> {
+        return this.http.put<AparcamientoResponse>(
+          URL_EDITARPARCAMIENTO +id,
+          AparcamientoDto,
+          httpOptions
+        )
       }
     
      /* uploadAparcamiento(historial: HistorialResponse[],

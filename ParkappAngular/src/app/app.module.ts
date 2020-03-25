@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER,NgModule } from '@angular/core';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -17,7 +17,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { ConfigService, configServiceInitializerFactory } from './services/config.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule,  MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
-import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import { UsuarioComponent } from './usuario/usuario.component';
@@ -41,10 +40,14 @@ import { ResenaComponent } from './resena/resena.component';
 import { BorrarResenaDialogComponent } from './borrar-resena-dialog/borrar-resena-dialog.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { CreateResenaComponent } from './create-resena/create-resena.component';
-import {MatInputModule} from '@angular/material';
 import { CreateZonaComponent } from './create-zona/create-zona.component';
 import { NuevoAparcamientoDialogComponent } from './nuevo-aparcamiento-dialog/nuevo-aparcamiento-dialog.component';
 import { NuevoUsuarioDialogComponent } from './nuevo-usuario-dialog/nuevo-usuario-dialog.component';
+import { EditarUsuarioDialogComponent } from './editar-usuario-dialog/editar-usuario-dialog.component';
+import { EditarAparcamientoDialogComponent } from './editar-aparcamiento-dialog/editar-aparcamiento-dialog.component';
+import { MatFormFieldModule, MatInputModule, MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/material';
+
+
 
 var route: string;
 const token = localStorage.getItem('token');
@@ -92,7 +95,9 @@ const routes: Routes = [
     CreateResenaComponent,
     CreateZonaComponent,
     NuevoAparcamientoDialogComponent,
-    NuevoUsuarioDialogComponent
+    NuevoUsuarioDialogComponent,
+    EditarUsuarioDialogComponent,
+    EditarAparcamientoDialogComponent
 
   ],
   entryComponents: [
@@ -106,7 +111,9 @@ const routes: Routes = [
     CreateResenaComponent,
     CreateZonaComponent,
     NuevoAparcamientoDialogComponent,
-    NuevoUsuarioDialogComponent
+    NuevoUsuarioDialogComponent,
+    EditUsuarioDialogComponent,
+    EditarAparcamientoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +134,12 @@ const routes: Routes = [
     MatCardModule,
     MatMenuModule,
     MatSidenavModule,
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatPaginatorModule, 
+    MatTableModule, 
+    MatSortModule,
+    MatPaginatorModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
