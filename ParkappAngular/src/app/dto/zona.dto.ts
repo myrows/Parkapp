@@ -1,8 +1,8 @@
 import { logging } from 'protractor';
 
-export class ZonaDto{
+export class ZonaDto {
 
-    constructor(public nombre: string, public ubicacion: string, public longitud: number, latitud: number, avatar: File, distancia: number){
+    constructor(public nombre: string, public ubicacion: string, public longitud: string, public latitud: string, public avatar: File, public distancia: string) {
 
     }
 }

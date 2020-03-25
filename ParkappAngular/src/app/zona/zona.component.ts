@@ -7,6 +7,7 @@ import { BorrarAparcamientoDialogComponent } from '../borrar-aparcamiento-dialog
 import { BorrarZonaDialogComponent } from '../borrar-zona-dialog/borrar-zona-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { CreateZonaComponent } from '../create-zona/create-zona.component';
 
 @Component({
   selector: 'app-zona',
@@ -30,6 +31,20 @@ export class ZonaComponent implements OnInit {
   loadZonas(){
     this.peticionesService.loadZona().subscribe(resp => {
       this.listaZona = resp;
+    })
+  }
+
+  dialogCrearZona(){
+    var dialogReference = this.dialog.open(CreateZonaComponent, {width: '300px'});
+
+    dialogReference.afterClosed().subscribe(resp => {
+      if(resp != null){
+        if(resp){
+        this.snackBar.open("Zona creada con éxito ✔️");
+        }else{
+          this.snackBar.open("Error al crear la zona ❌");
+        }
+      }
     })
   }
 

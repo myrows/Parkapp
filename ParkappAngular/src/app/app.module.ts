@@ -42,6 +42,7 @@ import { BorrarResenaDialogComponent } from './borrar-resena-dialog/borrar-resen
 import { FileSelectDirective } from 'ng2-file-upload';
 import { CreateResenaComponent } from './create-resena/create-resena.component';
 import {MatInputModule} from '@angular/material';
+import { CreateZonaComponent } from './create-zona/create-zona.component';
 
 var route: string;
 const token = localStorage.getItem('token');
@@ -86,7 +87,8 @@ const routes: Routes = [
     UploadAparcamientoComponent,
     ResenaComponent,
     BorrarResenaDialogComponent,
-    CreateResenaComponent
+    CreateResenaComponent,
+    CreateZonaComponent
 
   ],
   entryComponents: [
@@ -97,7 +99,8 @@ const routes: Routes = [
     BorrarZonaDialogComponent,
     BorrarResenaDialogComponent,
     UploadAparcamientoComponent,
-    CreateResenaComponent
+    CreateResenaComponent,
+    CreateZonaComponent
   ],
   imports: [
     BrowserModule,

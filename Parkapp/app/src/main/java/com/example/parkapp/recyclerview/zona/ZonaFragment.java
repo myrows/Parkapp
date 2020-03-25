@@ -146,8 +146,11 @@ public class ZonaFragment extends Fragment {
                 listZonas = results;
                 for (int i = 0; i < listZonas.size(); i++){
                     float resultsLocation[] = new float[10];
-                    Location.distanceBetween(latitude, longitude, listZonas.get(i).getLatitud(), listZonas.get(i).getLongitud(), resultsLocation);
-                    listZonas.get(i).setDistancia((double)resultsLocation[0]/1000);
+                    if(listZonas.get(i).getLatitud() != null && listZonas.get(i).getLongitud() != null) {
+                        Location.distanceBetween(latitude, longitude, listZonas.get(i).getLatitud(), listZonas.get(i).getLongitud(), resultsLocation);
+                        listZonas.get(i).setDistancia((double)resultsLocation[0]/1000);
+                    }
+
                 }
                 adapter.setData(listZonas);
             }
