@@ -83,6 +83,14 @@ export class PeticionesService {
     );
   }
 
+  editHistorial(historialId: string, historialDto: HistorialDto): Observable<HistorialResponse> {
+    return this.http.put<HistorialResponse>(
+      apiHistorial + historialId,
+      historialDto,
+      httpOptions
+    );
+  }
+
   public deleteZona(idZona: string): Observable<ZonaResponse> {
     return this.http.delete<ZonaResponse>(
       apiZona + idZona,

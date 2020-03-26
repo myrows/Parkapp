@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material';
 import { HistorialDto } from '../dto/historial.dto';
 import { AparcamientoResponse } from '../models/aparcamiento-response.interface';
 import { AparcamientosService } from '../services/aparcamiento.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-historial',
@@ -22,6 +23,8 @@ export class CreateHistorialComponent implements OnInit {
   ngOnInit() {
     this.historialDto = new HistorialDto('', '', '', '');
     this.loadAparcamiento();
+    
+    console.log(this.historialDto.fechaEntrada);
   }
 
   loadAparcamiento() {
@@ -33,6 +36,7 @@ export class CreateHistorialComponent implements OnInit {
   createHistorial() {
     this.peticionesService.createHistorial(this.historialDto).subscribe(resp => {
       this.dialogRef.close(true);
+      console.log(resp);
     });
   }
 

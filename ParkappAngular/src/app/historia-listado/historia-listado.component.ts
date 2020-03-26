@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HistorialResponse } from '../models/historial-response.interface';
 import { BorrarHistorialComponent } from '../borrar-historial/borrar-historial.component';
 import { CreateHistorialComponent } from '../create-historial/create-historial.component';
+import { UpdateHistorialComponent } from '../update-historial/update-historial.component';
 
 @Component({
   selector: 'app-historia-listado',
@@ -50,6 +51,12 @@ export class HistoriaListadoComponent implements OnInit {
         }
       }
     })
+  }
+
+  openEditDialog(historial: HistorialResponse) {
+    this.dialog.open(UpdateHistorialComponent, {
+     data: { historial: historial }
+   });
   }
 
   dialogDeleteHistorial(historialResponse: HistorialResponse) {

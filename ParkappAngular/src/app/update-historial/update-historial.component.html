@@ -1,0 +1,30 @@
+<div fxFlexLayout="column">
+    <h1 mat-dialog-title>Edit Historial</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaEntrada" placeholder="Fecha entrada">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaSalida" placeholder="Fecha salida">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="historialDto.dia" type="datetime-local" placeholder="Día">
+      </mat-form-field>
+
+      <h4>Aparcamiento</h4>
+      <mat-form-field>
+        <mat-label>Aparcamiento</mat-label>
+        <mat-select name="miselectAparcamiento" [(ngModel)]="historialDto.aparcamientoId">
+          <mat-option *ngFor="let aparcamiento of listaAparcamiento" [value]="aparcamiento._id">{{aparcamiento.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="close()">Cancelar</button>
+      <button mat-button (click)="editHistorial()" cdkFocusInitial>Guardar</button>
+    </div>
+
+    </div>
