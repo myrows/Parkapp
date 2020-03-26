@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
 import { ZonaDto } from '../dto/zona.dto';
 import { ZonaResponse } from '../models/zona-response.interface';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { BorrarAparcamientoDialogComponent } from '../borrar-aparcamiento-dialog/borrar-aparcamiento-dialog.component';
 import { BorrarZonaDialogComponent } from '../borrar-zona-dialog/borrar-zona-dialog.component';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { CreateZonaComponent } from '../create-zona/create-zona.component';
+import { UpdateZonaComponent } from '../update-zona/update-zona.component';
 
 @Component({
   selector: 'app-zona',
@@ -19,8 +20,12 @@ export class ZonaComponent implements OnInit {
   zona: ZonaDto;
   listaZona: ZonaResponse[];
   displayedColumns: string[] = ['id','nombre','ubicacion', 'acciones'];
+  dataSource; 
 
-  constructor(private peticionesService: PeticionesService, private dialog : MatDialog, private authService: AuthService,private router: Router, private snackBar : MatSnackBar) {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  constructor(private peticionesService: PeticionesService, private dialog : MatDialog, private authService: AuthService,
+              private router: Router, private snackBar : MatSnackBar) {
     
    }
 
@@ -31,6 +36,11 @@ export class ZonaComponent implements OnInit {
   loadZonas(){
     this.peticionesService.loadZona().subscribe(resp => {
       this.listaZona = resp;
+      this.dataSource = new MatTableDataSource(resp);
+      this.dataSource.data = resp;
+  
+      this.dataSource.paginator = this.paginator;
+      console.log(resp);
     })
   }
 
@@ -46,6 +56,12 @@ export class ZonaComponent implements OnInit {
         }
       }
     })
+  }
+
+  openEditDialog(zona: ZonaResponse) {
+    this.dialog.open(UpdateZonaComponent, {
+     data: { zona: zona }
+   });
   }
 
   dialogDeleteZona(zonaResponse: ZonaResponse) {

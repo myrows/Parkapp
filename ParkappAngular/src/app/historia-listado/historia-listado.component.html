@@ -1,5 +1,4 @@
-<!--
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -32,35 +31,30 @@
 </div>
  <section>
  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0px" class="container">
-  <table mat-table [dataSource]="listadoResena" class="mat-elevation-z8">
+  <table mat-table [dataSource]="listadoHistorial" class="mat-elevation-z8">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> id </th>
       <td mat-cell *matCellDef="let element"> {{element._id}} </td>
     </ng-container>
     
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Titulo </th>
-      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    <ng-container matColumnDef="fechaEntrada">
+      <th mat-header-cell *matHeaderCellDef> Fecha Entrada </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaEntrada}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="body">
-      <th mat-header-cell *matHeaderCellDef> Cuerpo </th>
-      <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+    <ng-container matColumnDef="fechaSalida">
+      <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaSalida}} </td>
     </ng-container>
-
-    <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef> Valoración </th>
-        <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
-      </ng-container>
 
     <ng-container matColumnDef="acciones">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element"> 
-                         <button mat-icon-button aria-label="Editar fotocopia" (click)="dialogEditFotocopia(element)">
+                 <button mat-icon-button aria-label="Editar fotocopia" (click)="dialogEditFotocopia(element)">
               <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button aria-label="Eliminar zona" (click)="dialogDeleteResena(element)">
+          <button mat-icon-button aria-label="Eliminar zona" (click)="dialogDeleteHistorial(element)">
             <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -68,10 +62,10 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table> 
-  <button mat-fab (click)="dialogCrearResena()" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #dc001b; color: white">
+  </table>    
+  <button mat-fab (click)="dialogCrearHistorial()" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #dc001b; color: white">
     <mat-icon class="mat-24">add</mat-icon>
-  </button>   
+  </button>
   </div>
 </section>
   </body>
@@ -119,27 +113,26 @@
       </ng-container>
   
       <!-- Name Column -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef> Título </th>
-        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      <ng-container matColumnDef="fechaEntrada">
+        <th mat-header-cell *matHeaderCellDef> Fecha entrada </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaEntrada}} </td>
       </ng-container>
   
       <!-- Weight Column -->
-      <ng-container matColumnDef="body">
-        <th mat-header-cell *matHeaderCellDef> Comentario </th>
-        <td mat-cell *matCellDef="let element"> {{element.body}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef> Valoración </th>
-        <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+      <ng-container matColumnDef="fechaSalida">
+        <th mat-header-cell *matHeaderCellDef> Fecha salida </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaSalida}} </td>
       </ng-container>
   
       <!-- Symbol Column -->
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="Eliminar zona" (click)="dialogDeleteResena(element)">
+        <button mat-icon-button aria-label="Editar historial" (click)="openEditDialog(element)">
+            <mat-icon>edit</mat-icon>
+        </button>
+          
+        <button mat-icon-button aria-label="Eliminar historial" (click)="dialogDeleteHistorial(element)">
           <mat-icon>delete</mat-icon>
         </button>
         </td>
@@ -151,11 +144,10 @@
   
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-  <button mat-fab (click)="dialogCrearResena()" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #dc001b; color: white">
+  <button mat-fab (click)="dialogCrearHistorial()" class="mat-fab-bottom-right fbtn" style="z-index: 9; background: #dc001b; color: white">
     <mat-icon class="mat-24">add</mat-icon>
   </button>
   </div>
 </section>
   </body>
 </html>
-

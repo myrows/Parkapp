@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginator, MatTableDataSource } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { ResenaDto } from '../dto/resena.dto';
@@ -18,6 +18,9 @@ export class ResenaComponent implements OnInit {
   resenaDto: ResenaDto;
   listadoResena: ResenaResponse[];
   displayedColumns: string[] = ['id','title','body', 'rate', 'acciones'];
+  dataSource; 
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private peticionesService: PeticionesService, private dialog : MatDialog, private authService: AuthService,
     private router: Router,
@@ -35,6 +38,11 @@ export class ResenaComponent implements OnInit {
   loadResena(){
     this.peticionesService.loadResena().subscribe(resp =>{
       this.listadoResena = resp;
+
+      this.dataSource = new MatTableDataSource(resp);
+      this.dataSource.data = resp;
+  
+      this.dataSource.paginator = this.paginator;
       console.log(resp);
     })
   }

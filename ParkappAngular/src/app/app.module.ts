@@ -45,8 +45,11 @@ import { NuevoUsuarioDialogComponent } from './nuevo-usuario-dialog/nuevo-usuari
 import { EditarUsuarioDialogComponent } from './editar-usuario-dialog/editar-usuario-dialog.component';
 import { EditarAparcamientoDialogComponent } from './editar-aparcamiento-dialog/editar-aparcamiento-dialog.component';
 import { MatFormFieldModule, MatInputModule, MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/material';
-
-
+import { HistoriaListadoComponent } from './historia-listado/historia-listado.component';
+import { BorrarHistorialComponent } from './borrar-historial/borrar-historial.component';
+import { CreateHistorialComponent } from './create-historial/create-historial.component';
+import { UpdateZonaComponent } from './update-zona/update-zona.component';
+import { UpdateHistorialComponent } from './update-historial/update-historial.component';
 
 var route: string;
 const token = localStorage.getItem('token');
@@ -69,7 +72,8 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuariosListadoComponent},
   { path: 'aparcamientos',component:AparcamientoListadoComponent},
   {path: 'uploadAparcamiento',component:UploadAparcamientoComponent},
-  { path: 'resenas',component: ResenaComponent}
+  { path: 'resenas',component: ResenaComponent},
+  { path: 'historial',component: HistoriaListadoComponent}
 ];
 
 @NgModule({
@@ -95,7 +99,12 @@ const routes: Routes = [
     NuevoAparcamientoDialogComponent,
     NuevoUsuarioDialogComponent,
     EditarUsuarioDialogComponent,
-    EditarAparcamientoDialogComponent
+    EditarAparcamientoDialogComponent,
+    HistoriaListadoComponent,
+    BorrarHistorialComponent,
+    CreateHistorialComponent,
+    UpdateZonaComponent,
+    UpdateHistorialComponent
 
   ],
   entryComponents: [
@@ -110,7 +119,11 @@ const routes: Routes = [
     NuevoAparcamientoDialogComponent,
     NuevoUsuarioDialogComponent,
     EditarAparcamientoDialogComponent,
-    EditarUsuarioDialogComponent
+    EditarUsuarioDialogComponent,
+    BorrarHistorialComponent,
+    CreateHistorialComponent,
+    UpdateZonaComponent,
+    UpdateHistorialComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +140,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatPaginatorModule,
     MatDialogModule,
     MatCardModule,
     MatMenuModule,
