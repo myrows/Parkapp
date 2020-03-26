@@ -93,10 +93,11 @@ public class RegisterActivity extends AppCompatActivity {
                             RequestBody username = RequestBody.create(MultipartBody.FORM, edtName.getText().toString());
                             RequestBody email = RequestBody.create(MultipartBody.FORM, edtEmail.getText().toString());
                             RequestBody password = RequestBody.create(MultipartBody.FORM, edtPassword.getText().toString());
+                            RequestBody rol = RequestBody.create(MultipartBody.FORM, "USER");
 
                             ParkappService registerService = ServiceGenerator.createServiceRegister(ParkappService.class);
 
-                            Call<ResponseBody> callRegister = registerService.register(body, username, email, password);
+                            Call<ResponseBody> callRegister = registerService.register(body, username, email, password, rol);
 
                             callRegister.enqueue(new Callback<ResponseBody>() {
                                 @Override
@@ -125,7 +126,32 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                     }else if(uriSelected == null) {
+                        RequestBody username = RequestBody.create(MultipartBody.FORM, edtName.getText().toString());
+                        RequestBody email = RequestBody.create(MultipartBody.FORM, edtEmail.getText().toString());
+                        RequestBody password = RequestBody.create(MultipartBody.FORM, edtPassword.getText().toString());
+                        RequestBody rol = RequestBody.create(MultipartBody.FORM, "USER");
 
+                        ParkappService registerService = ServiceGenerator.createServiceRegister(ParkappService.class);
+
+                        Call<ResponseBody> callRegister = registerService.register(null, username, email, password, rol);
+
+                        callRegister.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this, "Usuario registrado", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Log.e("Upload error", response.errorBody().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Toast.makeText(RegisterActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }else{
                     Toast.makeText(RegisterActivity.this, "Contraseñas no coinciden o es demasiado corta", Toast.LENGTH_SHORT).show();

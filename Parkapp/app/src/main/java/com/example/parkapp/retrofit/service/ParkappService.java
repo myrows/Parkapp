@@ -33,7 +33,8 @@ public interface ParkappService {
     Call<ResponseBody> register(@Part MultipartBody.Part avatar,
                                 @Part("username") RequestBody username,
                                 @Part("email") RequestBody email,
-                                @Part("password") RequestBody password);
+                                @Part("password") RequestBody password,
+                                @Part("rol") RequestBody rol);
 
     @GET("/parkapp/zona")
     Call<List<Zona>> getZonas();
