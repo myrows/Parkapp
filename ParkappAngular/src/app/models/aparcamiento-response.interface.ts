@@ -1,10 +1,10 @@
 export interface AparcamientoResponse{
 
-    puntuacion:number;
+    puntuacion:string;
     _id: string;
     dimension: string;
-    longitud: number;
-    latitud: number;
+    longitud: string;
+    latitud: string;
     avatar: string;
     nombre:string;
     userId:string;

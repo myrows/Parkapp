@@ -27,6 +27,7 @@ export class EditarUsuarioDialogComponent implements OnInit {
     {value: 'ADMIN', viewValue: 'ADMIN'},
     {value: 'USER', viewValue: 'USER'},
   ];
+  id:string;
 
   constructor(public dialogRef: MatDialogRef<EditarUsuarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DatosEntradaDialog,
@@ -36,8 +37,13 @@ export class EditarUsuarioDialogComponent implements OnInit {
      }
 
   ngOnInit() {
+    this.usuarioDto = new UsuarioDto(undefined, '', '', '','', '');
     this.usuarioResponse = this.data.usuarioResponse;
-    this.usuarioDto = new UsuarioDto(undefined,this.usuarioResponse.fullname,this.usuarioResponse.username,this.usuarioResponse.email,this.usuarioResponse.password,this.usuarioResponse.created_date.toString(),this.usuarioResponse.rol);
+    this.usuarioDto.username = this.usuarioResponse.username
+    this.usuarioDto.fullname = this.usuarioResponse.fullname;
+    this.usuarioDto.email = this.usuarioResponse.email
+    this.usuarioDto.password = this.usuarioResponse.password
+    this.usuarioDto.rol = this.usuarioResponse.rol;
   }
 
   cerrarDialog() {
@@ -60,15 +66,16 @@ export class EditarUsuarioDialogComponent implements OnInit {
     this.dialogRef.close(null);
   }
   onSubmit() {
+    this.id = this.usuarioResponse._id;
     const formData = new FormData();
     formData.append('avatar', this.images);
     formData.append('fullname', this.usuarioDto.fullname);
     formData.append('username', this.usuarioDto.username);
     formData.append('email', this.usuarioDto.email);
     formData.append('password', this.usuarioDto.password);
-    formData.append('created_date', this.usuarioDto.created_date);
+    formData.append('rol', this.usuarioDto.rol);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/user/', formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/user/'+this.id, formData).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

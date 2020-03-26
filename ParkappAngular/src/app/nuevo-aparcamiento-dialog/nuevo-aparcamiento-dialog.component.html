@@ -33,7 +33,7 @@
     <input [(ngModel)]="aparcamientoDto.avatar" type="file" placeholder="Imagen" (change)="selectImage($event)">
     <div mat-dialog-actions>
       <button mat-button (click)="close()">Cancelar</button>
-      <button mat-button (click)="createAparcamiento()" cdkFocusInitial>Guardar</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Guardar</button>
     </div>
 
     </div>

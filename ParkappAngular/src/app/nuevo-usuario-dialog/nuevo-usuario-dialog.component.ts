@@ -27,7 +27,7 @@ export class NuevoUsuarioDialogComponent implements OnInit {
      private dialogRef: MatDialogRef<NuevoUsuarioDialogComponent>, private http: HttpClient, public snackBar:MatSnackBar) { }
 
   ngOnInit() {
-    this.usuarioDto = new UsuarioDto(undefined,'','','','',Date.now().toString(),'');
+    this.usuarioDto = new UsuarioDto(undefined,'','','','','');
   }
 
   
@@ -55,7 +55,6 @@ export class NuevoUsuarioDialogComponent implements OnInit {
     formData.append('username', this.usuarioDto.username);
     formData.append('email', this.usuarioDto.email);
     formData.append('password', this.usuarioDto.password);
-    formData.append('created_date', this.usuarioDto.created_date);
     formData.append('rol', this.usuarioDto.rol);
 
     this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/register/', formData).subscribe(

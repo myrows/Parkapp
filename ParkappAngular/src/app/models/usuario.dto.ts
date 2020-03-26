@@ -4,7 +4,6 @@ export class UsuarioDto{
         public username: string,
         public email: string,
         public password: string,
-        public created_date: string,
         public rol: string){
 
     }

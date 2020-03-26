@@ -21,6 +21,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
   aparcamientoDto: AparcamientoDto;
   listaZona: ZonaResponse[];
   images;
+  id:string;
 
   constructor(public dialogRef: MatDialogRef<EditarAparcamientoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DatosEntradaDialog,
@@ -32,8 +33,16 @@ export class EditarAparcamientoDialogComponent implements OnInit {
 
   ngOnInit() {
     this.loadZonas();
+    this.aparcamientoDto = new AparcamientoDto('', '', '', undefined,'', '','','');
     this.aparcamientoResponse = this.data.aparcamientoResponse;
-    this.aparcamientoDto = new AparcamientoDto(this.aparcamientoResponse.puntuacion.toString(),this.aparcamientoResponse.dimension,this.aparcamientoResponse.longitud.toString(),undefined,this.aparcamientoResponse.latitud.toString(),this.aparcamientoResponse.nombre,this.aparcamientoResponse.userId,this.aparcamientoResponse.zonaId);
+    this.aparcamientoDto.puntuacion = this.aparcamientoResponse.puntuacion
+    this.aparcamientoDto.dimension = this.aparcamientoResponse.dimension;
+    this.aparcamientoDto.longitud = this.aparcamientoResponse.longitud
+    this.aparcamientoDto.latitud = this.aparcamientoResponse.latitud
+    this.aparcamientoDto.nombre = this.aparcamientoResponse.nombre;
+    this.aparcamientoDto.userId = this.aparcamientoResponse.userId;
+    this.aparcamientoDto.zonaId= this.aparcamientoResponse.zonaId;
+    
   }
 
   cerrarDialog() {
@@ -60,6 +69,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.id = this.aparcamientoResponse._id;
     const formData = new FormData();
     formData.append('avatar', this.images);
     formData.append('puntuacion', this.aparcamientoDto.puntuacion);
@@ -69,7 +79,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
     formData.append('zonaId', this.aparcamientoDto.zonaId);
     formData.append('nombre', this.aparcamientoDto.nombre);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/photo/', formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/photo/'+this.id, formData).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

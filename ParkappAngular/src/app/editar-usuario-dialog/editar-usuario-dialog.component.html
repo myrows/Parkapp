@@ -1,26 +1,26 @@
 <div fxFlexLayout="column">
-    <h1 mat-dialog-title>Nueva Reseña</h1>
+    <h1 mat-dialog-title>Editar Usuario</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.fullname" placeholder="Nombre">
+        <input matInput [(ngModel)]="usuarioDto.fullname" value="{{usuarioDto.fullname}}" placeholder="Nombre">
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.username" placeholder="Nombre de Usuario">
+        <input matInput [(ngModel)]="usuarioDto.username" value="{{usuarioDto.username}}"placeholder="Nombre de Usuario">
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.email" type="email" placeholder="Email">
+        <input matInput [(ngModel)]="usuarioDto.email" type="email" value="{{usuarioDto.email}}" placeholder="Email">
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.password" type="password" placeholder="Contraseña">
+        <input matInput [(ngModel)]="usuarioDto.password" type="password"  value="{{usuarioDto.password}}" placeholder="Contraseña">
       </mat-form-field>
 
       <h4>Roles</h4>
       <mat-form-field>
         <mat-label>Roles</mat-label>
-        <mat-select name="miselectRol" [(ngModel)]="usuarioDto.rol">
+        <mat-select name="miselectRol" value="{{usuarioDto.rol}}" [(ngModel)]="usuarioDto.rol">
           <mat-option *ngFor="let rol of roles" [value]="rol.value">
             {{rol.viewValue}}
           </mat-option>
