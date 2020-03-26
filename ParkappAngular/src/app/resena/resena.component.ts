@@ -7,6 +7,7 @@ import { ResenaDto } from '../dto/resena.dto';
 import { ResenaResponse } from '../models/resena-response.interface';
 import { BorrarResenaDialogComponent } from '../borrar-resena-dialog/borrar-resena-dialog.component';
 import { CreateResenaComponent } from '../create-resena/create-resena.component';
+import { UpdateResenaComponent } from '../update-resena/update-resena.component';
 
 @Component({
   selector: 'app-resena',
@@ -59,6 +60,12 @@ export class ResenaComponent implements OnInit {
         }
       }
     })
+  }
+
+  openEditDialog(resena: ResenaResponse) {
+    this.dialog.open(UpdateResenaComponent, {
+     data: { resena: resena }
+   });
   }
 
   dialogDeleteResena(resenaResponse: ResenaResponse) {

@@ -69,6 +69,14 @@ export class PeticionesService {
     );
   }
 
+  editResena(resenaId: string, resenaDto: ResenaDto): Observable<ResenaResponse> {
+    return this.http.put<ResenaResponse>(
+      apiResena + resenaId,
+      resenaDto,
+      httpOptions
+    );
+  }
+
   createHistorial(historialDto: HistorialDto): Observable<HistorialResponse> {
     return this.http.post<HistorialResponse>(
       apiHistorial,

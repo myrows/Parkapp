@@ -1,0 +1,30 @@
+<div fxFlexLayout="column">
+    <h1 mat-dialog-title>Nueva Reseña</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput [(ngModel)]="resenaDto.title" value="{{resenaDto.title}}" placeholder="Título">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="resenaDto.body" value="{{resenaDto.body}}" placeholder="Comentario">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="resenaDto.rate" value="{{resenaDto.rate}}" type="number" placeholder="Rate">
+      </mat-form-field>
+
+      <h4>Zona</h4>
+      <mat-form-field>
+        <mat-label>Zona</mat-label>
+        <mat-select name="miselectZona" [(ngModel)]="resenaDto.zonaId" value="{{resenaDto.zonaId}}">
+          <mat-option *ngFor="let zona of listaZona" [value]="zona._id">{{zona.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="close()">Cancelar</button>
+      <button mat-button (click)="editResena()" cdkFocusInitial>Guardar</button>
+    </div>
+
+    </div>
