@@ -8,6 +8,7 @@ import { BorrarZonaDialogComponent } from '../borrar-zona-dialog/borrar-zona-dia
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { CreateZonaComponent } from '../create-zona/create-zona.component';
+import { UpdateZonaComponent } from '../update-zona/update-zona.component';
 
 @Component({
   selector: 'app-zona',
@@ -55,6 +56,12 @@ export class ZonaComponent implements OnInit {
         }
       }
     })
+  }
+
+  openEditDialog(zona: ZonaResponse) {
+    this.dialog.open(UpdateZonaComponent, {
+     data: { zona: zona }
+   });
   }
 
   dialogDeleteZona(zonaResponse: ZonaResponse) {

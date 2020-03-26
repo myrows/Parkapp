@@ -46,6 +46,7 @@ import { CreateZonaComponent } from './create-zona/create-zona.component';
 import { HistoriaListadoComponent } from './historia-listado/historia-listado.component';
 import { BorrarHistorialComponent } from './borrar-historial/borrar-historial.component';
 import { CreateHistorialComponent } from './create-historial/create-historial.component';
+import { UpdateZonaComponent } from './update-zona/update-zona.component';
 
 var route: string;
 const token = localStorage.getItem('token');
@@ -95,7 +96,8 @@ const routes: Routes = [
     CreateZonaComponent,
     HistoriaListadoComponent,
     BorrarHistorialComponent,
-    CreateHistorialComponent
+    CreateHistorialComponent,
+    UpdateZonaComponent
 
   ],
   entryComponents: [
@@ -109,7 +111,8 @@ const routes: Routes = [
     CreateResenaComponent,
     CreateZonaComponent,
     BorrarHistorialComponent,
-    CreateHistorialComponent
+    CreateHistorialComponent,
+    UpdateZonaComponent
   ],
   imports: [
     BrowserModule,

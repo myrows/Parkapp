@@ -1,0 +1,32 @@
+<div fxFlexLayout="column">
+    <h1 mat-dialog-title>Edit Zona</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput [(ngModel)]="zonaDto.nombre" value="{{zonaDto.nombre}}" placeholder="Nombre">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="zonaDto.ubicacion" value="{{zonaDto.ubicacion}}" placeholder="Ubicación">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="zonaDto.longitud" value="{{zonaDto.longitud}}" type="number" placeholder="Longitud">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="zonaDto.latitud" value="{{zonaDto.latitud}}" type="number" placeholder="Latitud">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="zonaDto.distancia" value="{{zonaDto.distancia}}" type="number" placeholder="Distancia">
+      </mat-form-field>
+
+        <input [(ngModel)]="zonaDto.avatar" type="file" placeholder="Imagen" (change)="selectImage($event)">
+      
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="close()">Cancelar</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial>Guardar</button>
+    </div>
+
+    </div>
