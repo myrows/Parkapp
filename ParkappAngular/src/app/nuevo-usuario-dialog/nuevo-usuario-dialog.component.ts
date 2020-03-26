@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioDto } from '../models/usuario.dto';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuariosService } from '../services/usuarios.service';
 
 interface Roles {
   value: string;
   viewValue: string;
 }
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 @Component({
   selector: 'app-nuevo-usuario-dialog',
   templateUrl: './nuevo-usuario-dialog.component.html',
@@ -57,7 +63,7 @@ export class NuevoUsuarioDialogComponent implements OnInit {
     formData.append('password', this.usuarioDto.password);
     formData.append('rol', this.usuarioDto.rol);
 
-    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/register/', formData).subscribe(
+    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/register/', formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

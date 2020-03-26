@@ -4,7 +4,13 @@ import { ZonaResponse } from '../models/zona-response.interface';
 import { AparcamientoDto } from '../models/aparcamiento.dto';
 import { PeticionesService } from '../services/peticiones.service';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Component({
   selector: 'app-nuevo-aparcamiento-dialog',
@@ -59,7 +65,7 @@ export class NuevoAparcamientoDialogComponent implements OnInit {
     formData.append('zonaId', this.aparcamientoDto.zonaId);
     formData.append('nombre', this.aparcamientoDto.nombre);
 
-    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/', formData).subscribe(
+    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/aparcamiento/', formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

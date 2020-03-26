@@ -2,13 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
 import { MatDialogRef } from '@angular/material';
 import { ZonaDto } from '../dto/zona.dto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Component({
   selector: 'app-create-zona',
   templateUrl: './create-zona.component.html',
   styleUrls: ['./create-zona.component.css']
 })
+
 export class CreateZonaComponent implements OnInit {
 
   zonaDto: ZonaDto;
@@ -44,7 +51,7 @@ export class CreateZonaComponent implements OnInit {
     formData.append('avatar', this.images);
     formData.append('distancia', this.zonaDto.distancia);
 
-    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/zona/', formData).subscribe(
+    this.http.post<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/zona/', formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

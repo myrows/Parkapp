@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioDto } from '../models/usuario.dto';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PeticionesService } from '../services/peticiones.service';
 import { UsuariosService } from '../services/usuarios.service';
 import { UsuarioResponse } from '../models/usuario.response';
@@ -13,6 +13,12 @@ interface Roles {
 export interface DatosEntradaDialog {
   usuarioResponse: UsuarioResponse;
 }
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 @Component({
   selector: 'app-editar-usuario-dialog',
   templateUrl: './editar-usuario-dialog.component.html',
@@ -75,7 +81,7 @@ export class EditarUsuarioDialogComponent implements OnInit {
     formData.append('password', this.usuarioDto.password);
     formData.append('rol', this.usuarioDto.rol);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/user/'+this.id, formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/user/'+this.id, formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

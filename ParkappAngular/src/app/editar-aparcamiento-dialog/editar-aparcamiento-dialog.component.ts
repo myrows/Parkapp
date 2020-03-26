@@ -3,13 +3,19 @@ import { AparcamientoResponse } from '../models/aparcamiento-response.interface'
 import { AparcamientosService } from '../services/aparcamiento.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AparcamientoDto } from '../models/aparcamiento.dto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ZonaResponse } from '../models/zona-response.interface';
 import { PeticionesService } from '../services/peticiones.service';
 
 export interface DatosEntradaDialog {
   aparcamientoResponse: AparcamientoResponse;
 }
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 @Component({
   selector: 'app-editar-aparcamiento-dialog',
   templateUrl: './editar-aparcamiento-dialog.component.html',
@@ -79,7 +85,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
     formData.append('zonaId', this.aparcamientoDto.zonaId);
     formData.append('nombre', this.aparcamientoDto.nombre);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/photo/'+this.id, formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/aparcamiento/photo/'+this.id, formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

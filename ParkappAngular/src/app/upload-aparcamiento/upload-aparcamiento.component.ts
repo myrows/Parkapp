@@ -4,11 +4,17 @@ import { ZonaResponse } from '../models/zona-response.interface';
 import { AparcamientosService } from '../services/aparcamiento.service';
 import { PeticionesService } from '../services/peticiones.service';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 const URL = 'https://parkappsalesianos.herokuapp.com/parkapp/aparcamiento/';
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Component({
   selector: 'app-upload-aparcamiento',
@@ -192,7 +198,7 @@ onFileChange(event, field) {
         //submit the form using formData
         // if you are using nodejs use something like multer
       )
-      this.http.post<any>('http://localhost:3000/parkapp/aparcamiento', formData).subscribe(
+      this.http.post<any>('http://localhost:3000/parkapp/angular/aparcamiento', formData, httpOptionsAdmin).subscribe(
         (res) => console.log(res),
         (err) => console.log(err));
     }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CreateZonaComponent } from '../create-zona/create-zona.component';
 import { UpdateZonaComponent } from '../update-zona/update-zona.component';
 
+
 @Component({
   selector: 'app-zona',
   templateUrl: './zona.component.html',
@@ -20,7 +21,7 @@ export class ZonaComponent implements OnInit {
   zona: ZonaDto;
   listaZona: ZonaResponse[];
   displayedColumns: string[] = ['id','nombre','ubicacion', 'acciones'];
-  dataSource; 
+  dataSource;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -31,6 +32,12 @@ export class ZonaComponent implements OnInit {
 
   ngOnInit() {
     this.loadZonas();
+    if (!localStorage.getItem('reload')) {
+      localStorage.setItem('reload', 'no reload');
+      location.reload();
+    } else {
+      localStorage.removeItem('reload');
+    }
   }
 
   loadZonas(){

@@ -10,9 +10,9 @@ import { UsuarioDto } from '../models/usuario.dto';
 import { HistorialResponse } from '../models/historial-response.interface';
 import { HistorialDto } from '../dto/historial.dto';
 
-const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/zona/';
-const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/resena/';
-const apiHistorial = 'https://parkappsalesianos.herokuapp.com/parkapp/historial/';
+const apiZona = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/zona/';
+const apiResena = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/resena/';
+const apiHistorial = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/historial/';
 
 /*const apiZona = 'http://localhost:3000/parkapp/zona/';
 const apiResena = 'http://localhost:3000/parkapp/resena/';*/
@@ -22,6 +22,13 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     //'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
   })
 };
 
@@ -43,14 +50,14 @@ export class PeticionesService {
     return this.http.post<CrearAdminResponse>(
       apiZona,
       zonaDto,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   loadZona(): Observable<ZonaResponse[]> {
     return this.http.get<ZonaResponse[]>(
       apiZona,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
@@ -58,14 +65,14 @@ export class PeticionesService {
     return this.http.post<ResenaResponse>(
       apiResena,
       resenaDto,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   loadResena(): Observable<ResenaResponse[]> {
     return this.http.get<ResenaResponse[]>(
       apiResena,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
@@ -73,7 +80,7 @@ export class PeticionesService {
     return this.http.put<ResenaResponse>(
       apiResena + resenaId,
       resenaDto,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
@@ -81,14 +88,14 @@ export class PeticionesService {
     return this.http.post<HistorialResponse>(
       apiHistorial,
       historialDto,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   loadHistorial(): Observable<HistorialResponse[]> {
     return this.http.get<HistorialResponse[]>(
       apiHistorial,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
@@ -96,28 +103,28 @@ export class PeticionesService {
     return this.http.put<HistorialResponse>(
       apiHistorial + historialId,
       historialDto,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   public deleteZona(idZona: string): Observable<ZonaResponse> {
     return this.http.delete<ZonaResponse>(
       apiZona + idZona,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   public deleteResena(idResena: string): Observable<ResenaResponse> {
     return this.http.delete<ResenaResponse>(
       apiResena + idResena,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 
   public deleteHistorial(idHistorial: string): Observable<HistorialResponse> {
     return this.http.delete<HistorialResponse>(
       apiHistorial + idHistorial,
-      httpOptions
+      httpOptionsAdmin
     );
   }
 

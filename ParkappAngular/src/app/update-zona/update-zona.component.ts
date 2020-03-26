@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PeticionesService } from '../services/peticiones.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ZonaDto } from '../dto/zona.dto';
@@ -8,6 +8,12 @@ import { ZonaResponse } from '../models/zona-response.interface';
 export interface DatosEntradaDialog {
   zona: ZonaResponse;
 }
+
+const httpOptionsAdmin = {
+  headers: new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  })
+};
 
 @Component({
   selector: 'app-update-zona',
@@ -51,7 +57,7 @@ export class UpdateZonaComponent implements OnInit {
     formData.append('avatar', this.images);
     formData.append('distancia', this.zonaDto.distancia);
 
-    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/zona/' + this.id, formData).subscribe(
+    this.http.put<any>('https://parkappsalesianos.herokuapp.com/parkapp/angular/zona/' + this.id, formData, httpOptionsAdmin).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );

@@ -11,13 +11,14 @@ import { UsuarioResponse } from '../models/usuario.response';
 
 
 
-const URL_ALLUSUARIOS = 'https://parkappsalesianos.herokuapp.com/parkapp/users';
-const URL_NUEVOUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/register/';
-const URL_DELETEUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/user/';
-const URL_EDITARUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/user/';
+const URL_ALLUSUARIOS = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/users';
+const URL_NUEVOUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/register/';
+const URL_DELETEUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/user/';
+const URL_EDITARUSUARIO = 'https://parkappsalesianos.herokuapp.com/parkapp/angular/user/';
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
+    'Content-Type':  'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
   })
 };
 @Injectable({
