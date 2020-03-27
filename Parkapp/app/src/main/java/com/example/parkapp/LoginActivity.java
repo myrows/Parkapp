@@ -234,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser fUser){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         //Obtenemos el UID
-        SharedPreferencesManager.setSomeStringValue("uid",  fUser.getUid());
+        SharedPreferencesManager.setSomeStringValue("userId",  fUser.getUid());
         if(account != null){
             String name = account.getDisplayName();
             String givenName = account.getGivenName();

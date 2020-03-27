@@ -112,7 +112,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                                .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + aparcamiento.getAvatar())
                                .into(avatar);
 
-                   }if(aparcamiento.getUserId().equals("") ||aparcamiento.getUserId() == null){
+                   }if(aparcamiento.getUserId().equals("") ||aparcamiento.getUserId() == null || aparcamiento == null){
                        desocupar.setClickable(false);
                        desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                        nombre.setText("Sin información");
@@ -132,7 +132,21 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
                @Override
                public void onFailure(Call<Aparcamiento> call, Throwable t) {
-                   Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                   if(aparcamiento == null){
+                       desocupar.setClickable(false);
+                       desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
+                       nombre.setText("Sin información");
+                       listadoHorario.setBackgroundResource(R.drawable.ic_sad);
+                       listadoHorario.setClickable(false);
+                       Glide.with(MyApp.getContext())
+                               .load(R.drawable.ic_traffic)
+                               .into(avatar);
+                       Snackbar snackbar3 = Snackbar.make(desocupar,"NO TIENE NINGUN APARCAMIENTO OCUPADO",Snackbar.LENGTH_LONG);
+                       View sbView = snackbar3.getView();
+                       zona.setVisibility(View.GONE);
+                       sbView.setBackgroundColor(Color.parseColor("#9E0018"));
+                       snackbar3.show();
+                   }
                }
            });
 
