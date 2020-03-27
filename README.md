@@ -10,6 +10,25 @@ ParkApp es una aplicación que consta de tres partes:
 
 -Un API, desarrollada en NodeJs y con el apoyo de las tecnologías Mongoose y el respaldo en base de datos de MongoDB, de esta API consumen los recursos sendas aplicaciones, tanto la aplicación Web Angular como la aplicación Android.
 
+# ¿Cómo iniciar la aplicación? :computer: :iphone:
+Para iniciar la aplicación Android necesitara un dispositivo movil el cual este conectado al pc y ejecutar la aplicacion mmediante la plataforma de 
+Android Studio, aunque, para una conexion mas adecuada y una mejor experiencia recomendamos el uso del dispositivo virtual que puede usar u obtener
+dentro de Android Studio debido a que bajo las condiciones del Covid-19 la conexion a Internet puede ser mas limitada, una vez en Android Studio inicie la aplicacion mediante el boton Play que se encuentra en la barra superior.
+
+Usuario de prueba Android-> nombre: user, pass: 12345678
+
+Para iniciar la aplicacion web le recomendamos que abra visual studio code y desde el terminal escriba lo siguiente:
+
+
+
+1-Npm install
+
+2-Ng serve
+
+Usuariod de prueba Angular-> nombre:user, pass: 12345678
+
+Por último la aplicación estara corriendo en el puerto 4200 de su ordenador y ya podra hacer uso y disfrute de ella.
+
 
 # Tecnologias :wrench:
 
