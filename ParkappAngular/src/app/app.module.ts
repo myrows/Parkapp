@@ -23,8 +23,6 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import {MatSelectModule} from '@angular/material/select';
 import { PeticionesService } from './services/peticiones.service';
 import { AuthService } from './services/auth.service';
-import { AnyosEscolaresService } from './services/anyos-escolares.service';
-import { ListadoUsuariosSaComponent } from './listado-usuarios-sa/listado-usuarios-sa.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { BorrarUsuarioDialogComponent } from './borrar-usuario-dialog/borrar-usuario-dialog.component';
 import { AparcamientoListadoComponent } from './aparcamiento-listado/aparcamiento-listado.component';
@@ -84,7 +82,6 @@ const routes: Routes = [
     FooterComponent,
     LoginComponent,
     UsuarioComponent,
-    ListadoUsuariosSaComponent,
     BorrarUsuarioDialogComponent,
     AparcamientoListadoComponent,
     BorrarAparcamientoDialogComponent,
@@ -110,7 +107,6 @@ const routes: Routes = [
 
   ],
   entryComponents: [
-    ListadoUsuariosSaComponent,
     BorrarUsuarioDialogComponent,
     BorrarAparcamientoDialogComponent,
     BorrarZonaDialogComponent,
@@ -169,7 +165,6 @@ const routes: Routes = [
     PeticionesService,
     AuthService,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
-    AnyosEscolaresService,
     ConfigService, {
       provide: APP_INITIALIZER,
       useFactory: configServiceInitializerFactory,

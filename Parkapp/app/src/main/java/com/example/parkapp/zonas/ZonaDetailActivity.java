@@ -118,9 +118,11 @@ public class ZonaDetailActivity extends AppCompatActivity {
 
                     tName.setText(myZona.getNombre());
                     tUbicacion.setText(myZona.getUbicacion());
-                    float results[] = new float[10];
-                    Location.distanceBetween(latitude, longitude, myZona.getLatitud(), myZona.getLongitud(), results);
-                    tDistancia.setText((df.format((double)results[0]/1000))+" km");
+                    if(myZona.getLatitud() != null && myZona.getLongitud() != null) {
+                        float results[] = new float[10];
+                        Location.distanceBetween(latitude, longitude, myZona.getLatitud(), myZona.getLongitud(), results);
+                        tDistancia.setText((df.format((double) results[0] / 1000)) + " km");
+                    }
 
                     Glide
                             .with(MyApp.getContext())

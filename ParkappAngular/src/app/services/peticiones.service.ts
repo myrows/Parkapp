@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CrearAdminResponse } from '../models/crearAdmin-response.interface';
 import { ZonaDto } from '../dto/zona.dto';
 import { ZonaResponse } from '../models/zona-response.interface';
 import { ResenaDto } from '../dto/resena.dto';
@@ -46,8 +45,8 @@ export class PeticionesService {
 
   constructor(private http: HttpClient) { }
 
-  createZona(zonaDto: ZonaDto): Observable<CrearAdminResponse> {
-    return this.http.post<CrearAdminResponse>(
+  createZona(zonaDto: ZonaDto): Observable<ZonaResponse> {
+    return this.http.post<ZonaResponse>(
       apiZona,
       zonaDto,
       httpOptionsAdmin
