@@ -46,8 +46,9 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
     ImageView avatar;
     ParkappService service;
     ServiceGenerator serviceGenerator;
-    Aparcamiento aparcamiento;
     Aparcamiento aparcamientoUpdated;
+    List<Aparcamiento> aparcamientos;
+    String miAparcamiento;
 
 
 
@@ -60,6 +61,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
         Bundle extras = getIntent().getExtras();
         final String idAparcamiento = SharedPreferencesManager.getSomeStringValue("aparcamiento_id");
+        final String idUsuario = SharedPreferencesManager.getSomeStringValue("userId");
 
         nombre = findViewById(R.id.NombreMiAparcamiento);
        zona = findViewById(R.id.zonaMiAparcamiento);
@@ -69,50 +71,53 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
 
         final String idZona = SharedPreferencesManager.getSomeStringValue("ZONAID");
-        final String idHistorial = SharedPreferencesManager.getSomeStringValue("historial_id");
-        final String fechaEntrada = SharedPreferencesManager.getSomeStringValue("fecha_entrada");
-        final String horarioEntrada = SharedPreferencesManager.getSomeStringValue("horario_entrada");
+        String idHistorial = SharedPreferencesManager.getSomeStringValue("historial_id");
+        String fechaEntrada = SharedPreferencesManager.getSomeStringValue("fecha_entrada");
+        String horarioEntrada = SharedPreferencesManager.getSomeStringValue("horario_entrada");
 
            service = serviceGenerator.createServiceZona(ParkappService.class);
 
 
-           //CALLBACK ZONA
-           Call<ZonaDetail> callZona = service.getZonaById(idZona);
 
-           callZona.enqueue(new Callback<ZonaDetail>() {
-               @Override
-               public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
-                   if (response.isSuccessful()) {
-                       zona.setText(response.body().getNombre());
-
-                   } else {
-                       Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
-                   }
-               }
-
-               @Override
-               public void onFailure(Call<ZonaDetail> call, Throwable t) {
-                   Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-               }
-           });
 
 
            //CALLBACK APARCAMIENTO
-           Call<Aparcamiento> callAparcamiento = service.getAparcamiento(idAparcamiento);
+           Call<List<Aparcamiento>> callAparcamiento = service.getAparcamientoOfUsuario(idUsuario);
 
-           callAparcamiento.enqueue(new Callback<Aparcamiento>() {
+           callAparcamiento.enqueue(new Callback<List<Aparcamiento>>() {
                @Override
-               public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
-                   if (response.isSuccessful()) {
-                       aparcamiento = response.body();
-                       nombre.setText(aparcamiento.getNombre());
+               public void onResponse(Call<List<Aparcamiento>> call, Response<List<Aparcamiento>> response) {
+                   if (response.isSuccessful() && !response.body().isEmpty()) {
+                       aparcamientos = response.body();
+                       nombre.setText(aparcamientos.get(0).getNombre());
+                       miAparcamiento = aparcamientos.get(0).getId();
 
                        Glide
                                .with(MyApp.getContext())
-                               .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + aparcamiento.getAvatar())
+                               .load("https://parkappsalesianos.herokuapp.com/parkapp/avatar/" + aparcamientos.get(0).getAvatar())
                                .into(avatar);
 
-                   }if(aparcamiento.getUserId().equals("") ||aparcamiento.getUserId() == null || aparcamiento == null){
+                       Call<ZonaDetail> callZona = service.getZonaById(aparcamientos.get(0).getZonaId());
+
+                       callZona.enqueue(new Callback<ZonaDetail>() {
+                           @Override
+                           public void onResponse(Call<ZonaDetail> call, Response<ZonaDetail> response) {
+                               if (response.isSuccessful()) {
+                                   zona.setText(response.body().getNombre());
+
+                               } else {
+                                   Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                               }
+                           }
+
+                           @Override
+                           public void onFailure(Call<ZonaDetail> call, Throwable t) {
+                               Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                           }
+                       });
+
+
+                   }if(response.body().isEmpty()){
                        desocupar.setClickable(false);
                        desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                        nombre.setText("Sin información");
@@ -131,8 +136,8 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                }
 
                @Override
-               public void onFailure(Call<Aparcamiento> call, Throwable t) {
-                   if(aparcamiento == null){
+               public void onFailure(Call<List<Aparcamiento>> call, Throwable t) {
+                   if(aparcamientos.isEmpty()){
                        desocupar.setClickable(false);
                        desocupar.setBackgroundColor(Color.parseColor("#c2c2c2"));
                        nombre.setText("Sin información");
@@ -154,43 +159,71 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
            desocupar.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
+
+
+
+
+
+
+
                    //CallBack para coger el id del aparcamiento
-                   Call<Aparcamiento> call = service.getAparcamiento(idAparcamiento);
+                   Call<Aparcamiento> call = service.getAparcamiento(miAparcamiento);
                    call.enqueue(new Callback<Aparcamiento>() {
                        @Override
                        public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
                            if(response.isSuccessful()){
-                               final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().getPuntuacion(), aparcamiento.getNombre(), aparcamiento.getDimension(),
-                                       aparcamiento.getLongitud(), aparcamiento.getLatitud(), "");
-                               Call<ResponseBody> callUpdate = service.updateAparcamiento(idAparcamiento, aparcamientoUpdate);
+                               final Aparcamiento aparcamientoUpdate = new Aparcamiento(response.body().getPuntuacion(), response.body().getNombre(), response.body().getDimension(),
+                                      response.body().getLongitud(), response.body().getLatitud(), "");
+                               String miaparcamiento = response.body().getId();
+
+
+                               Call<ResponseBody> callUpdate = service.updateAparcamiento(response.body().getId(), aparcamientoUpdate);
                                callUpdate.enqueue(new Callback<ResponseBody>() {
                                    @RequiresApi(api = Build.VERSION_CODES.O)
                                    @Override
                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                        if (response.isSuccessful()) {
                                            //CALLBACK PARA UPDATEAR EL HISTORIAL
-                                           final Historial historialUpdate = new Historial(horarioEntrada, LocalDateTime.now().toString(),
-                                                   fechaEntrada, idAparcamiento);
-                                           Call<ResponseBody> updateCall = service.updateHistorial(idHistorial, historialUpdate);
+                                           Call<List<Historial>> callHistorial = service.getHistorialFechaSalidaNull(miAparcamiento);
 
-                                           updateCall.enqueue(new Callback<ResponseBody>() {
+                                           callHistorial.enqueue(new Callback<List<Historial>>() {
                                                @Override
-                                               public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                                   if (response.isSuccessful()) {
-                                                       AparcamientoDialogfragment aparcamientoDialogfragment = new AparcamientoDialogfragment();
-                                                       aparcamientoDialogfragment.show(getSupportFragmentManager(), null);
-                                                       aparcamientoDialogfragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
-                                                       Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
-                                                   } else {
-                                                       Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                                               public void onResponse(Call<List<Historial>>call, Response<List<Historial>>response) {
+                                                   if(response.isSuccessful()){
+                                                       final Historial historialUpdate = new Historial(response.body().get(0).getFechaEntrada(), LocalDateTime.now().toString(),
+                                                               response.body().get(0).getDia(), miaparcamiento);
+                                                       Call<ResponseBody> updateCall = service.updateHistorial(response.body().get(0).getId(), historialUpdate);
+
+                                                       updateCall.enqueue(new Callback<ResponseBody>() {
+                                                           @Override
+                                                           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                               if (response.isSuccessful()) {
+                                                                   AparcamientoDialogfragment aparcamientoDialogfragment = new AparcamientoDialogfragment();
+                                                                   aparcamientoDialogfragment.show(getSupportFragmentManager(), null);
+                                                                   aparcamientoDialogfragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
+                                                                   Toast.makeText(MyApp.getContext(), "HISTORIAL ACTUALIZADO", Toast.LENGTH_SHORT).show();
+                                                               } else {
+                                                                   Toast.makeText(MyApp.getContext(), "No se ha podido obtener resultados de la api", Toast.LENGTH_SHORT).show();
+                                                               }
+                                                           }
+
+                                                           @Override
+                                                           public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                               Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                                           }
+                                                       });
+
                                                    }
                                                }
 
                                                @Override
-                                               public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                                   Toast.makeText(MyApp.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                               public void onFailure(Call<List<Historial>> call, Throwable t) {
+
                                                }
                                            });
+
+
+
 
                                            //Siguiendo callback desocupar
                                            showNotification(desocupar);
@@ -220,7 +253,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
                @Override
                public void onClick(View v) {
                    Intent i = new Intent(MiAparcamientoActivity.this, HorasAparcamientoActivity.class);
-                   i.putExtra("aparcamientoId", idAparcamiento);
+                   i.putExtra("aparcamientoId", aparcamientos.get(0).getId());
                    startActivity(i);
                }
            });
@@ -262,7 +295,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
     public void submittedinformation(int puntuacion) {
 
         //Callback para obtener mi aparcamiento
-        Call<Aparcamiento> call = service.getAparcamiento(SharedPreferencesManager.getSomeStringValue("aparcamiento_id"));
+        Call<Aparcamiento> call = service.getAparcamiento(miAparcamiento);
 
         call.enqueue(new Callback<Aparcamiento>() {
 
@@ -270,7 +303,7 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
             public void onResponse(Call<Aparcamiento> call, Response<Aparcamiento> response) {
                 //Toast.makeText(MiAparcamientoActivity.this, "Callback mi aparcamiento", Toast.LENGTH_SHORT).show();
                 if(response.isSuccessful()){
-                    Aparcamiento myAparcamiento = response.body();
+                    Aparcamiento myAparcamiento  = response.body();
 
                     if(myAparcamiento.getPuntuacion() == null){
                         myAparcamiento.setPuntuacion(0);

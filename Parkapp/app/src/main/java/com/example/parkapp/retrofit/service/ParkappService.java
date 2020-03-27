@@ -90,5 +90,8 @@ public interface ParkappService {
     @GET("/parkapp/aparcamientos/populares")
     Call<List<Aparcamiento>> getAparcamientosPopulares();
 
+    @GET("/parkapp/historial/aparcamiento/sinFechaSalida/{id}")
+    Call<List<Historial>> getHistorialFechaSalidaNull(@Path("id") String id);
+
 
 }
