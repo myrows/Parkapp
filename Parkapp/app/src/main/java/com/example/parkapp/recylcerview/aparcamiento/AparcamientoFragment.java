@@ -21,14 +21,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.parkapp.LoginActivity;
-import com.example.parkapp.PopularAparcamientoActivity;
+import com.example.parkapp.login.LoginActivity;
+import com.example.parkapp.aparcamientosPopulares.PopularAparcamientoActivity;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.retrofit.model.Aparcamiento;
-import com.example.parkapp.retrofit.model.Zona;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

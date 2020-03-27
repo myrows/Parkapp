@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.historial;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -6,22 +6,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.parkapp.R;
-import com.example.parkapp.HistorialAparcamientoFragment.OnListFragmentInteractionListener;
+import com.example.parkapp.historial.HistorialAparcamientoFragment.OnListFragmentInteractionListener;
 import com.example.parkapp.retrofit.model.Historial;
-import com.example.parkapp.retrofit.model.Resena;
-import com.example.parkapp.retrofit.model.Zona;
 
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
 public class MyHistorialAparcamientoRecyclerViewAdapter extends RecyclerView.Adapter<MyHistorialAparcamientoRecyclerViewAdapter.ViewHolder> {

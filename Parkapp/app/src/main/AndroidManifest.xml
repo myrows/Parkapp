@@ -23,12 +23,11 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PopularAparcamientoActivity"></activity>
-        <activity android:name=".MiPerfilActivity" />
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".HorasAparcamientoActivity" />
-        <activity android:name=".HistorialActivity" />
-        <activity android:name=".AparcamientoActivity" />
+        <activity android:name=".aparcamientosPopulares.PopularAparcamientoActivity"></activity>
+        <activity android:name=".Mapa.MapsActivity" />
+        <activity android:name=".historial.HorasAparcamientoActivity" />
+        <activity android:name=".historial.HistorialActivity" />
+        <activity android:name=".aparcamientos.AparcamientoActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,13 +43,13 @@
         <activity
             android:name=".MapaEnFragment"
             android:label="@string/title_activity_mapa_en_fragment" />
-        <activity android:name=".MiAparcamientoActivity" />
+        <activity android:name=".aparcamientos.MiAparcamientoActivity" />
         <activity android:name=".recylcerview.aparcamiento.DetalleAparcamientoActivity" />
-        <activity android:name=".ResenaActivity" />
-        <activity android:name=".ZonaDetailActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".resenas.ResenaActivity" />
+        <activity android:name=".zonas.ZonaDetailActivity" />
+        <activity android:name=".login.RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

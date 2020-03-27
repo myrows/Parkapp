@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.historial;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
+import com.example.parkapp.login.LoginActivity;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;

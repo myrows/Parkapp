@@ -1,7 +1,6 @@
 package com.example.parkapp.recyclerview.zona;
 
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -17,14 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.R;
-import com.example.parkapp.ZonaDetailActivity;
+import com.example.parkapp.zonas.ZonaDetailActivity;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
-import com.example.parkapp.data.zona.ZonaViewModel;
 import com.example.parkapp.recyclerview.zona.ZonaFragment.OnListFragmentInteractionListener;
 import com.example.parkapp.retrofit.model.Zona;
 import com.google.android.gms.location.FusedLocationProviderClient;

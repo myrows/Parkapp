@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.aparcamientos;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,22 +9,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.parkapp.common.MyApp;
-import com.example.parkapp.common.SharedPreferencesManager;
-import com.example.parkapp.data.resena.CustomDialogListener;
+import com.example.parkapp.R;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
-import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.service.ParkappService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AparcamientoDialogfragment extends DialogFragment {
 

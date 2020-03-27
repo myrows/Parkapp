@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.zonas;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -19,46 +19,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.parkapp.R;
+import com.example.parkapp.resenas.ResenaActivity;
+import com.example.parkapp.aparcamientos.AparcamientoActivity;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
-import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
+import com.example.parkapp.login.LoginActivity;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Historial;
-import com.example.parkapp.retrofit.model.Horario;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;

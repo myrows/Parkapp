@@ -1,12 +1,13 @@
-package com.example.parkapp;
+package com.example.parkapp.historial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.parkapp.R;
 import com.example.parkapp.retrofit.model.Historial;
 
-public class HistorialActivity extends AppCompatActivity implements HistorialAparcamientoFragment.OnListFragmentInteractionListener{
+public class HistorialActivity extends AppCompatActivity implements HistorialAparcamientoFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

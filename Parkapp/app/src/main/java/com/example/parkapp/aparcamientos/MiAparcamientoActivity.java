@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.aparcamientos;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,14 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.parkapp.MainActivity;
+import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
 
-import com.example.parkapp.data.resena.AnotacionDialogfragment;
+import com.example.parkapp.historial.HorasAparcamientoActivity;
+import com.example.parkapp.login.LoginActivity;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
-import com.example.parkapp.retrofit.model.Resena;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

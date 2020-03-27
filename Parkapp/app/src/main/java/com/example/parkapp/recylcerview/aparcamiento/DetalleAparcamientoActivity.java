@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.parkapp.LoginActivity;
-import com.example.parkapp.MiAparcamientoActivity;
+import com.example.parkapp.login.LoginActivity;
+import com.example.parkapp.aparcamientos.MiAparcamientoActivity;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;

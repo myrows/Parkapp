@@ -14,11 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.recyclerview.zona.ZonaFragment;
 import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
 import com.example.parkapp.retrofit.model.Aparcamiento;
@@ -32,7 +28,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import static com.example.parkapp.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
+import static com.example.parkapp.Mapa.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
 
 public class MainActivity extends AppCompatActivity implements ZonaFragment.OnListFragmentInteractionListener, AparcamientoFragment.OnListFragmentInteractionListener {
 

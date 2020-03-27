@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.login;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.parkapp.R;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
-import com.example.parkapp.retrofit.model.Register;
 import com.example.parkapp.retrofit.service.ParkappService;
 
 import java.io.BufferedInputStream;

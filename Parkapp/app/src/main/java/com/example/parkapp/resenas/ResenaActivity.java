@@ -1,15 +1,13 @@
-package com.example.parkapp;
+package com.example.parkapp.resenas;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.parkapp.common.MyApp;
+import com.example.parkapp.R;
 import com.example.parkapp.data.resena.AnotacionDialogfragment;
 import com.example.parkapp.data.resena.CustomDialogListener;
 import com.example.parkapp.recyclerview.resena.ResenaFragment;

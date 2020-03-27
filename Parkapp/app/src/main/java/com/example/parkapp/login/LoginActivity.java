@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,13 +12,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
+import com.example.parkapp.MainActivity;
+import com.example.parkapp.R;
 import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Login;
@@ -43,12 +44,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.parkapp.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
+import static com.example.parkapp.Mapa.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
 
 public class LoginActivity extends AppCompatActivity {
 

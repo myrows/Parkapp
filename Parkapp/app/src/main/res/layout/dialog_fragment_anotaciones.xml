@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="12dp"
-    tools:context=".ResenaActivity">
+    tools:context=".resenas.ResenaActivity">
 
     <EditText
         android:id="@+id/editTextBodyD"

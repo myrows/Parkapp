@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.historial;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,14 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.parkapp.MyHistorialAparcamientoRecyclerViewAdapter;
 import com.example.parkapp.R;
-import com.example.parkapp.common.SharedPreferencesManager;
-import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.data.HistorialViewModel;
-import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
-import com.example.parkapp.retrofit.model.Zona;
+
 import java.util.ArrayList;
 import java.util.List;
 

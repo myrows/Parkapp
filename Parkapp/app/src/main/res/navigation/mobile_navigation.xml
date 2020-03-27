@@ -13,12 +13,12 @@
 
     <activity
         android:id="@+id/navigation_maps"
-        android:name="com.example.parkapp.MapsActivity"
+        android:name="com.example.parkapp.Mapa.MapsActivity"
         android:label="Mapa"/>
 
     <activity
         android:id="@+id/navigation_aparcamiento"
-        android:name="com.example.parkapp.MiAparcamientoActivity"
+        android:name="com.example.parkapp.aparcamientos.MiAparcamientoActivity"
         android:label="Último Aparcamiento" />
 
 </navigation>

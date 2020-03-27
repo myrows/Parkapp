@@ -1,4 +1,4 @@
-package com.example.parkapp;
+package com.example.parkapp.aparcamientos;
 
 public interface CustomMiAparcamientoDialogfragment {
 

@@ -1,9 +1,10 @@
-package com.example.parkapp;
+package com.example.parkapp.aparcamientosPopulares;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.parkapp.R;
 import com.example.parkapp.aparcamientosPopulares.AparcamientosPopularesFragment;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 
