@@ -1,5 +1,6 @@
 package com.example.parkapp.recylcerview.aparcamiento;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.parkapp.QRScannerActivity;
 import com.example.parkapp.login.LoginActivity;
 import com.example.parkapp.aparcamientosPopulares.PopularAparcamientoActivity;
 import com.example.parkapp.R;
@@ -36,6 +39,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class AparcamientoFragment extends Fragment {
 
@@ -50,6 +58,7 @@ public class AparcamientoFragment extends Fragment {
     List<Aparcamiento> listadoAparcamientos = new ArrayList<>();
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    private static final int SCANNER_CODE = 5;
 
     public AparcamientoFragment() {
     }
@@ -190,6 +199,9 @@ public class AparcamientoFragment extends Fragment {
                 SharedPreferencesManager.setSomeStringValue("tokenId", null);
                 Intent login = new Intent(context, LoginActivity.class);
                 startActivity(login);
+            case R.id.barcode:
+                startActivityForResult(new Intent(MyApp.getContext(), QRScannerActivity.class), SCANNER_CODE);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -198,5 +210,19 @@ public class AparcamientoFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Aparcamiento item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SCANNER_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                String parts = data.getStringExtra("result");
+                Intent intent = new Intent(context, DetalleAparcamientoActivity.class);
+                intent.putExtra("APARCAMIENTO_ID", parts);
+                startActivity(intent);
+
+            }
+        }
     }
 }
