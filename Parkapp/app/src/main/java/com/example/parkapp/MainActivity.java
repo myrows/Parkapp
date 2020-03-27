@@ -2,6 +2,7 @@ package com.example.parkapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,6 +32,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import static com.example.parkapp.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
+
 public class MainActivity extends AppCompatActivity implements ZonaFragment.OnListFragmentInteractionListener, AparcamientoFragment.OnListFragmentInteractionListener {
 
     LocationManager locationManager;
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements ZonaFragment.OnLi
         NavigationUI.setupWithNavController(navView, navController);
 
         locationManager = (LocationManager) this.getSystemService(this.LOCATION_SERVICE);
+
+        checkLocationPermission();
 
         locationListener = new LocationListener() {
             @Override
@@ -79,6 +84,30 @@ public class MainActivity extends AppCompatActivity implements ZonaFragment.OnLi
 
         askLocationPermission();
     }
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     private void askLocationPermission(){
         Dexter.withActivity(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {

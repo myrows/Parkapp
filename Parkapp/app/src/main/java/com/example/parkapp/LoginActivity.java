@@ -3,8 +3,12 @@ package com.example.parkapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -44,6 +48,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.parkapp.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText edtEmail, edtPassword;
@@ -62,6 +68,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(SharedPreferencesManager.getSomeStringValue("tokenId") != null || SharedPreferencesManager.getSomeStringValue("uid") != null) {
+            Intent goMain = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(goMain);
+        }
+
+        checkLocationPermission();
 
         signInButton = findViewById(R.id.sign_in_button);
 
@@ -142,6 +155,30 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -196,6 +233,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser fUser){
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        //Obtenemos el UID
+        SharedPreferencesManager.setSomeStringValue("uid",  fUser.getUid());
         if(account != null){
             String name = account.getDisplayName();
             String givenName = account.getGivenName();
