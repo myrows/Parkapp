@@ -2,15 +2,15 @@
     <h1 mat-dialog-title>Nueva Reseña</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput [(ngModel)]="resenaDto.title" placeholder="Título">
+        <input matInput [(ngModel)]="resenaDto.title" placeholder="Título" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="resenaDto.body" placeholder="Comentario">
+        <input matInput [(ngModel)]="resenaDto.body" placeholder="Comentario" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="resenaDto.rate" type="number" placeholder="Rate">
+        <input matInput [(ngModel)]="resenaDto.rate" type="number" placeholder="Rate" required>
       </mat-form-field>
 
       <h4>Zona</h4>

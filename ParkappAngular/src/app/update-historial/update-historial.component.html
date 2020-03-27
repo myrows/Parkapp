@@ -2,15 +2,15 @@
     <h1 mat-dialog-title>Edit Historial</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaEntrada" placeholder="Fecha entrada">
+        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaEntrada" placeholder="Fecha entrada" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaSalida" placeholder="Fecha salida">
+        <input matInput type="datetime-local" [(ngModel)]="historialDto.fechaSalida" placeholder="Fecha salida" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="historialDto.dia" type="datetime-local" placeholder="Día">
+        <input matInput [(ngModel)]="historialDto.dia" type="datetime-local" placeholder="Día" required>
       </mat-form-field>
 
       <h4>Aparcamiento</h4>

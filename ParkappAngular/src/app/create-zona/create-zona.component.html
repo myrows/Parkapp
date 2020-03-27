@@ -2,23 +2,23 @@
     <h1 mat-dialog-title>Nueva Zona</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput [(ngModel)]="zonaDto.nombre" placeholder="Nombre">
+        <input matInput [(ngModel)]="zonaDto.nombre" placeholder="Nombre" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="zonaDto.ubicacion" placeholder="Ubicación">
+        <input matInput [(ngModel)]="zonaDto.ubicacion" placeholder="Ubicación" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="zonaDto.longitud" type="number" placeholder="Longitud">
+        <input matInput [(ngModel)]="zonaDto.longitud" type="number" placeholder="Longitud" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="zonaDto.latitud" type="number" placeholder="Latitud">
+        <input matInput [(ngModel)]="zonaDto.latitud" type="number" placeholder="Latitud" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="zonaDto.distancia" type="number" placeholder="Distancia">
+        <input matInput [(ngModel)]="zonaDto.distancia" type="number" placeholder="Distancia" required>
       </mat-form-field>
 
         <input [(ngModel)]="zonaDto.avatar" type="file" placeholder="Imagen" (change)="selectImage($event)">

@@ -50,13 +50,13 @@
 </div> -->
 
 <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
-  <input type="text" formControlName="puntuacion"/>
-  <input type="text" formControlName="dimension" />
-  <input type="text" formControlName="longitud" />
-  <input type="text" formControlName="latitud" />
-  <input type="text" formControlName="nombre" />
-  <input type="text" formControlName="userId" />
-  <input type="text" formControlName="zonaId" />
+  <input type="text" formControlName="puntuacion" required/>
+  <input type="text" formControlName="dimension" required/>
+  <input type="text" formControlName="longitud" required/>
+  <input type="text" formControlName="latitud" required/>
+  <input type="text" formControlName="nombre" required/>
+  <input type="text" formControlName="userId" required/>
+  <input type="text" formControlName="zonaId" required/>
   <input type="file" formControlName="image" (onchange)="onFileChange($event, 'image')" />
   <button type="submit">Submit</button>
 </form>

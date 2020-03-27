@@ -2,23 +2,23 @@
     <h1 mat-dialog-title>Editar Aparcamiento</h1>
     <div mat-dialog-content>
         <mat-form-field>
-            <input matInput [(ngModel)]="aparcamientoDto.nombre" value="{{aparcamientoDto.nombre}}" type="text" placeholder="Nombre">
+            <input matInput [(ngModel)]="aparcamientoDto.nombre" value="{{aparcamientoDto.nombre}}" type="text" placeholder="Nombre" required>
           </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="aparcamientoDto.puntuacion" value="{{aparcamientoDto.puntuacion}}"type="number" placeholder="Puntuación">
+        <input matInput [(ngModel)]="aparcamientoDto.puntuacion" value="{{aparcamientoDto.puntuacion}}"type="number" placeholder="Puntuación" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="aparcamientoDto.dimension"value="{{aparcamientoDto.dimension}}" placeholder="Dimensión">
+        <input matInput [(ngModel)]="aparcamientoDto.dimension"value="{{aparcamientoDto.dimension}}" placeholder="Dimensión" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="aparcamientoDto.longitud" value="{{aparcamientoDto.longitud}}"type="text" placeholder="Longitud">
+        <input matInput [(ngModel)]="aparcamientoDto.longitud" value="{{aparcamientoDto.longitud}}"type="text" placeholder="Longitud" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="aparcamientoDto.latitud"value="{{aparcamientoDto.latitud}}" type="text" placeholder="Latitud">
+        <input matInput [(ngModel)]="aparcamientoDto.latitud"value="{{aparcamientoDto.latitud}}" type="text" placeholder="Latitud" required>
       </mat-form-field>
 
       <h4>Zona</h4>

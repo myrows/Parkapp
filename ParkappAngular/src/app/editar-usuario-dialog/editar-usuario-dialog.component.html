@@ -2,19 +2,19 @@
     <h1 mat-dialog-title>Editar Usuario</h1>
     <div mat-dialog-content>
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.fullname" value="{{usuarioDto.fullname}}" placeholder="Nombre">
+        <input matInput [(ngModel)]="usuarioDto.fullname" value="{{usuarioDto.fullname}}" placeholder="Nombre" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.username" value="{{usuarioDto.username}}"placeholder="Nombre de Usuario">
+        <input matInput [(ngModel)]="usuarioDto.username" value="{{usuarioDto.username}}"placeholder="Nombre de Usuario" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.email" type="email" value="{{usuarioDto.email}}" placeholder="Email">
+        <input matInput [(ngModel)]="usuarioDto.email" type="email" value="{{usuarioDto.email}}" placeholder="Email" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="usuarioDto.password" type="password"  value="{{usuarioDto.password}}" placeholder="Contraseña">
+        <input matInput [(ngModel)]="usuarioDto.password" type="password"  value="{{usuarioDto.password}}" placeholder="Contraseña" required>
       </mat-form-field>
 
       <h4>Roles</h4>

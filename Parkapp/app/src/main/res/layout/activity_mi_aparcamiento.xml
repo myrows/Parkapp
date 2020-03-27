@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_width="117dp"
         android:layout_height="47dp"
         android:gravity="center"
-        android:text="TextView"
+        android:text=""
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
         app:layout_constraintEnd_toEndOf="parent"
