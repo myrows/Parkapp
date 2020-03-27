@@ -12,15 +12,8 @@ function ensureAuthenticatedWithRole(role, req, res, next) {
 
         if (!user) { return next(new error_types.Error403("You are not allowed to access.")); }
 
-
-        if (role == "MANAGER") {
-
-            if (user.rol == "USER") {
-                return next(new error_types.Error403("El usuario no posee el rol necesario."));
-            }
-        }
         if (role == "ADMIN") {
-            if (user.rol == "USER" || user.rol == "MANAGER") {
+            if (user.rol == "USER") {
                 return next(new error_types.Error403("El usuario no posee el rol necesario."));
             }
         }

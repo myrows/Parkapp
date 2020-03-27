@@ -78,7 +78,10 @@ let controller = {
         Resena.updateOne({_id}, {
                 title: req.body.title,
                 body: req.body.body,
-                rate : req.body.rate
+                rate : req.body.rate,
+                avatar: req.body.avatar,
+                zonaId: req.body.zonaId
+
             })
             .exec(function(err, resena) {
                 if (err) res.send(500, err.message);

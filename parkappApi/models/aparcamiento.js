@@ -12,11 +12,7 @@ const aparcamientoSchema = Schema({
     puntuacion: { type: Number, default: 0 },
     avatar: { type: String, require: false },
     userId: String,
-    zonaId: String,
-    historial: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Historial'
-      }]
+    zonaId: String
 });
 
 module.exports = mongoose.model('Aparcamiento', aparcamientoSchema);

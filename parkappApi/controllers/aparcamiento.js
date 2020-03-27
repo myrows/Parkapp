@@ -17,8 +17,7 @@ let controller = {
                 avatar: (typeof req.file != "undefined") ? req.file.filename : '',
                 nombre:req.body.nombre,
                 userId: req.body.userId,
-                zonaId: req.body.zonaId,
-                historial: req.body.historial.id
+                zonaId: req.body.zonaId
             });
             aparcamiento.save()
             .then(ap => res.status(201).json(ap))
@@ -126,9 +125,8 @@ let controller = {
                 puntuacion: req.body.puntuacion,
                 nombre:req.body.nombre,
                 userId:req.body.userId,
-                avatar:req.file.filename,
-                zonaId: req.body.zonaId,
-                historial: req.body.historial.id
+                avatar: (typeof req.file != "undefined") ? req.file.filename : '',
+                zonaId: req.body.zonaId
             })
             .exec(function(err, aparcamiento) {
                 if (err) res.send(500, err.message);

@@ -24,6 +24,14 @@ router.post('/register', upload.single('avatar'), UserController.register);
 router.get('/users', UserController.getUsuarios);
 router.get('/user/:id', UserController.getUsuarioById);
 router.delete('/user/:id', UserController.deleteUsuarioById);
+router.put('/user/:id', upload.single('avatar'), UserController.updateUsuarioWithPhoto);
+
+router.post('/angular/register', middleware.ensureAuthenticatedAndAdmin, upload.single('avatar'), UserController.register);
+router.get('/angular/users', middleware.ensureAuthenticatedAndAdmin, UserController.getUsuarios);
+router.get('/angular/user/:id', middleware.ensureAuthenticatedAndAdmin, UserController.getUsuarioById);
+router.delete('/angular/user/:id', middleware.ensureAuthenticatedAndAdmin, UserController.deleteUsuarioById);
+router.put('/angular/user/:id', middleware.ensureAuthenticatedAndAdmin, upload.single('avatar'), UserController.updateUsuarioWithPhoto);
+
 router.get('/avatar/:img', (req, res, next) => {
     let ruta = path.resolve('./','avatars/')
     res.sendFile(ruta + '/' +  req.params.img);

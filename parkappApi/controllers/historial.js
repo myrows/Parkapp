@@ -58,6 +58,19 @@ let controller = {
                    res.send(500, err.message);
                }
            },
+           getHistorialOfAparcamientoWithOutSalida: async(req, res) => {
+
+            try {
+               let resultado = null
+               resultado = await Historial.find({aparcamientoId: req.params.aparcamientoId, fechaSalida: null})
+                           .exec();
+    
+                       res.status(200).json(resultado);
+           
+                   } catch (err) {
+                       res.send(500, err.message);
+                   }
+               },
            getAllHistorialOfAparcamientos: async(req, res) => {
 
             try {

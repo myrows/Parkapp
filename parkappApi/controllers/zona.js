@@ -55,11 +55,11 @@ let controller = {
             updateZona: async(req, res) => {
                 const _id = req.params.id;
                 Zona.updateOne({_id}, {
+                        nombre:req.body.nombre,
                         ubicacion: req.body.ubicacion,
                         longitud: req.body.longitud,
                         latitud : req.body.latitud,
-                        nombre:req.body.nombre,
-                        avatar: req.file.filename,
+                        avatar: (typeof req.file != "undefined") ? req.file.filename : '',
                         distancia:req.body.distancia
                     })
                     .exec(function(err, zona) {

@@ -8,11 +8,7 @@ const historialSchema = Schema({
     fechaEntrada: Date,
     fechaSalida : Date,
     dia : Date,
-    aparcamientoId : String,
-    aparcamiento : { 
-        type: Schema.Types.ObjectId,
-        ref: 'Aparcamiento' 
-    }
+    aparcamientoId : String
 });
 
 module.exports = mongoose.model('Historial', historialSchema);
