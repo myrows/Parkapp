@@ -138,6 +138,8 @@ public class ZonaFragment extends Fragment {
                     if(listZonas.get(i).getLatitud() != null && listZonas.get(i).getLongitud() != null) {
                         Location.distanceBetween(latitude, longitude, listZonas.get(i).getLatitud(), listZonas.get(i).getLongitud(), resultsLocation);
                         listZonas.get(i).setDistancia((double)resultsLocation[0]/1000);
+                    }else{
+                        listZonas.get(i).setDistancia(0.0);
                     }
 
                 }
