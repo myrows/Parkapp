@@ -34,17 +34,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.parkapp.LoginActivity;
 import com.example.parkapp.R;
 import com.example.parkapp.ZonaDetailActivity;
 import com.example.parkapp.common.MyApp;
 import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.zona.ZonaViewModel;
 import com.example.parkapp.retrofit.model.Zona;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -85,6 +90,8 @@ public class ZonaFragment extends Fragment {
     double longitude;
     private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
 
     /**
@@ -238,6 +245,21 @@ public class ZonaFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.itemPublicParking:
                 showAlertDialog();
+                break;
+            case R.id.logoutOption:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(context, LoginActivity.class);
+                startActivity(login);
                 break;
         }
 

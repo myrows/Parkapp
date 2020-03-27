@@ -1,5 +1,6 @@
 package com.example.parkapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
@@ -12,6 +13,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,7 +32,11 @@ import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.Resena;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -48,6 +55,8 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
     ServiceGenerator serviceGenerator;
     Aparcamiento aparcamiento;
     Aparcamiento aparcamientoUpdated;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
 
 
@@ -309,5 +318,37 @@ public class MiAparcamientoActivity extends AppCompatActivity implements CustomM
 
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.nav_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

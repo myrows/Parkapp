@@ -1,5 +1,6 @@
 package com.example.parkapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,12 +20,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.recylcerview.aparcamiento.AparcamientoFragment;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.model.Horario;
 import com.example.parkapp.retrofit.model.ZonaDetail;
 import com.example.parkapp.retrofit.service.ParkappService;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -31,6 +38,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -81,6 +89,8 @@ public class ZonaDetailActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     double latitude;
     double longitude;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -370,6 +380,36 @@ public class ZonaDetailActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "No tiene suficientes datos para mostrar el horario", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.nav_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

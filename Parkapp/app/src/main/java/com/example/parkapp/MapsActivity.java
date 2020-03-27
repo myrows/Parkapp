@@ -1,6 +1,7 @@
 package com.example.parkapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,14 +27,19 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.models.direction.DirectionFinder;
 import com.example.parkapp.models.direction.DirectionFinderListener;
 import com.example.parkapp.models.direction.Route;
+import com.example.parkapp.recylcerview.aparcamiento.DetalleAparcamientoActivity;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Zona;
@@ -42,6 +48,9 @@ import com.example.parkapp.service.FetchAddressIntentService;
 import com.example.parkapp.utils.Connections;
 import com.example.parkapp.utils.Constants;
 import com.example.parkapp.utils.PermissionGPS;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -73,6 +82,7 @@ import com.google.android.libraries.places.compat.ui.PlaceAutocompleteFragment;
 import com.google.android.libraries.places.compat.ui.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,6 +121,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
     private double selectLongitud;
     double latitud;
     double longitude;
+    private String idAparcamientoSelected;
 
 
     private List<Marker> originMarkers = new ArrayList<>();
@@ -143,6 +154,9 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
     // Create a stroke pattern of a dot followed by a gap, a dash, and another gap.
     private static final List<PatternItem> PATTERN_POLYGON_BETA =
             Arrays.asList(DOT, GAP, DASH, GAP);
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -364,7 +378,10 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
                                     .position(new LatLng(aparcamientos.get(i).getLatitud(),aparcamientos.get(i).getLongitud()))
                                     .icon(bitmapDescriptorFromVector(MyApp.getContext(), R.drawable.ic_pinterest2))
                                     .title(aparcamientos.get(i).getNombre()));
+
+                            m.setSnippet(aparcamientos.get(i).getId());
                         }
+
                     }
             } }
 
@@ -477,9 +494,10 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
             selectedMarker = null;
             return true;
         }
-
         selectLatitud = marker.getPosition().latitude;
         selectLongitud = marker.getPosition().longitude;
+
+        idAparcamientoSelected = marker.getSnippet();
 
         searchLocation = null;
 
@@ -510,10 +528,13 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
             }
         });
 
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("APARCAR AQUI", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Intent goAparcamientoDetail = new Intent(MapsActivity.this, DetalleAparcamientoActivity.class);
+                goAparcamientoDetail.putExtra("APARCAMIENTO_ID", idAparcamientoSelected);
+                startActivity(goAparcamientoDetail);
             }
         });
 
@@ -609,5 +630,35 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMarke
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.nav_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

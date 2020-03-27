@@ -1,20 +1,29 @@
 package com.example.parkapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.retrofit.generator.ServiceGenerator;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Historial;
 import com.example.parkapp.retrofit.service.ParkappService;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.joda.time.DateTime;
 
@@ -45,6 +54,8 @@ public class HorasAparcamientoActivity extends AppCompatActivity {
     List<Integer> listHorarioOcupado = new ArrayList<>();
     List<Integer> listHorarioDisponible = new ArrayList<>();
     int horasAMostrar;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,5 +262,35 @@ public class HorasAparcamientoActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "No tiene suficientes datos para mostrar el horario", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.nav_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(this, LoginActivity.class);
+                startActivity(login);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

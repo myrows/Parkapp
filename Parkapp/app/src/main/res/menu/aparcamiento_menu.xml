@@ -2,7 +2,9 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Cerrar sesión" />
+    <item
+        android:id="@+id/logout"
+        android:title="Cerrar sesión" />
     <item
         android:id="@+id/PopularAparcamiento"
         android:icon="@drawable/ic_popularity"

@@ -21,12 +21,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.parkapp.LoginActivity;
 import com.example.parkapp.PopularAparcamientoActivity;
 import com.example.parkapp.R;
 import com.example.parkapp.common.MyApp;
+import com.example.parkapp.common.SharedPreferencesManager;
 import com.example.parkapp.data.AparcamientoViewModel;
 import com.example.parkapp.retrofit.model.Aparcamiento;
 import com.example.parkapp.retrofit.model.Zona;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +49,8 @@ public class AparcamientoFragment extends Fragment {
     RecyclerView recyclerView;
     MyAparcamientoRecyclerViewAdapter adapter;
     List<Aparcamiento> listadoAparcamientos = new ArrayList<>();
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
     public AparcamientoFragment() {
     }
@@ -168,6 +177,20 @@ public class AparcamientoFragment extends Fragment {
             case R.id.PopularAparcamiento:
                 showAlertDialog();
                 break;
+            case R.id.logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                mGoogleSignInClient.signOut();
+
+                SharedPreferencesManager.setSomeStringValue("tokenId", null);
+                Intent login = new Intent(context, LoginActivity.class);
+                startActivity(login);
         }
 
         return super.onOptionsItemSelected(item);

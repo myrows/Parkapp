@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(SharedPreferencesManager.getSomeStringValue("tokenId") != null || SharedPreferencesManager.getSomeStringValue("uid") != null) {
+        if(SharedPreferencesManager.getSomeStringValue("tokenId") != null) {
             Intent goMain = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(goMain);
         }
@@ -235,6 +235,7 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         //Obtenemos el UID
         SharedPreferencesManager.setSomeStringValue("userId",  fUser.getUid());
+        SharedPreferencesManager.setSomeStringValue("tokenId", fUser.getUid());
         if(account != null){
             String name = account.getDisplayName();
             String givenName = account.getGivenName();
