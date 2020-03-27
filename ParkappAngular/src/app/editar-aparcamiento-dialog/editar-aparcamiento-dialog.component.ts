@@ -80,6 +80,7 @@ export class EditarAparcamientoDialogComponent implements OnInit {
     formData.append('avatar', this.images);
     formData.append('puntuacion', this.aparcamientoDto.puntuacion);
     formData.append('longitud', this.aparcamientoDto.longitud);
+    formData.append('dimension', this.aparcamientoDto.dimension);
     formData.append('latitud', this.aparcamientoDto.latitud);
     formData.append('userId', this.aparcamientoDto.userId);
     formData.append('zonaId', this.aparcamientoDto.zonaId);
